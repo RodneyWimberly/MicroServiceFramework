@@ -1,0 +1,31 @@
+{
+    "datacenter": "dc",
+    "domain": "em.docker",
+    "data_dir": "/consul/data",
+    "encrypt": "ud0QEPDFulOM+bAcqgtLfpwl7nyPuvIkEgR6OJ5WD4M=",
+    "ca_path": "/consul/config/certs",
+    "ca_file": "/consul/config/certs/em.docker-agent-ca.pem",
+    "cert_file": "/consul/config/certs/dc-client-em.docker-0.pem",
+    "key_file": "/consul/config/certs/dc-client-em.docker-0-key.pem",
+    "verify_incoming": true,
+    "verify_outgoing": true,
+    "verify_server_hostname": true,
+    "client_addr": "0.0.0.0",
+    "retry_join": [ "registry-follower.service.em.docker", "registry-leader.service.em.docker" ],
+    "disable_host_node_id": true,
+    "ui_config": {
+        "enabled": false
+    },
+    "connect": {
+        "enabled": true
+    },
+    "service": {
+        "name": "dns", 
+        "tags": [], 
+        "port": 53,
+        "node_meta": {
+            "Tile": "DNS Service",
+            "Description": "DNS Service"
+        }
+    }
+}

@@ -1,0 +1,453 @@
+# External Ports
+# 53/tcp:udp   = em_core_registry_service:DNS
+# 80/tcp       = em_core_reverse_proxy:HTTP
+# 443/tcp      = em_core_reverse_proxy:HTTPS
+# 1433/tcp     = em_service_mssql:MSSql
+# 8300/tcp     = em_core_registry_service:Replication
+# 8302/tcp:udp = em_core_registry_service:Gossip WAN
+# 12201/udp    = em_service_graylog:GELF
+
+# Internal Ports
+# 1514/tcp:udp = em_service_graylog:Syslog
+# 5555/tcp:udp = em_service_graylog:RawPlainText
+# 8301/tcp:udp = em_core_registry_service:Gossip LAN
+# 8500/tcp     = em_core_registry_service:HTTP Web UI and REST API
+# 8501/tcp     = em_core_registry_service:HTTPS Web UI and REST API
+# 8502/tcp     = em_core_registry_service:gRPC
+# 9000/tcp     = em_service_graylog:HTTP Web UI and REST API
+# 9200/        = em_service_elasticsearch:HTTPS
+# 9300/tcp     = em_service_elasticsearch:HTTP
+# 12201/tcp    = em_service_graylog:GELF
+# 12301/tpc:udp= em_service_graylog:Nginx Syslog activity
+# 12302/tpc:udp= em_service_graylog:Nginx Syslog error
+# 27017/tcp    = em_service_mongodb:MongoDB
+# 50001/tcp    = em_service_idweb:HTTP
+# 50002/tcp    = em_service_idapi:HTTP
+# 50003/tcp    = em_service_sts:HTTP
+
+version: '3.8'
+services:
+  #####################################################
+  em_core_reverse_proxy:
+  # NginX
+    hostname: www
+    domainname: service.em.docker
+    #image: '${DOCKER_REGISTRY-}em-service-www'
+    image: nginx
+    build:
+      context:  ./nginx
+      dockerfile: Dockerfile
+    depends_on:
+       - em_core_registry_service
+       - em_service_graylog
+       - em_service_idweb
+       - em_service_idapi
+       - em_service_sts
+    volumes:
+      - '/var/run/docker.sock:/tmp/docker.sock:ro'
+      - 'service_www_logs_volume:/etc/nginx/logs'
+    links:
+        - 'em_core_registry_service:registry.service.em.docker'
+        - 'em_service_graylog:graylog.service.em.docker'
+        - 'em_service_idweb:idweb.service.em.docker'
+        - 'em_service_idapi:idapi.service.em.docker'
+        - 'em_service_sts:sts.service.em.docker'
+    networks:
+      admin_network: {}
+      api_network:
+       aliases:
+        - em.host
+        - api.em.host
+        - www.em.host
+        - auth.em.host
+      internet:
+       aliases:
+        - em.host
+        - api.em.host
+        - www.em.host
+        - auth.em.host
+    ports:
+      - '80:80'
+      - '443:443'
+    expose:
+      - 12301
+      - 12302
+    dns:
+      - registry.service.em.docker
+      - 8.8.8.8
+      - 8.8.4.4
+    #restart: always
+    
+  #####################################################
+  em_core_registry_service:
+  # Consul
+    hostname: registry
+    domainname: service.em.docker
+    image: consul 
+    command: consul agent -config-dir=/consul/config -dns-port=53 -recursor=8.8.8.8
+    ports:
+      - '53:53'
+      - '53:53/udp'
+      - '8300:8300'
+      - '8302:8302'
+      - '8302:8302/udp'
+      - '8500:8500'
+      - '38964:38964'
+      - '38880:38880'
+    expose:
+      - '8301'
+      - '8501'
+      - '8502'
+    environment:
+        - CONSUL_CACERT=/consul/config/consul-agent-ca.pem
+        - CONSUL_CLIENT_CERT=/consul/config/dc-server-consul-0.pem
+        - CONSUL_CLIENT_KEY=/consul/config/dc-server-consul-0-key.pem
+    volumes:
+      - /root/vault/consul:/consul
+      #- /root/vault:/vault
+      - core_registry_service_volume:/consul/data
+    networks:
+      - admin_network
+    dns:
+      - registry.service.em.docker
+      - 8.8.8.8
+      - 8.8.4.4
+
+  #####################################################
+  em_service_logagent:
+  # LogAgent
+    hostname: logagent
+    domainname: service.em.docker
+    image: 'sematext/logagent:latest'
+    depends_on:
+      - em_core_registry_service
+      - em_core_reverse_proxy
+      - em_service_elasticsearch
+    environment:
+        # The index where the agent should log to (for Sematext Cloud users the logs token)
+        - LOGS_TOKEN=177434fe-0862-43e4-a162-de767c346723
+        # Sematext Cloud region US or EU (default: US). The receiver URL will be set to EU/US default values. When using REGION, you don't need to set LOGS_RECEIVER_URL
+        #- REGION=US
+        # The URL of your Elasticsearch Endpoint (defaults to Sematext Cloud US https://logsene-receiver.sematext.com).
+        - LOGS_RECEIVER_URL=http://elasticsearch.service.em.docker:9200
+        # Semicolon-separated list of file globs
+        - LOG_GLOB=/mylogs//*.log;/var/log//*.log;/var/log/**/*.log
+        # Additional command line arguments for Logagent
+        #- LOGAGENT_ARGS="-n httpd"
+    cap_add:
+        - SYS_ADMIN
+    restart: always
+    volumes:
+        - '/var/run/docker.sock:/var/run/docker.sock'
+        - '/var/log:/mylogs'
+    networks:
+        log_network:
+          aliases:
+            - logagent 
+        admin_network: {}
+    links:
+        - "em_service_elasticsearch:elasticsearch.service.em.docker" 
+        - "em_core_registry_service:registry.service.em.docker"
+    dns:
+      - registry.service.em.docker
+      - 8.8.8.8
+      - 8.8.4.4
+
+  #####################################################
+  em_service_mongodb:
+  # MongoDB
+    hostname: mongodb
+    domainname: service.em.docker
+    image: mongo:4.2
+    depends_on:
+       - em_core_registry_service
+    volumes:
+      - logs_db_volume:/data/db
+    ports:
+      - 27017
+    networks:
+      admin_network: {}
+      log_network:
+        aliases:
+            - mongo
+    links:
+      - "em_core_registry_service:registry.service.em.docker"
+    dns:
+      - registry.service.em.docker
+      - 8.8.8.8
+      - 8.8.4.4
+
+  #####################################################
+  em_service_elasticsearch:
+  # ElasticSearch
+    hostname: elasticsearch
+    domainname: service.em.docker
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.0
+    depends_on:
+       - em_core_registry_service
+       - em_service_mongodb
+    environment:
+      - http.host=0.0.0.0
+      - network.bind_host=0.0.0.0
+      - transport.host=0.0.0.0
+      - network.host=0.0.0.0
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+    volumes:
+      - logs_api_volume:/usr/share/elasticsearch/data
+    expose:
+      - '9200'
+      - '9300'
+    networks:
+      admin_network: {}
+      log_network:
+        aliases: 
+          - elasticsearch
+    links:
+        - "em_service_mongodb:mongo"
+        - "em_core_registry_service:registry.service.em.docker"
+    dns:
+      - registry.service.em.docker
+      - 8.8.8.8
+      - 8.8.4.4
+
+  #####################################################
+  em_service_graylog:
+  # Graylog
+    hostname: graylog
+    domainname: service.em.docker
+    image: graylog/graylog:4.0
+    environment:
+      # CHANGE ME (must be at least 16 characters)!
+      - GRAYLOG_PASSWORD_SECRET=eventmanagersecret
+      # Password: admin
+      - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+      - GRAYLOG_HTTP_EXTERNAL_URI=https://www.em.host/admin/logs/
+    depends_on:
+      - em_service_elasticsearch
+      - em_core_registry_service
+    ports:
+      - 12201:12201/udp
+    expose:
+      - '1514'
+      - '1514/udp'
+      - '5555'
+      - '5555/udp'
+      - '9000'
+      - '12201'
+      - '12201/udp'
+      - '12301'
+      - '12301/udp'
+      - '12302'
+      - '12302/udp'
+    restart: always
+    volumes:
+      - logs_web_volume:/usr/share/graylog/data
+    networks:
+     api_network: {}
+     admin_network: {}
+     log_network:
+        aliases:
+          - graylog
+    links:
+        - "em_service_elasticsearch:elasticsearch"
+        - "em_core_registry_service:registry.service.em.docker"
+    dns:
+      - registry.service.em.docker
+      - 8.8.8.8
+      - 8.8.4.4
+
+  #####################################################
+  em_service_mssql:
+  # MSSQL
+    hostname: mssql
+    domainname: service.em.docker
+    image: 'mcr.microsoft.com/mssql/server:2019-latest'
+    depends_on:
+      - em_core_registry_service
+    ports:
+      - '1433:1433'
+    environment:
+      SA_PASSWORD: '${DB_PASSWORD:-Password_123}'
+      ACCEPT_EULA: 'Y'
+    volumes:
+      - 'identity_db_volume:/var/opt/mssql'
+    links:
+      - "em_core_registry_service:registry.service.em.docker"
+    networks:
+      - admin_network
+      - identity_network
+    dns:
+      - registry.service.em.docker
+      - 8.8.8.8
+      - 8.8.4.4
+
+  #####################################################
+  em_service_sts:
+  # EventManager.Identity.STS.Identity
+    hostname: sts
+    domainname: service.em.docker
+    image: '${DOCKER_REGISTRY-}em-service-sts'
+    build:
+      context: src/EventManager.Identity.STS.Identity/
+      dockerfile: Dockerfile
+      args:
+        - TAG=latest
+    depends_on:
+      - em_service_mssql
+      - em_service_graylog
+      - em_core_registry_service
+    environment:
+      - VIRTUAL_HOST=sts.service.em.docker
+      - ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
+      - ASPNETCORE_URLS=https://+:50003
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/root/.dotnet/https/em.host.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=changeit
+      - DockerConfiguration__UpdateCaCertificate=true
+    networks:
+      - admin_network
+      - identity_network
+      - api_network
+    ports:
+      - 50003:50003 
+    expose:
+      - 12201
+    links:
+      - "em_service_mssql:mssql.service.em.docker"
+      - "em_service_graylog:graylog.service.em.docker"
+      - "em_core_registry_service:registry.service.em.docker"
+    dns:
+      - registry.service.em.docker
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: always
+
+  #####################################################
+  em_service_idapi:
+  # EventManager.Identity.Admin.Api
+    hostname: idapi
+    domainname: service.em.docker
+    image: '${DOCKER_REGISTRY-}em-service-idapi'
+    build:
+      context: src/EventManager.Identity.Admin.Api/
+      dockerfile: Dockerfile
+      args:
+        - TAG=latest
+    #scale: 2
+    depends_on:
+      - em_service_mssql
+      - em_service_graylog
+      - em_service_sts
+      - em_core_registry_service
+    environment:
+      - VIRTUAL_HOST=idapi.service.em.docker
+      - ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
+      - ASPNETCORE_URLS=https://+:50002
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/root/.dotnet/https/em.host.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=changeit
+      - DockerConfiguration__UpdateCaCertificate=true
+    networks:
+      - admin_network
+      - identity_network
+    ports:
+      - 50002:50002 
+    expose:
+      - 12201
+    links:
+        - "em_service_mssql:mssql.service.em.docker"
+        - "em_service_sts:sts.service.em.docker"
+        - "em_service_graylog:graylog.service.em.docker"
+        - "em_core_registry_service:registry.service.em.docker"
+    dns:
+      - registry.service.em.docker
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: always
+
+  #####################################################
+  em_service_idweb:
+  # EventManager.Identity.Admin
+    hostname: idweb
+    domainname: service.em.docker
+    image: '${DOCKER_REGISTRY-}em-service-idweb'
+    build:
+      context: src/EventManager.Identity.Admin/
+      dockerfile: Dockerfile
+      args:
+        - TAG=latest
+    #scale: 2
+    depends_on:
+      - em_service_mssql
+      - em_service_idapi
+      - em_service_sts
+      - em_service_graylog
+      - em_core_registry_service
+    environment:
+      - VIRTUAL_HOST=idweb.service.em.docker
+      - ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
+      - ASPNETCORE_URLS=https://+:50001
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/root/.dotnet/https/em.host.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=changeit
+      - DockerConfiguration__UpdateCaCertificate=true
+    networks:
+       - api_network
+       - admin_network
+       - identity_network
+    ports:
+      - 50001:50001
+    expose:
+      - 12201
+    links:
+        - "em_service_mssql:mssql.service.em.docker" 
+        - "em_service_idapi:idapi.service.em.docker"
+        - "em_service_sts:sts.service.em.docker"
+        - "em_service_graylog:graylog.service.em.docker"
+        - "em_core_registry_service:registry.service.em.docker"
+    dns:
+      - registry.service.em.docker
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: always
+
+volumes:
+  # Service registry (Consul) persistence
+  core_registry_service_volume:
+    driver: local
+  # Identity db (MsSQL) persistence
+  identity_db_volume:
+    driver: local
+  # Logs db (Mongo) persistence
+  logs_db_volume:
+    driver: local
+  # Logs API (ElasticSearch) persistence
+  logs_api_volume:
+    driver: local
+  # Logs web (Graylog) persistence
+  logs_web_volume:
+    driver: local
+  # Service web (NGINX) persistence
+  service_www_logs_volume:
+    driver: local
+
+networks:
+  # Internet entry point
+  internet:
+    driver: bridge
+  # Access to all API services
+  api_network:
+    driver: bridge
+  # Access to logs db, agent, API, and web services
+  log_network:
+  # Access to all services
+  admin_network:
+    driver: bridge
+  # Access to identity db, API, and web services
+  identity_network:

@@ -1,0 +1,31 @@
+.separator-hr {
+  margin: 0 5px;
+  border-top-style: dashed;
+}
+
+.edit-separator-hr {
+  margin: 10px 5px;
+  border-top-style: dashed;
+}
+
+.form-group {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+  input[type='checkbox'] {
+      float: left;
+  }
+
+  input.form-control {
+    border-left-width: 5px;
+  }
+
+  select.form-control {
+    border-left-width: 5px;
+  }
+
+  .invalid-feedback {
+    display: block;
+  }
+

@@ -1,0 +1,10 @@
+{
+    "projectManager.git.baseFolders": [
+        "d:\\Projects",
+        "d:\\em"
+    ],
+    "cSpell.words": [
+        "domainname"
+    ],
+    "DockerRun.DisableAutoGenerateConfig": true
+}

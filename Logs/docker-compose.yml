@@ -1,0 +1,150 @@
+#####################################################
+# External Ports
+
+#####################################################
+# Internal Ports
+# 1514/tcp:udp = logs-http:Syslog
+# 5555/tcp:udp = logs-http:RawPlainText
+# 9000/tcp     = logs-http:HTTP Web UI and REST API
+# 9200/        = logs-api:HTTPS
+# 9300/tcp     = logs-api:HTTP
+# 12201/tcp    = logs-http:GELF
+# 12201/udp    = logs-http:GELF
+# 12301/tpc:udp= logs-http:Nginx Syslog activity
+# 12302/tpc:udp= logs-http:Nginx Syslog error
+# 27017/tcp    = logs-db:MongoDB
+
+# GEM Log Stack
+version: '3.8'
+services:
+  #####################################################
+  logs-agent:
+  # LogAgent
+    image: 'sematext/logagent:latest'
+    build: Agent/
+    environment:
+        # The index where the agent should log to (for Sematext Cloud users the logs token)
+        - LOGS_TOKEN=177434fe-0862-43e4-a162-de767c346723
+        # Sematext Cloud region US or EU (default: US). The receiver URL will be set to EU/US default values. When using REGION, you don't need to set LOGS_RECEIVER_URL 
+        #- REGION=US
+        # The URL of your Elasticsearch Endpoint (defaults to Sematext Cloud US https://logsene-receiver.sematext.com).
+        - LOGS_RECEIVER_URL=http://elasticsearch.service.em.docker:9200
+        # Semicolon-separated list of file globs
+        - LOG_GLOB=/mylogs//*.log;/var/log//*.log;/var/log/**/*.log
+        # Additional command line arguments for Logagent
+        #- LOGAGENT_ARGS="-n httpd"
+    scale: 1
+    cap_add:
+        - SYS_ADMIN
+    depends_on:
+      - logs-api   
+    restart: always
+    volumes:
+        - '/var/log:/mylogs'
+    domainname: service.em.docker
+    networks:
+        logs_network:
+          aliases:
+            - logagent 
+            - logs-agent-node
+            - logs-agent-node.service.em.docker
+
+  #####################################################
+  logs-db:
+  # MongoDB
+    image: mongo:4.2
+    build: Data/
+    scale: 1
+    volumes:
+      - logs_db_data:/data/db
+    expose:
+      - 27017
+    domainname: service.em.docker
+    networks:
+      logs_network:
+        aliases:
+            - mongo
+            - logs-db-node
+            - logs-db-node.service.em.docker
+
+  #####################################################
+  logs-api:
+  # ElasticSearch
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.0
+    build: Api/
+    scale: 1
+    depends_on:
+       - logs-db
+    environment:
+      - http.host=0.0.0.0
+      - network.bind_host=0.0.0.0
+      - transport.host=0.0.0.0
+      - network.host=0.0.0.0
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+    volumes:
+      - logs_api_data:/usr/share/elasticsearch/data
+    expose:
+      - '9200'
+      - '9300'
+    domainname: service.em.docker
+    networks:
+      logs_network:
+        aliases: 
+          - elasticsearch
+          - logs-api-node
+          - logs-api-node.service.em.docker
+ 
+  #####################################################
+  logs-http:
+  # Graylog
+    image: graylog/graylog:4.0
+    environment:
+      - GRAYLOG_PASSWORD_SECRET=eventmanagersecret
+      - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+      - GRAYLOG_HTTP_EXTERNAL_URI=https://www.em.host/admin/logs/
+    depends_on:
+      - logs-api
+    expose:
+      - '1514'
+      - '1514/udp'
+      - '5555'
+      - '5555/udp'
+      - '9000'
+      - '12201'
+      - '12201/udp'
+      - '12301'
+      - '12301/udp'
+      - '12302'
+      - '12302/udp'
+    restart: always
+    volumes:
+      - logs_http_data:/usr/share/graylog/data
+    domainname: service.em.docker
+    networks:
+     logs_network:
+        aliases:
+          - graylog
+          - logs-http-node
+          - logs-http-node.service.em.docker
+
+volumes:
+  logs_db_data:
+    driver: local
+
+  logs_api_data:
+    driver: local
+
+  logs_http_data:
+    driver: local
+
+networks:
+  logs_network:

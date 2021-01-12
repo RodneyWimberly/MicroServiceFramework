@@ -1,0 +1,423 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"do",
+				"docker-compose"
+			],
+			[
+				"Build",
+				"build"
+			],
+			[
+				"va",
+				"variable"
+			],
+			[
+				"colle",
+				"collection"
+			],
+			[
+				"pa",
+				"params"
+			],
+			[
+				"se",
+				"settingType"
+			],
+			[
+				"Ses",
+				"Settings"
+			],
+			[
+				"app",
+				"appKey"
+			],
+			[
+				"g",
+				"globals"
+			],
+			[
+				"Has",
+				"hasError"
+			],
+			[
+				"re",
+				"request"
+			],
+			[
+				"GetS",
+				"GetAuthSetting"
+			]
+		]
+	},
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: a",
+				"Package Control: Advanced Install Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: instal",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Install Package Control",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"them",
+				"UI: Select Theme"
+			],
+			[
+				"col",
+				"UI: Select Color Scheme"
+			],
+			[
+				"color",
+				"UI: Select Color Scheme"
+			],
+			[
+				"theme",
+				"UI: Select Color Scheme"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 156.0,
+		"history":
+		[
+			"exit",
+			"cd",
+			"ls",
+			"dir"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/em/Core/ReverseProxy/root/etc/containerpilot.json5",
+		"/D/em/Core/world/containerpilot.json5",
+		"/D/em/Core/hello/containerpilot.json5",
+		"/D/em/Core/ReverseProxy/root/etc/nginx/mime.types",
+		"/D/em/Core/ReverseProxy/root/etc/nginx/nginx.conf",
+		"/D/em/Core/registry-leader/kube-deployment.yml",
+		"/D/em/Core/registry-leader/kube-service.yml",
+		"/D/em/Core/ReverseProxy/kube-deployment.yml",
+		"/D/em/Core/ReverseProxy/kube-service.yml",
+		"/D/em/Core/ReverseProxy/root/bin/reload-nginx.sh",
+		"/D/em/Core/ReverseProxy/root/etc/nginx/fastcgi_params",
+		"/D/em/Core/ReverseProxy/root/etc/nginx/gzip.conf",
+		"/D/em/Core/ReverseProxy/root/etc/nginx/http.conf",
+		"/D/em/Core/docker-compose.yml",
+		"/D/em/Core/ReverseProxy/root/etc/containerpilot/nginx.conf.ctmpl",
+		"/D/em/Core/ReverseProxy/root/etc/nginx/proxy.conf",
+		"/D/em/Core/registry-leader/root/consul/config/server.hcl",
+		"/D/em/Core/registry-leader/root/etc/containerpilot.json5",
+		"/D/em/Core/ReverseProxy/root/etc/consul.d/client.hcl",
+		"/D/em/Core/registry-leader/Dockerfile",
+		"/D/em/Core/ReverseProxy/Dockerfile",
+		"/D/Downloads/hello-world-master/triton-docker-setup.sh",
+		"/D/em/Core/docker-compose.override.yml",
+		"/C/Program Files/Sublime Text 3/Data/Settings/SideBarEnhancements.json",
+		"/C/em/EventManager.sln",
+		"/C/Program Files/Sublime Text 3/Data/Packages/Pretty YAML/Pretty YAML.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/ShellCommand.sublime-keymap",
+		"/C/Program Files/Sublime Text 3/Data/Packages/ShellCommand/Default.sublime-keymap",
+		"/C/Program Files/Sublime Text 3/Data/Packages/ShellCommand/Default.sublime-commands",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Program Files/Sublime Text 3/Data/Packages/PrettyYAMLnode/Pretty YAML Node.sublime-settings",
+		"/C/WINDOWS/system32/assoc.txt",
+		"/C/Projects/EventManager/Scripts/BuildSolution.cmd",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/C/em/Core/StartEventManagerCore.cmd",
+		"/C/Program Files/Sublime Text 3/Data/Packages/ShellCommand/ShellCommand.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/ShellCommand.sublime-settings",
+		"/C/Projects/EventManager/Scripts/DotNetCoreMakeCerts.cmd",
+		"/C/Projects/EventManager/Scripts/NginxMakeCerts.cmd",
+		"/C/Projects/EventManager/Scripts/ConsulMakeCerts.cmd",
+		"/C/Projects/EventManager/Api/Identity/shared/consul/certs/key.txt",
+		"/C/Projects/EventManager/Api/Identity/shared/consul/leader/config/leader.hcl",
+		"/C/Projects/EventManager/Api/Identity/shared/consul/config/server.hcl",
+		"/C/Projects/EventManager/Scripts/MakeCerts.cmd",
+		"/C/Projects/EventManager/Api/Identity/shared/consul/config.d/server.hcl",
+		"/C/Users/Rodney/Desktop/foo.txt",
+		"/C/Users/Rodney/Desktop/# Overrides for Development",
+		"/C/Projects/EventManager/Api/Identity/src/EventManager.Identity.Admin.Api/publish/web.config",
+		"/C/Projects/EventManager/Api/Identity/src/EventManager.Identity.Admin.Api/publish/appsettings.json",
+		"/C/Projects/EventManager/UI/Web/EventManager.Web.csproj",
+		"/C/Projects/AuthSamples/IdentityServer4.Admin/src/Skoruba.IdentityServer4.Admin/Dockerfile",
+		"/C/Projects/AuthSamples/IdentityServer4.Admin/docker-compose.yml",
+		"/C/Projects/EventManager/Api/Identity/shared/consul/config.d/consul.hcl",
+		"/C/Projects/app/services/oauth2.service.ts",
+		"/C/Projects/app/components/login/login.component.ts",
+		"/C/Projects/app/components/controls/oauth2-dialog.component.html",
+		"/C/Projects/app/components/controls/oauth2-dialog.component.ts",
+		"/C/Projects/app/components/orders/orders.component.html",
+		"/C/Projects/app/components/orders/orders.component.ts",
+		"/C/Users/Rodney/OneDrive/Documents/foo",
+		"/C/Projects/EventManager/EventManager.sln",
+		"/C/Projects/EventManager/Web/EventManager.Web.csproj",
+		"/C/Users/Rodney/Documents/azure_ssh_key.txt",
+		"/C/Projects/AzureMol/Bash_Chapter3.txt",
+		"/C/Projects/Iot/winrm_config.cmd",
+		"/C/Projects/NSwag/src/NSwag.Commands/Commands/Generation/OpenApiGeneratorCommandBase.cs",
+		"/C/Projects/NSwag/src/NSwagStudio/Properties/AssemblyInfo.cs",
+		"/C/XBMC/SickBeard-win32-alpha-build503/data/js/config.js",
+		"/C/XBMC/SickBeard-win32-alpha-build503/data/js/browser.js",
+		"/C/XBMC/SickBeard-win32-alpha-build503/data/interfaces/default/config.tmpl",
+		"/C/XBMC/SickBeard-win32-alpha-build503/autoProcessTV/hellaToSickBeard.py",
+		"/C/XBMC/SickBeard-win32-alpha-build503/autoProcessTV/sabToSickBeard.py",
+		"/C/XBMC/SickBeard-win32-alpha-build503/autoProcessTV/autoProcessTV.py",
+		"/C/XBMC/SickBeard-win32-alpha-build503/lib/_ctypes.pyd",
+		"/C/XBMC/SickBeard-win32-alpha-build503/autoProcessTV/autoProcessTV.cfg.sample",
+		"/C/XBMC/SickBeard-win32-alpha-build503/lib/_elementtree.pyd",
+		"/C/XBMC/SickBeard-win32-alpha-build503/lib/_hashlib.pyd",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/Preferences.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/Default/Preferences.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/Anaconda.sublime-settings"
+	],
+	"find":
+	{
+		"height": 70.0
+	},
+	"find_in_files":
+	{
+		"height": 158.0,
+		"where_history":
+		[
+			"C:\\Projects\\app"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"registry-leader",
+			"each: ",
+			"\"each\": ",
+			"name: ",
+			"source: ",
+			"when: ",
+			"DOCKER_COMMAND",
+			"C:\\Projects\\EventManager\\Api\\Identity\\",
+			"app",
+			"Identity.exe",
+			"Admin.exe",
+			"Api.dll",
+			"/em",
+			"em",
+			"EventManager",
+			"msbuil",
+			"%26",
+			"handleError",
+			"_configuration",
+			"\"_apiUrl\"",
+			"_auth_config",
+			"config",
+			"isNewUrl",
+			"apiUrl",
+			"authConfig",
+			"hasTokenExpired",
+			"getAccessToken",
+			"getAccessTokenRequest",
+			"saveAccessToken",
+			"getTokenExpiration",
+			"baseUrl",
+			"GetEnvironment",
+			".https://localhost:5001/auth#state=41WvotEW0Q-VlsfsiWhQB3fgx7qjOBeRY98OJ8EAiXqrM&access_token=ya29.A0AfH6SMBpjX0CKPz2gz02eKjLmrBEZF8FKRo6fL6ZRNBwszwcGPgKYsPBryLE3vVlfxprQ-zBcpOmD4uNeHlVuUQ0ClxJygdi2y2izc5pNXNpOV5BlkFQup-9fO_BxmmdvGDnIu2WlSP3FS44IwaKZFk0puGKwDST3UGt9bi_wf3t&token_type=Bearer&expires_in=3599&scope=email%20profile%20https://www.googleapis.com/auth/userinfo.email%20https://www.googleapis.com/auth/userinfo.profile%20openid&id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ5NDZiMTM3NzM3Yjk3MzczOGU1Mjg2YzIwOGI2NmU3YTM5ZWU3YzEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMjA0MzU4Njc0NTUtOGYzN2poZGhqYmFrcGg3cWd2YWJwb3JxNnZtbjBkOTguYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIxMjA0MzU4Njc0NTUtOGYzN2poZGhqYmFrcGg3cWd2YWJwb3JxNnZtbjBkOTguYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDQ0MTk3NjQ2NTc5NzE3NjA4MDkiLCJlbWFpbCI6InJvZG5leS53aW1iZXJseUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6IlBybFlxWlRNU0Jsb0pGSTRJTW9udWciLCJub25jZSI6IjQxV3ZvdEVXMFEtVmxzZnNpV2hRQjNmZ3g3cWpPQmVSWTk4T0o4RUFpWHFyTSIsIm5hbWUiOiJSb2RuZXkgV2ltYmVybHkiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2hYSlA3S0RlZm4tOWFWRVgzNlVZR1VaNkFJUXBtSFRra1hONmNtZGJRPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IlJvZG5leSIsImZhbWlseV9uYW1lIjoiV2ltYmVybHkiLCJsb2NhbGUiOiJlbiIsImlhdCI6MTYwNTc4MTk0MywiZXhwIjoxNjA1Nzg1NTQzLCJqdGkiOiI5NTA2OWJjMGE3NjQxMGQ3YzI0MjZmNmU4MGJiODkwZjI2YTM3M2QyIn0.k_8SSb8-9xd9nsTXqQoR4OraBRSHOJ1AyPFPY9-9oKSehC9yLgtwNzzUeOVFx2TkK3hLImFcIG-VPouUK2jra1Gy8bCrFXxXzCj0HNeOZtLDPMBeoqgPpWJTgDQHH6ejKjsXlUyjjRtlDODNTkGc-oa4XPd9d8mMueAdbClO-nN_htNBYON068LD_FTi-1Ntc8tbjJGEAH74Qu-Obex4QkHJzEizN3K_8ZefKJQKRFrNmPFiRuKJzq0vLKi6-jttt13UgnuVj8JR3pKJNNljSEh6H0j5qqkMcKbdKl5agJwG3v8AAw0zRwUenKbd6LM28GZNruqPMwcg-0FjkN_HVg&authuser=0&prompt=none",
+			".",
+			"&",
+			"oauth2-dialog",
+			"getAuthorizationHtml",
+			"tokenPath",
+			"_TokenPath",
+			"Publish",
+			"publishwe"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"\"each\": ",
+			"\"name\": ",
+			"\"source\": ",
+			"\"when\": ",
+			"DOCKER_COMPOSE",
+			"C:\\em\\Core\\",
+			"hasError",
+			"configuration",
+			"\"apiUrl\"",
+			"_authConfig",
+			"_config",
+			"_isNewUrl",
+			"_apiUrl",
+			"_authConfig",
+			"getToken",
+			"getTokenRequest",
+			"saveToken",
+			"getExpiration",
+			"GetSetting",
+			"tokenUrl",
+			"_TokenUrl"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 68.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"replace":
+	{
+		"height": 114.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"D:\\Projects\\hello-world-cp\\hello-world.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 236.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+		"max_columns": 1
+	}
+}

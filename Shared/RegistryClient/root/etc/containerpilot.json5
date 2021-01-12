@@ -1,0 +1,15 @@
+{
+  "consul": "127.0.0.1:8500",
+  "jobs": [
+    {
+      "name": "AspNetCoreClient",
+      "exec": "dotnet AspNetCoreClient.dll",
+      "port": 80,
+      "health": {
+        "exec": "/usr/bin/curl -o /dev/null --fail -s http://localhost:80/health",
+        "interval": 3,
+        "ttl": 10
+      }
+    }
+  ]
+}

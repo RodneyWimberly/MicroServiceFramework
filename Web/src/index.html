@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Home Page - Event Manager</title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="assets/styles-external.css" rel="stylesheet">
+</head>
+
+<body>
+  <app-root>
+    <nav id="header" class="app-component navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+      <div class="container">
+        <a ngPreserveWhitespaces class="app-component navbar-brand" routerLink="/">
+          <i class="logo d-inline-block align-top" alt="logo"></i>
+          <span class="app-component appTitle">Event Manager</span>
+        </a>
+        <button type="button" class="app-component navbar-toggler" data-toggle="collapse" data-target=".menuItemsContainer.app-component">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="app-component collapse navbar-collapse menuItemsContainer">
+          <ul class="app-component nav nav-pills flex-column flex-lg-row ml-auto">
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" routerLink="/about"><i class="fa fa-info-circle"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      </nav>
+        <div id="pre-bootstrap">
+          <div class="messaging">
+            <h1>
+              Application is Loading...
+            </h1>
+            <p></p>
+            <div class="cs-loader">
+              <div class="cs-loader-inner">
+                <label>&#9679</label>
+                <label>&#9679</label>
+                <label>&#9679</label>
+                <label>&#9679</label>
+                <label>&#9679</label>
+                <label>&#9679</label>
+              </div>
+            </div>
+ 
+          </div>
+        </div>
+  </app-root>
+</body>
+
+</html>

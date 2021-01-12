@@ -1,0 +1,48 @@
+<div class="container">
+  <header class="pageHeader">
+    <h3><i class="fa fa-tachometer fa-lg page-caption" aria-hidden="true"></i>LandingPage</h3>
+  </header>
+
+  <div [@fadeInOut]>
+    <div class="row">
+      <div class="col-12 my-3">
+
+        <div class="container mt-5">
+          <h2>Google Login</h2>
+          <div class="row mt-5">
+            <div class="col-md-4 mt-2 m-auto ">
+              <button class="loginBtn loginBtn--google" #loginRef>
+                Login with Google
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+
+  <table width="300" align="center">
+    <tr>
+      <td width="300">
+        <button type="button" aria-label="Email" title="Login with email account" (click)="loginEmail()"><i class="fa-envelope"></i> Login with email account</button>
+      </td>
+    </tr>
+    <tr>
+      <td width="300">
+        <button type="button" aria-label="Microsoft" title="Login with Microsoft account" (click)="loginMicrosoft()"><i class="fa-user-secret"></i> Login with Microsoft account</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button type="button" aria-label="Google" title="Login with Google account" (click)="loginGoogle()"><i class="fa-google"></i> Login with Google account</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button type="button" aria-label="Facebook" title="Login with Facebook account" (click)="loginFacebook()"><i class="fa-facebook"></i> Login with Facebook account</button>
+      </td>
+    </tr>
+  </table>
+</div>
