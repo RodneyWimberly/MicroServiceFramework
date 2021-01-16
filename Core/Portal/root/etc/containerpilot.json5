@@ -1,0 +1,78 @@
+{
+  "consul": "localhost:8500",
+  "logging": {
+    "level": "DEBUG",
+    "format": "text"
+  },
+  "jobs": [
+     {
+      // Job definition
+      "name": "portal", // The name field is the name of the job as it will appear in logs and events.
+      "exec": "/usr/local/bin/consul-events.sh onStart", // The exec field is the executable (and its arguments) that is called when the job runs.
+      "stopTimeout": "5s", // Allow time for stopping event process to finish before terminating the process
+
+      // 'health' defines how the job is health checked
+      "health": {
+        "exec": "/usr/bin/curl -o /dev/null --fail -s http://localhost/health", // exec field is the executable (and its arguments) to run to health check the job.
+        "interval": 10, // interval is the time in seconds between health checks.
+        "ttl": 25 // ttl is the time-to-live in seconds of a successful health check.
+      },
+
+      "port": 80, // The port field is the port the service will advertise to Consul. 
+      //"initial_status": "warning", // The initial_status field is optional and specifies which status to immediately register the service with. If not specified, the service will not be registered in consul until after the first successful health check. Valid values are passing, warning or critical.
+      "tags": [ ], // The tags field is an optional array of tags to be used when the job is registered as a service in Consul.
+ 
+      // The consul field is an optional block of job-specific Consul configuration.
+      "consul": {
+        "enableTagOverride": true, // enableTagOverride if set to true, then external agents can update this service in the catalog and modify the tags.
+        "deregisterCriticalServiceAfter": "1m" // If a check is in the critical state for more than this configured value, then its associated service (and all of its associated checks) will automatically be deregistered.
+      }
+    },
+    {
+      "name": "onstopping-portal",
+      "exec": "consul leave",
+      "when": {
+        "source": "portal",
+        "once": "stopping"
+      }
+    }
+    {
+      "name": "onchange-portal",
+      "exec": "/usr/local/bin/consul-events.sh onChange",
+      "when": {
+        "source": "watch.portal",
+        "each": "changed"
+      }
+    },
+    {
+      "name": "onchange-hello",
+      "exec": "/usr/local/bin/consul-events.sh onChange",
+      "when": {
+        "source": "watch.hello",
+        "each": "changed"
+      }
+    },
+    {
+      "name": "onchange-world",
+      "exec": "/usr/local/bin/consul-events.sh",
+      "when": {
+        "source": "watch.world",
+        "each": "changed"
+      }
+    }
+  ],
+  "watches": [
+    {
+      "name": "registry-leader",
+      "interval": 3
+    },
+    {
+      "name": "hello",
+      "interval": 3
+    },
+    {
+      "name": "world",
+      "interval": 3
+    }
+  ]
+}

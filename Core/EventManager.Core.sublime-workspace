@@ -53,6 +53,9 @@
 			]
 		]
 	},
+	"buffers":
+	[
+	],
 	"build_system": "",
 	"build_system_choices":
 	[
@@ -155,24 +158,40 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/D/em/Core"
+	],
 	"file_history":
 	[
+		"/D/em/Core/tools-stack.yml",
+		"/D/em/Core/portainer-stack.yml",
+		"/D/em/Core/diagnostics-stack.yml",
+		"/D/em/Core/Scripts/start-core-stack.sh",
+		"/D/em/Core/Scripts/start-diagnostics-stack.sh",
+		"/D/em/Core/Scripts/unassign-configs-and-secrets.sh",
+		"/D/em/Core/Scripts/common.sh",
+		"/D/em/Core/Dns/registry-agent.sh",
+		"/D/em/Core/Scripts/add-configs-and-secrets.sh",
+		"/D/em/Core/Scripts/assign-configs-and-secrets.sh",
+		"/D/em/Core/Scripts/build-core-stack.sh",
+		"/D/em/Core/Scripts/build-diagnostics-stack.sh",
+		"/D/em/Core/Scripts/show-logs.sh",
+		"/D/em/Core/Vault/scripts/curl-api.sh",
+		"/D/em/Core/docker-compose.yml",
+		"/D/em/Core/Scripts/diag.sh",
+		"/D/em/Core/Diagnostics/Dockerfile",
 		"/D/Downloads/node-id.txt",
 		"/D/em/Core/Diagnostics/docker-compose.yml",
 		"/D/em/Core/Portal/root/etc/nginx/tmp/nginx.conf",
 		"/D/em/Core/Dns/dnsmasq.conf",
 		"/D/em/Core/Dns/containerpilot.json5",
-		"/D/em/Core/Dns/registry-agent.sh",
-		"/D/em/Core/docker-compose.yml",
 		"/D/em/Core/agent-stack.yml",
 		"/D/em/Core/backup",
 		"/D/em/Core/Scripts/setup-pwd.sh",
 		"/D/em/Core/Scripts/githubtoken.txt",
-		"/D/em/Core/Scripts/build-core-stack.sh",
 		"/D/em/Core/Dns/Dockerfile",
-		"/D/em/Core/Scripts/diag.sh",
 		"/D/em/Core/Scripts/start-diag-stack.sh",
-		"/D/em/Core/Scripts/start-core-stack.sh",
 		"/D/em/Core/Dns/docker-entrypoint.sh",
 		"/D/em/Core/Scripts/stop-core-stack.sh",
 		"/D/em/Core/Registry/Dockerfile",
@@ -186,7 +205,6 @@
 		"/D/em/Core/Vault/scripts/enable-docker-approle.sh",
 		"/D/em/Core/Vault/vault.json",
 		"/D/em/Core/world/root/consul/config/world.json",
-		"/D/em/Core/Diagnostics/Dockerfile",
 		"/D/em/Core/Diagnostics/start-diag.sh",
 		"/D/em/Core/hello/Dockerfile",
 		"/D/em/Core/Diagnostics/diag.sh",
@@ -199,7 +217,6 @@
 		"/D/em/Core/Dns/registry-events.sh",
 		"/D/em/Core/Scripts/connet-to-pwd.sh",
 		"/D/em/Core/Dns/dns.json",
-		"/D/em/Core/Scripts/show-logs.sh",
 		"/D/em/Core/Vault/docker-entrypoint.sh",
 		"/D/em/Core/Vault/registry-agent.sh",
 		"/D/em/Core/Vault/docker-client-em-0.pem",
@@ -274,17 +291,7 @@
 		"/C/Projects/EventManager/Web/EventManager.Web.csproj",
 		"/C/Users/Rodney/Documents/azure_ssh_key.txt",
 		"/C/Projects/AzureMol/Bash_Chapter3.txt",
-		"/C/Projects/Iot/winrm_config.cmd",
-		"/C/Projects/NSwag/src/NSwag.Commands/Commands/Generation/OpenApiGeneratorCommandBase.cs",
-		"/C/Projects/NSwag/src/NSwagStudio/Properties/AssemblyInfo.cs",
-		"/C/XBMC/SickBeard-win32-alpha-build503/data/js/config.js",
-		"/C/XBMC/SickBeard-win32-alpha-build503/data/js/browser.js",
-		"/C/XBMC/SickBeard-win32-alpha-build503/data/interfaces/default/config.tmpl",
-		"/C/XBMC/SickBeard-win32-alpha-build503/autoProcessTV/hellaToSickBeard.py",
-		"/C/XBMC/SickBeard-win32-alpha-build503/autoProcessTV/sabToSickBeard.py",
-		"/C/XBMC/SickBeard-win32-alpha-build503/autoProcessTV/autoProcessTV.py",
-		"/C/XBMC/SickBeard-win32-alpha-build503/lib/_ctypes.pyd",
-		"/C/XBMC/SickBeard-win32-alpha-build503/autoProcessTV/autoProcessTV.cfg.sample"
+		"/C/Projects/Iot/winrm_config.cmd"
 	],
 	"find":
 	{
@@ -305,6 +312,16 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"register_service",
+			"%",
+			"%3",
+			"%2",
+			"%1",
+			"source ./common.sh",
+			"--label ",
+			"\"${DOCKERFILE_VERSION}\"",
+			"admin_network",
+			"portainer_agent",
 			"cap_",
 			"RodneyWimberly/DockerRepositories",
 			"configs",
@@ -399,6 +416,15 @@
 		"regex": false,
 		"replace_history":
 		[
+			"$",
+			"\"%3\"",
+			"\"%2\"",
+			"\"%1\"",
+			"source ./Scripts/common.sh",
+			"",
+			"${DOCKERFILE_VERSION}",
+			"consul_network",
+			"portainer_network",
 			"rodneywimberly/dockerrepositories",
 			"-docker.pkg.github.com/RodneyWimberly/DockerRepositories/}",
 			"consul_data",
@@ -455,6 +481,14 @@
 		"whole_word": false,
 		"wrap": true
 	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
 	"incremental_find":
 	{
 		"height": 27.0
@@ -499,6 +533,7 @@
 		"height": 0.0
 	},
 	"pinned_build_system": "",
+	"project": "EventManager.Core.sublime-project",
 	"replace":
 	{
 		"height": 114.0
@@ -535,6 +570,7 @@
 		],
 		"width": 0.0
 	},
+	"selected_group": 0,
 	"settings":
 	{
 	},
@@ -542,7 +578,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 307.0,
+	"side_bar_width": 306.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

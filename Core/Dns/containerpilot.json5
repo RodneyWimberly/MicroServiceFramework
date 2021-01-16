@@ -1,0 +1,33 @@
+{
+  "consul": "localhost:8500",
+  "logging": {
+    "level": "DEBUG",
+    "format": "text"
+  },
+  "jobs": [
+    {
+      "name": "consul",
+      "exec": "/bin/registry-agent.sh",
+      "stopTimeout": "5s",
+    },
+    {
+      "name": "dns",
+      "exec": "dnsmasq --log-queries --no-daemon",
+
+      "port": 53,
+      "tags": [ ],
+      "consul": {
+        "enableTagOverride": true,
+        "deregisterCriticalServiceAfter": "1m"
+      }
+    },
+    {
+      "name": "onstopping-consul",
+      "exec": "consul leave",
+      "when": {
+        "source": "consul",
+        "once": "stopping"
+      }
+    }
+  ]
+}
