@@ -1,8 +1,9 @@
 {
     "datacenter": "dc",
     "domain": "em.docker",
+    "node_name": "portal",
     "data_dir": "/consul/data",
-    "encrypt": "ud0QEPDFulOM+bAcqgtLfpwl7nyPuvIkEgR6OJ5WD4M=",
+    "encrypt": "8h4Fe8Tj/VQbSJGAgBQ4ET7k/PV+xCaJuUABzuwykFk=",
     "ca_path": "/consul/config/certs",
     "ca_file": "/consul/config/certs/em.docker-agent-ca.pem",
     "cert_file": "/consul/config/certs/dc-client-em.docker-0.pem",
@@ -11,7 +12,8 @@
     "verify_outgoing": true,
     "verify_server_hostname": true,
     "client_addr": "0.0.0.0",
-    "retry_join": [ "registry-follower.service.em.docker", "registry-leader.service.em.docker" ],
+    "bind_addr": "0.0.0.0",
+    "retry_join": [ "192.168.1.4"  ],
     "disable_host_node_id": true,
     "ui_config": {
         "enabled": false
@@ -26,6 +28,6 @@
         "node_meta": {
             "Tile": "Portal Service",
             "Description": "Portal Service"
-        } 
+        }
     }
 }

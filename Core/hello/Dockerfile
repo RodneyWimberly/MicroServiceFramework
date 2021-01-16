@@ -11,10 +11,6 @@ RUN apk update && \
 # Set Environment Vars
 ENV CONTAINERPILOT_VER 3.0.0
 ENV CONTAINERPILOT /etc/containerpilot.json5
-ENV CONSUL_HTTP_ADDR 169.254.1.1:8500
-ENV CONSUL_RPC_ADDR 169.254.1.1:8400
-ENV SERVICE_NAME hello
-ENV VIRTUAL_HOST hello-node.service.em.docker
 
 # Install ContainerPilot
 RUN export CONTAINERPILOT_CHECKSUM=6da4a4ab3dd92d8fd009cdb81a4d4002a90c8b7c && \
@@ -24,7 +20,8 @@ RUN export CONTAINERPILOT_CHECKSUM=6da4a4ab3dd92d8fd009cdb81a4d4002a90c8b7c && \
     rm /tmp/containerpilot.tar.gz
 
 # Copy configuration
-COPY root/. /.
+WORKDIR /
+COPY root/ /
 
 # Install our application
 COPY index.js /opt/hello/

@@ -3,69 +3,70 @@
 # Starts the core docker stack
 
 clear
-echo "Deploying core stack to swarm"
-
 set +e
 
+source ./Scripts/common.sh
+
+echo -e "${GREEN} ******* Core Stack Swarm Deployment ******* ${NC}"
+
 # init swarm (need for service command); if not created
-echo "Checking to see if we are joined to the the swarm"
+echo -e "${LT_GREEN} Checking to see if the swarm is initialized ${NC}"
 docker node ls 2> /dev/null | grep "Leader"
-if [ $? -ne 1 ]; then
-    echo "We are joined to the swarm, now leaving"
-    docker stack rm core
-    docker swarm leave -f > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo -e "${RED} Swarm not active, Initializing the swarm ${NC}"
+    docker swarm init > /dev/null 2>&1
 fi
-echo "Cleaning up stacks, networks, containers, and images"
+echo -e "${LT_RED} Cleaning up core stack ${NC}"
+docker stack rm core
+echo -e "${LT_RED} Cleaning up all networks, volumes, containers, and images ${NC}"
 docker system prune -f > /dev/null 2>&1
-echo "Initializing the swarm"
-docker swarm init > /dev/null 2>&1
-set -e
 
-DOCKER_REGISTRY="rodneywimberly/dockerregistry:"
-echo "Building dns image for core stack"
-docker build -t ${DOCKER_REGISTRY}dns Dns/.
-echo "Building hello image for core stack"
-docker build -t ${DOCKER_REGISTRY}hello Hello/.
-echo "Building portal image for core stack"
-docker build -t ${DOCKER_REGISTRY}portal Portal/.
-echo "Building registry image for core stack"
-docker build -t ${DOCKER_REGISTRY}registry Registry/.
-echo "Building world image for core stack"
-docker build -t ${DOCKER_REGISTRY}world World/.
+./Scripts/build-core-stack.sh
 
-echo "Logging in to repository ${DOCKER_REGISTRY}"
-docker login --username=rodneywimberly --password=P@55w0rd!
-echo "Deploying image dns for core stack"
-docker push ${DOCKER_REGISTRY}dns
-echo "Deploying image hello for core stack"
-docker push ${DOCKER_REGISTRY}hello
-echo "Deploying image portal for core stack"
-docker push ${DOCKER_REGISTRY}portal
-echo "Deploying image registry for core stack"
-docker push ${DOCKER_REGISTRY}registry
-echo "Deploying image world for core stack"
-docker push ${DOCKER_REGISTRY}world
+echo -e "${GREEN} Validating swarm network infrastructure ${NC}"
+NET_ID=$(docker network ls -f name=admin_network -q)
 
-echo "Creating overlay networks"
-docker network create --driver=overlay --attachable --subnet=172.16.238.0/24 admin_network
+if [[ -z "$NET_ID" ]]; then
+    echo -e "${LT_GREEN} Creating attachable overlay network 'consul_network' ${NC}"
+    docker network create --driver=overlay --attachable --subnet=192.168.1.0/24 consul_network
+fi
 #docker network create --driver=overlay --attachable api_network
 
 SWARM_MASTER=$(docker info --format "{{.Swarm.NodeAddr}}")
-echo "Deploying core stack to swarm master ${SWARM_MASTER}"
+echo -e "${GREEN} Deploying core stack to swarm master ${SWARM_MASTER} ${NC} "
 docker stack deploy core --compose-file=./docker-compose.yml
 
-#echo "Scaling service registry-follower to 2 instances for core stack"
-#docker service scale core_registry-follower=2
-#echo "Scaling service vault to 3 instances for core stack"
-#docker service scale core_vault=3
-#echo "Scaling service jump-box to 0 instances for core stack"
-#docker service scale core_jump-box=0
+./Scripts/add-configs-and-secrets.sh
+./Scripts/assign-configs-and-secrets.sh
 
-#echo "Initializing vault service"
+#echo -e "Scaling service registry-leader to 1 instances for core stack"
+#docker service scale core_registry-leader=1
+
+#echo -e "Scaling service registry-follower to 1 instances for core stack"
+#docker service scale core_registry-follower=1
+
+#echo -e "Scaling service dns-primary to 1 instances for core stack"
+#docker service scale core_dns-primary=1
+
+#echo -e "Scaling service dns-secondary to 1 instances for core stack"
+#docker service scale core_dns-secondary=1
+
+#echo -e "Scaling service vault to 1 instances for core stack"
+#docker service scale core_vault=1
+
+#echo -e "Scaling service portal to 1 instances for core stack"
+#docker service scale core_portal=1
+
+#echo -e "Scaling service hello to 1 instances for core stack"
+#docker service scale core_hello=1
+
+#echo -e "Scaling service world to 1 instances for core stack"
+#docker service scale core_world=1
+
+#echo -e "Initializing vault service"
 #./Vault/scripts/initialize-vault.sh
 
-#echo "Launching portal"
+#echo -e "Launching portal"
 #start http://portal.service.consul/
 
-#docker run --rm -it -d --name swarm_visualizer -p 8081:8080 -e HOST=localhost -v /var/run/docker.sock:/var/run/docker.sock dockersamples/visualizer
-#docker run --volume=/var/run/docker.sock:/var/run/docker.sock -p 8888:1224 amir20/dozzle:latest --addr localhost:1224
+#./Scripts/show-logs.sh core

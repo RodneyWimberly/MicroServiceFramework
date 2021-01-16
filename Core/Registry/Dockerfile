@@ -4,24 +4,17 @@ LABEL Author rodneywimberly
 LABEL Name registry-leader-leader
 LABEL Version 1.0
 
-# Setup runtime environment vars
-ENV CONSUL_BIND_INTERFACE eth0
-ENV CONSUL_CAPATH /consul/config/certs
-ENV CONSUL_CACERT /consul/config/certs/em.docker-agent-ca.pem
-ENV CONSUL_CLIENT_CERT /consul/config/certs/dc-server-em.docker-0.pem
-ENV CONSUL_CLIENT_KEY /consul/config/certs/dc-server-em.docker-0-key.pem
-ENV SERVICE_NAME registry-leader
-ENV VIRTUAL_HOST registry-leader-node.service.em.docker
-
 # Update environment
 RUN apk update
 
-# Ensure consul dirs are created
+WORKDIR /
 RUN mkdir -p /consul/data && \
-    mkdir -p /consul/config
+    mkdir -p /consul/config/certs && \
+    mkdir -p /consul/tmpl
 
 # COPY configuration
-COPY root/consul/. /consul/.
+
+RUN chown -R consul:consul /consul
 
 # Consul doesn't need root privileges so we run it as the consul user from the
 # entry point script. The entry point script also uses dumb-init as the top-level

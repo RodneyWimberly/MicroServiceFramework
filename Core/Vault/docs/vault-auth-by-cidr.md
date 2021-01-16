@@ -19,9 +19,9 @@ which enable the CIDR-based anonymous auth.
 - `bind_secret_id=false` disables passing a secret for authentication.  A user
   need only to pass in the `role_id` and they'll be issued a token.  Normally, a
   `secret_id` setting is required if this is not disabled.
-- `token_bound_cidrs=172.16.238.0/24,127.0.0.1/32` restricts authentication to a
+- `token_bound_cidrs=192.168.1.0/24,127.0.0.1/32` restricts authentication to a
   specific CIDR range or ranges.
-  - `172.16.238.0/24` is the same network defined as `internal` within
+  - `192.168.1.0/24` is the same network defined as `internal` within
     [`docker-compose.yml`][compose].
   - `127.0.0.1/32` is CIDR notation for the localhost IP address.  This is
     necessary if authenticating from inside of the vault container itself.

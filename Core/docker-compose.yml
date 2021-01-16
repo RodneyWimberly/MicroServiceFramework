@@ -18,11 +18,24 @@
 # 8501/tcp     = registry-leader:HTTPS Web UI and REST API
 # 8502/tcp     = registry-leader:gRPC
 
-version: '3.9'
+version: '3'
+
+#configs:
+#  dns-dnsmasq:
+#    file: ./dns/dnsmasq.conf
+#  dns-containerpilot:
+#    file: ./dns/containerpilot.json5
+#  portal-nginx:
+#    file: ./portal/root/etc/nginx/nginx.conf
+#  portal-containerpilot:
+#    file: ./portal/root/etc/containerpilot.json5
+#  registry-agent:
+#    file: ./dns/registry-agent.sh
 
 volumes:
-  registry_data:
-    driver: local
+  consul_data:
+    #driver: local
+    external: true
 
 networks:
   # Access to all API services in all stacks
@@ -37,144 +50,190 @@ services:
   #####################################################
   # Dnsmasq
   dns-primary: &dns
-    image: ${DOCKER_REGISTRY-rodneywimberly/dockerregistry:}dns
-    init: true
+    image: ${DOCKER_REGISTRY-docker.pkg.github.com/rodneywimberly/dockerrepositories/}dns:1.0
+    #configs:
+    #  - source: dns-dnsmasq
+    #    target: /etc/dnsmasq/em.conf
+    #  - source: dns-containerpilot
+    #    target: /etc/containerpilot.json5
+    #  - source: registry-agent
+    #    target: /bin/registry-agent.sh
+    deploy:
+      mode: replicated
+      replicas: 0
     environment:
-      CONSUL_BIND_INTERFACE: eth0
-      CONSUL_CAPATH: /consul/config/certs
-      CONSUL_CACERT: /consul/config/certs/em.docker-agent-ca.pem
-      CONSUL_CLIENT_CERT: /consul/config/certs/dc-server-em.docker-0.pem
-      CONSUL_CLIENT_KEY: /consul/config/certs/dc-server-em.docker-0-key.pem
-      SERVICE_NAME: dns-primary
-      VIRTUAL_HOST: dns-primary.service.em.docker
-      CONTAINERPILOT: /etc/containerpilot/containerpilot.json5
+      CONTAINERPILOT: /etc/containerpilot.json5
+      CONSUL_LOCAL_CONFIG: >-
+        {
+          "datacenter": "docker",
+          "domain": "em",
+          "node_name": "dns1",
+          "data_dir": "/consul/data",
+          "bind_addr": "192.168.1.2",
+          "advertise_addr": "192.168.1.2",
+          "client_addr": "0.0.0.0",
+          "retry_join": [ "registry-leader" ],
+          "disable_host_node_id": true,
+          "ui_config": { "enabled": false },
+          "service": {
+              "name": "dns",
+              "tags": [ "primary" ],
+              "port": 53
+          }
+        }
     depends_on:
       - registry-leader
     cap_add:
       - NET_ADMIN
     networks:
       admin_network:
-        ipv4_address: 172.16.238.2
-        aliases:
-          - dns
-          - dns1
-          - dns.service.em.docker
-          - dns1.service.em.docker
+        ipv4_address: 192.168.1.2
 
   #####################################################
   # Dnsmasq
   dns-secondary:
     <<: *dns
     environment:
-      SERVICE_NAME: dns-secondary
-      VIRTUAL_HOST: dns-secondary.service.em.docker
+      CONTAINERPILOT: /etc/containerpilot.json5
+      CONSUL_LOCAL_CONFIG: >-
+        {
+          "datacenter": "docker",
+          "domain": "em",
+          "node_name": "dns2",
+          "data_dir": "/consul/data",
+          "bind_addr": "192.168.1.3",
+          "advertise_addr": "192.168.1.3",
+          "client_addr": "0.0.0.0",
+          "retry_join": [ "registry-leader" ],
+          "disable_host_node_id": true,
+          "ui_config": { "enabled": false },
+          "service": {
+              "name": "dns",
+              "tags": [ "secondary" ],
+              "port": 53
+          }
+        }
+    deploy:
+      mode: replicated
+      replicas: 0
     networks:
       admin_network:
-        ipv4_address: 172.16.238.3
-        aliases:
-          - dns
-          - dns2
-          - dns.service.em.docker
-          - dns2.service.em.docker
-  
+        ipv4_address: 192.168.1.3
+
   #####################################################
   # Consul
   registry-leader: &consul
-    image: '${DOCKER_REGISTRY-rodneywimberly/dockerregistry:}registry'
-    init: true
+    image: '${DOCKER_REGISTRY-docker.pkg.github.com/rodneywimberly/dockerrepositories/}registry:1.0'
+    deploy:
+      mode: replicated
+      replicas: 0
+    command: agent -config-dir=/consul/config
     environment:
       CONSUL_BIND_INTERFACE: eth0
-      CONSUL_CAPATH: /consul/config/certs
-      CONSUL_CACERT: /consul/config/certs/em.docker-agent-ca.pem
-      CONSUL_CLIENT_CERT: /consul/config/certs/dc-server-em.docker-0.pem
-      CONSUL_CLIENT_KEY: /consul/config/certs/dc-server-em.docker-0-key.pem
+      CONSUL_ADVERTISE_INTERFACE: eth0
       CONSUL_LOCAL_CONFIG: >-
         {
           "server": true,
-          "bootstrap_expect": 1,
-          "datacenter": "dc",
-          "domain": "em.docker",
+          "datacenter": "docker",
+          "domain": "em",
+          "node_name": "registry-leader",
           "data_dir": "/consul/data",
-          "encrypt": "ud0QEPDFulOM+bAcqgtLfpwl7nyPuvIkEgR6OJ5WD4M=",
-          "ca_path": "/consul/config/certs",
-          "ca_file": "/consul/config/certs/em.docker-agent-ca.pem",
-          "cert_file": "/consul/config/certs/dc-server-em.docker-0.pem",
-          "key_file": "/consul/config/certs/dc-server-em.docker-0-key.pem",
-          "verify_incoming": true,
-          "verify_outgoing":true,
-          "verify_server_hostname": true,
           "enable_script_checks": true,
           "leave_on_terminate": true,
           "client_addr": "0.0.0.0",
-          "rejoin_after_leave": true,
-          "enable_debug": true,
           "ui_config": { "enabled": true },
-          "connect": { "enabled": true },
-          "service": { "name": "registry-leader",
-            "tags": [],
+          "service": {
+            "name": "registry",
+            "tags": [ "leader" ],
             "port": 8500 }
         }
-      SERVICE_NAME: registry-leader
-      VIRTUAL_HOST: registry-leader.service.em.docker
+    ports:
+      - '8500:8500'
     volumes:
-      - registry_data:/consul/data
+      - consul_data:/consul/data
+    cap_add:
+      - NET_ADMIN
     networks:
-      admin_network:
-        aliases: 
-          - registry
-          - registry.service.em.docker
+      admin_network: {}
     dns:
-      - 172.16.238.2
-      - 172.16.238.3
+      - 192.168.1.2
+      - 192.168.1.3
     healthcheck:
       test: ['CMD', '/bin/sh', '-c', 'curl -sfLo /dev/null http://127.0.0.1:8500/v1/health/node/$$HOSTNAME']
 
   #####################################################
   # Consul
   registry-follower:
-    <<: *consul
+    image: '${DOCKER_REGISTRY-docker.pkg.github.com/rodneywimberly/dockerrepositories/}registry:1.0'
+    command: agent -config-dir=/consul/config
+    deploy:
+      mode: replicated
+      replicas: 0
     environment:
-      SERVICE_NAME: registry-leader
-      VIRTUAL_HOST: registry-leader.service.em.docker
+      CONSUL_ADVERTISE_INTERFACE: eth0
+      CONSUL_BIND_INTERFACE: eth0
+      CONSUL_LOCAL_CONFIG: >-
+        {
+          "server": true,
+          "datacenter": "docker",
+          "domain": "em",
+          "node_name": "registry-follower",
+          "data_dir": "/consul/data",
+          //"enable_script_checks": true,
+          "enable_local_script_checks": true,
+          "disable_host_node_id" : true,
+          "disable_remote_exec": true,
+          "disable_update_check": true,
+          "leave_on_terminate": true,
+          "retry_join": [ "registry-leader" ],
+          "advertise_addr" : "{{ GetInterfaceIP \"eth0\" }}",
+          "bind_addr": "{{ GetInterfaceIP \"eth0\" }}",
+          "client_addr": "0.0.0.0",
+          "rejoin_after_leave": true,
+          "skip_leave_on_interrupt" : true,
+          "autopilot": {
+            "cleanup_dead_servers": true
+          },
+          "disable_update_check": true,
+          "log_level": "debug",
+          "ui_config": { "enabled": true },
+          "addresses" : {
+            "https" : "0.0.0.0"
+          },
+          "service": {
+            "name": "registry",
+            "tags": [ "follower"],
+            "port": 8500 }
+        }
+    networks:
+      admin_network: {}
     depends_on:
       - registry-leader
-      - dns
-    entrypoint: ''
-    command:
-      - /bin/sh
-      - -c
-      - |
-        set -ex
-        until dig +short registry-leader.service.em.docker; do sleep 1; done
-        docker-entrypoint.sh agent -join registry-leader.service.em.docker
+    dns:
+      - 192.168.1.2
+      - 192.168.1.3
+    healthcheck:
+      test: ['CMD', '/bin/sh', '-c', 'curl -sfLo /dev/null http://127.0.0.1:8500/v1/health/node/$$HOSTNAME']
 
   #####################################################
   # Vault
   vault:
     image: 'vault'
-    init: true
-    # Exports work around vault bug https://github.com/hashicorp/vault/issues/3866
-    # IP is the IP address of the default networking route (eth0)
-    # $$ escapes in "$" in docker-compose string interpolation
-    command:
-      - "sh"
-      - "-c"
-      - |
-        set -ex
-        ip -o -4 addr
-        export IP=$$(ip -o -4 addr list eth0 | head -n1 | awk '{print $$4}' | cut -d/ -f1)
-        export VAULT_API_ADDR="http://$${IP}:8200" VAULT_CLUSTER_ADDR="https://$${IP}:8201"
-        docker-entrypoint.sh server -config=/vault/config
-    entrypoint: ''
+    deploy:
+      mode: replicated
+      replicas: 0
     environment:
+      CONSUL_BIND_INTERFACE: eth0
+      CONSUL_ADVERTISE_INTERFACE: eth0
+      CONTAINERPILOT: /etc/containerpilot.json5
       VAULT_ADDR: 'http://127.0.0.1:8200'
       VAULT_LOCAL_CONFIG: >-
         {
             "ui": true,
             "backend": {
                 "consul": {
-                    "address": "registry-leader:8500",
-                    "path": "vault",
+                    "address": "127.0.0.1:8500",
+                    "path": "vault/",
                     "scheme": "http"
                 }
             },
@@ -182,85 +241,90 @@ services:
             "listener": {
                 "tcp": {
                     "address": "0.0.0.0:8200",
-                    "tls_disable": "1"
+                    "cluster_address": "registry-leader:8201",
+                    "tls_disable": "true"
                 }
             },
-            "max_lease_ttl": "720h"
+            "max_lease_ttl": "720h",
+            "api_addr": "http://registry-leader:8200",
+            "cluster_addr": "http://registry-leader:8201"
         }
     cap_add:
       - IPC_LOCK
     networks:
       - admin_network
     dns:
-      - 172.16.238.2
-      - 172.16.238.3
+      - 192.168.1.2
+      - 192.168.1.3
     depends_on:
       - registry-follower
       - registry-leader
-      - dns
+      - dns-primary
+      - dns-secondary
 
   #####################################################
   # Hello
   hello:
-    image: '${DOCKER_REGISTRY-rodneywimberly/dockerregistry:}hello'
-    init: true
+    image: '${DOCKER_REGISTRY-docker.pkg.github.com/rodneywimberly/dockerrepositories/}hello:1.0'
+    deploy:
+      mode: replicated
+      replicas: 0
     environment:
       CONSUL_BIND_INTERFACE: eth0
-      CONSUL_CAPATH: /consul/config/certs
-      CONSUL_CACERT: /consul/config/certs/em.docker-agent-ca.pem
-      CONSUL_CLIENT_CERT: /consul/config/certs/dc-client-em.docker-0.pem
-      CONSUL_CLIENT_KEY: /consul/config/certs/dc-client-em.docker-0-key.pem
-      SERVICE_NAME: hello
-      VIRTUAL_HOST: hello.service.em.docker
+      CONSUL_ADVERTISE_INTERFACE: eth0
     depends_on:
       - registry-follower
       - registry-leader
-      - dns
+      - dns-primary
+      - dns-secondary
     networks:
       - admin_network
     dns:
-      - 172.16.238.2
-      - 172.16.238.3
+      - 192.168.1.2
+      - 192.168.1.3
 
   #####################################################
   # World
   world:
-    image: '${DOCKER_REGISTRY-rodneywimberly/dockerregistry:}world'
-    init: true
+    image: '${DOCKER_REGISTRY-docker.pkg.github.com/rodneywimberly/dockerrepositories/}world:1.0'
+    deploy:
+      mode: replicated
+      replicas: 0
     environment:
       CONSUL_BIND_INTERFACE: eth0
-      CONSUL_CAPATH: /consul/config/certs
-      CONSUL_CACERT: /consul/config/certs/em.docker-agent-ca.pem
-      CONSUL_CLIENT_CERT: /consul/config/certs/dc-client-em.docker-0.pem
-      CONSUL_CLIENT_KEY: /consul/config/certs/dc-client-em.docker-0-key.pem
-      SERVICE_NAME: world
-      VIRTUAL_HOST: world.service.em.docker
+      CONSUL_ADVERTISE_INTERFACE: eth0
     depends_on:
       - registry-follower
       - registry-leader
-      - dns
+      - dns-primary
+      - dns-secondary
     networks:
       - admin_network
     dns:
-      - 172.16.238.2
-      - 172.16.238.3
+      - 192.168.1.2
+      - 192.168.1.3
 
   #####################################################
   # Nginx
   portal:
-    image: '${DOCKER_REGISTRY-rodneywimberly/dockerregistry:}portal'
-    init: true
+    image: '${DOCKER_REGISTRY-docker.pkg.github.com/rodneywimberly/dockerrepositories/}portal:1.0'
+    #configs:
+    #  - source: portal-dnsmasq
+    #    target: /etc/nginx/nginx.conf
+    #  - source: portal-containerpilot
+    #    target: /etc/containerpilot.json5
+    #  - source: registry-agent
+    #    target: /bin/registry-agent.sh
+    deploy:
+      mode: replicated
+      replicas: 0
     environment:
       CONSUL_BIND_INTERFACE: eth0
-      CONSUL_CAPATH: /consul/config/certs
-      CONSUL_CACERT: /consul/config/certs/em.docker-agent-ca.pem
-      CONSUL_CLIENT_CERT: /consul/config/certs/dc-client-em.docker-0.pem
-      CONSUL_CLIENT_KEY: /consul/config/certs/dc-client-em.docker-0-key.pem
-      SERVICE_NAME: portal
-      VIRTUAL_HOST: portal.service.em.docker
-      CONTAINERPILOT: /etc/containerpilot/containerpilot.json5
+      CONSUL_ADVERTISE_INTERFACE: eth0
+      CONTAINERPILOT: /etc/containerpilot.json5
     depends_on:
-       - dns
+       - dns-primary
+       - dns-secondary
        - registry-follower
        - registry-leader
        - hello
@@ -271,87 +335,6 @@ services:
       - '80:80'
       - '443:443'
     dns:
-      - 172.16.238.2
-      - 172.16.238.3
+      - 192.168.1.2
+      - 192.168.1.3
 
-#######################################################################################################
-# Diagnostic tools, these are not required...
-#######################################################################################################
-
-  #####################################################
-  # go-socks5-proxy
-  # socks5 proxy service for browsers to connect into the docker network
-  proxy:
-    image: serjs/go-socks5-proxy
-    init: true
-    ports:
-      - "8080:1080"
-    networks:
-      - admin_network
-    dns:
-      - 172.16.238.2
-      - 172.16.238.3
-    depends_on:
-      - dns
-      - registry-leader
-      - registry-follower
-
-  #####################################################
-  # docker-net-tools
-  jump-box:
-    image: joffotron/docker-net-tools
-    init: true
-    networks:
-      - admin_network
-    dns:
-      - 172.16.238.2
-      - 172.16.238.3
-    depends_on:
-      - dns
-      - registry-leader
-      - registry-follower
-      - proxy
-
-  #####################################################
-  # dozzle
-  log-viewer:
-    image: amir20/dozzle:latest
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - admin_network
-    dns:
-      - 172.16.238.2
-      - 172.16.238.3
-    depends_on:
-      - dns
-      - registry-leader
-      - registry-follower
-    ports:
-      - 8081:8080
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-
-  #####################################################
-  # visualizer
-  swarm-visualizer:
-    image: dockersamples/visualizer
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      HOST: localhost
-    networks:
-      - admin_network
-    dns:
-      - 172.16.238.2
-      - 172.16.238.3
-    depends_on:
-      - dns
-      - registry-leader
-      - registry-follower
-    ports:
-      - 8082:8080
-    deploy:
-      placement:
-        constraints: [node.role == manager]

@@ -24,7 +24,7 @@ execute_vault_command \
   vault write auth/approle/role/docker \
     role_id=docker \
     bind_secret_id=false \
-    token_bound_cidrs=172.16.238.0/24,127.0.0.1/32 \
+    token_bound_cidrs=192.168.1.0/24,127.0.0.1/32 \
     token_ttl=15m \
     token_max_ttl=24h \
     token_no_default_policy=true \

@@ -96,7 +96,7 @@ Version         0.11.1
 Cluster Name    vault-cluster-fbb7bff2
 Cluster ID      53fbbdeb-42f8-1f2f-356b-699439760ed9
 HA Enabled      true
-HA Cluster      https://172.16.238.7:8201
+HA Cluster      https://192.168.1.7:8201
 HA Mode         active
 ```
 
