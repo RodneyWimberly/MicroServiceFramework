@@ -1,11 +1,15 @@
 #####################################################
+# Core Stack
+# HA Service registry (discovery, health, load-balancing,
+# DNS name lookup, routing intentions, & KV store),
+# DNS Server, Secret Store/Vault, Web Portal, & API Gateway
+######################################################
 # External Ports
 # 80/tcp       = portal:HTTP
 # 443/tcp      = portal:HTTPS
 # 8080/tcp     = proxy:SOCKS5
 # 8081/tcp     = log-viewer:HTTP
 # 8082/tcp     = swarm-visualizer:HTTP
-
 #####################################################
 # Internal Ports
 # 53/tcp:udp   = dns:DNS

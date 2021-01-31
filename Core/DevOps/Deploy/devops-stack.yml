@@ -1,30 +1,23 @@
 #####################################################
+# DevOps Stack - Used to manage dev-ops stuff like Docker
+#####################################################
 # External Ports
 # 9000/tcp     = web HTTP UI
 # 9001/tcp:udp = agent HTTP REST
 
-version: '3'
+version: '3.8'
 
 services:
   web:
     image: portainer/portainer
-    restart: always
     ports:
-    - target: 9000
-      published: 9000
-      protocol: tcp
-      mode: host
+      - '9000:9000'
     volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock'
-      - '/opt/portainer:/data'
+      - 'web_volume:/data'
     networks:
-      - portainer_network
-      - consul_network
+      - agent_network
     deploy:
-      mode: replicated
-      replicas: 0
-      placement:
-        constraints: [node.platform.os == linux]
+      replicas: 1
 
   agent:
     image: portainer/agent
@@ -37,16 +30,16 @@ services:
         protocol: tcp
         mode: host
     networks:
-      - portainer_network
-      - consul_network
+      - agent_network
     deploy:
       mode: global
       placement:
         constraints: [node.platform.os == linux]
 
-networks:
-  portainer_network:
-    external: true
+volumes:
+  web_volume:
 
-  consul_network:
-      external: true
+networks:
+  agent_network:
+    driver: overlay
+    attachable: true

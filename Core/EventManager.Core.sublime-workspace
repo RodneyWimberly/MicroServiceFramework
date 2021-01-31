@@ -55,10 +55,116 @@
 	},
 	"buffers":
 	[
+		{
+			"contents": "Searching 259 files for \"chown\" (case sensitive)\n\nD:\\em\\Core\\Diagnostics\\Dockerfile:\n   69      mkdir -p /consul/tmpl\n   70  \n   71: RUN chown -R consul:consul /consul\n   72  \n   73  # set up nsswitch.conf for Go's \"netgo\" implementation which is used by Consul,\n\nD:\\em\\Core\\Dns\\Dockerfile:\n   76      mkdir -p /consul/tmpl\n   77  \n   78: RUN chown -R consul:consul /consul\n   79  \n   80  # set up nsswitch.conf for Go's \"netgo\" implementation which is used by Consul,\n\nD:\\em\\Core\\Editor\\Dockerfile:\n   16  cp -r /tmp/ICE* /var/www/html/icecoder && \\\n   17  echo \"<!DOCTYPE html>\\n<html>\\n<head>\\n<title>Welcome to your new site</title>\\n</head>\\n<body style=\\\"text-align: center; font-family: monospace\\\">\\n<h1>Welcome!</h1>\\n<p>Head to ICEcoder at <a href=\\\"/icecoder\\\">localhost:8080/icecoder</a> to create a password and start coding!</p>\\n</body>\\n</html>\" > /var/www/html/index.php && \\\n   18: chown -R www-data.www-data /var/www/html && \\\n   19  chmod 755 /var/www/html && \\\n   20  rm -rf /icecoder.zip /tmp/ICE*\n\nD:\\em\\Core\\Registry\\Dockerfile:\n   15  # COPY configuration\n   16  \n   17: RUN chown -R consul:consul /consul\n   18  \n   19  # Consul doesn't need root privileges so we run it as the consul user from the\n\nD:\\em\\Core\\Vault\\Dockerfile:\n   72  ADD em-agent-ca.pem consul/config/certs/em-agent-ca.pem\n   73  ADD docker-client-em-0* consul/config/certs/\n   74: RUN chown -R consul:consul /consul\n   75  \n   76  # Server RPC is used for communication between Consul clients and servers for internal\n   ..\n  156      mkdir -p /vault/file && \\\n  157      mkdir -p /vault/config && \\\n  158:     chown -R vault:vault /vault\n  159  \n  160  # Expose the logs directory as a volume since there's potentially long-running\n\n6 matches across 5 files\n",
+			"settings":
+			{
+				"buffer_size": 1755,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "Vault/Dockerfile",
+			"settings":
+			{
+				"buffer_size": 7276,
+				"line_ending": "Unix"
+			}
+		}
 	],
-	"build_system": "",
+	"build_system": "Packages/sublime-docker/Docker Compose.sublime-build",
 	"build_system_choices":
 	[
+		[
+			[
+				[
+					"Packages/User/python27.sublime-build",
+					""
+				],
+				[
+					"Packages/User/Python35.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/User/Python35.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/sublime-docker/Docker Compose.sublime-build",
+					""
+				],
+				[
+					"Packages/sublime-docker/Docker Compose.sublime-build",
+					"Docker-compose build"
+				],
+				[
+					"Packages/sublime-docker/Docker Compose.sublime-build",
+					"Docker-compose kill"
+				],
+				[
+					"Packages/sublime-docker/Docker Compose.sublime-build",
+					"Docker-compose ports"
+				],
+				[
+					"Packages/sublime-docker/Docker Compose.sublime-build",
+					"Docker-compose rm"
+				],
+				[
+					"Packages/sublime-docker/Docker Compose.sublime-build",
+					"Docker-compose stop"
+				],
+				[
+					"Packages/sublime-docker/Docker Compose.sublime-build",
+					"Docker-compose restart"
+				],
+				[
+					"Packages/sublime-docker/Docker Compose.sublime-build",
+					"Docker-compose ps"
+				]
+			],
+			[
+				"Packages/sublime-docker/Docker Compose.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/sublime-docker/Dockerfile.sublime-build",
+					""
+				],
+				[
+					"Packages/sublime-docker/Dockerfile.sublime-build",
+					"Dockerfile run in background"
+				],
+				[
+					"Packages/sublime-docker/Dockerfile.sublime-build",
+					"Dockerfile run in foreground non interactive"
+				],
+				[
+					"Packages/sublime-docker/Dockerfile.sublime-build",
+					"Dockerfile deploy to GAE"
+				],
+				[
+					"Packages/sublime-docker/Dockerfile.sublime-build",
+					"Dockerfile deploy to Deis"
+				],
+				[
+					"Packages/sublime-docker/Dockerfile.sublime-build",
+					"Dockerfile deploy to OVH"
+				]
+			],
+			[
+				"Packages/sublime-docker/Dockerfile.sublime-build",
+				""
+			]
+		]
 	],
 	"build_varint": "",
 	"command_palette":
@@ -68,8 +174,12 @@
 		"selected_items":
 		[
 			[
+				"build",
+				"Build: New Build System"
+			],
+			[
 				"Package Control: ",
-				"Package Control: Install Package"
+				"Package Control: Upgrade/Overwrite All Packages"
 			],
 			[
 				"Package Control: a",
@@ -160,40 +270,64 @@
 	},
 	"expanded_folders":
 	[
-		"/D/em/Core"
+		"/D/em/Core",
+		"/D/em/Core/Dns",
+		"/D/em/Core/Portal",
+		"/D/em/Core/Scripts",
+		"/D/em/Core/Vault"
 	],
 	"file_history":
 	[
-		"/D/em/Core/tools-stack.yml",
-		"/D/em/Core/portainer-stack.yml",
-		"/D/em/Core/diagnostics-stack.yml",
-		"/D/em/Core/Scripts/start-core-stack.sh",
-		"/D/em/Core/Scripts/start-diagnostics-stack.sh",
-		"/D/em/Core/Scripts/unassign-configs-and-secrets.sh",
-		"/D/em/Core/Scripts/common.sh",
+		"/D/em/Core/Portal/Dockerfile",
+		"/D/em/Core/docker-compose.yml",
+		"/D/em/Core/Dns/docker-entrypoint.sh",
+		"/D/em/Core/Dns/dnsmasq.conf",
 		"/D/em/Core/Dns/registry-agent.sh",
+		"/D/em/Core/Scripts/diag.sh",
+		"/D/em/Core/Scripts/setup-pwd.sh",
+		"/D/em/Core/Scripts/start-diagnostics-stack.sh",
+		"/D/em/Core/Scripts/start-core-stack.sh",
+		"/D/em/Core/Scripts/build-core-stack.sh",
+		"/D/em/Core/Scripts/connet-to-pwd.sh",
+		"/D/em/Core/Scripts/build-diagnostics-stack.sh",
+		"/D/em/Core/Scripts/common.sh",
+		"/D/em/Core/tools-stack.yml",
+		"/D/Projects/EventManager/Api/Identity/nginx/Dockerfile",
+		"/D/em/Core/Log-Stack.yml",
+		"/D/em/Core/DevOps/Deploy/devops-stack.yml",
+		"/D/em/Core/Diagnostics/Dockerfile",
+		"/D/em/Core/DevOps/Deploy/deploy.sh",
+		"/D/em/Core/docker-hub.sh",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/set_unix_line_endings.py",
+		"/D/em/Core/Scripts/stop-core-stack.sh",
+		"/D/em/Core/Scripts/unassign-configs-and-secrets.sh",
+		"/D/em/Core/Diagnostics/Deploy/diagnostics-stack.yml",
+		"/D/em/Core/Scripts/show-logs.sh",
+		"/D/em/Core/Scripts/docker-logs-localtime.sh",
+		"/D/em/Core/Scripts/init-swarm.sh",
+		"/D/em/Core/Scripts/githubtoken.txt",
+		"/D/em/Core/Scripts/reconfigure-service.sh",
 		"/D/em/Core/Scripts/add-configs-and-secrets.sh",
 		"/D/em/Core/Scripts/assign-configs-and-secrets.sh",
-		"/D/em/Core/Scripts/build-core-stack.sh",
-		"/D/em/Core/Scripts/build-diagnostics-stack.sh",
-		"/D/em/Core/Scripts/show-logs.sh",
+		"/D/em/Core/Diagnostics/Deploy/deploy.sh",
+		"/D/em/Core/Diagnostics/Deploy",
+		"/D/em/Core/diagnostics-stack.yml",
+		"/D/em/Core/agent-stack.yml",
+		"/D/em/Core/DevOps/deploy.sh",
+		"/D/em/Core/DevOps/devops-stack.yml",
+		"/D/em/Core/devops-stack.yml",
+		"/D/em/Core/Dns/Dockerfile",
+		"/D/Projects/EventManager/Api/Identity/docker-compose.yml",
+		"/D/Projects/docker-compose-ha-consul-vault-ui/templates/nginx.conf",
+		"/D/Projects/docker-compose-ha-consul-vault-ui/templates/index.html",
+		"/D/em/Core/portainer-stack.yml",
 		"/D/em/Core/Vault/scripts/curl-api.sh",
-		"/D/em/Core/docker-compose.yml",
-		"/D/em/Core/Scripts/diag.sh",
-		"/D/em/Core/Diagnostics/Dockerfile",
 		"/D/Downloads/node-id.txt",
 		"/D/em/Core/Diagnostics/docker-compose.yml",
 		"/D/em/Core/Portal/root/etc/nginx/tmp/nginx.conf",
-		"/D/em/Core/Dns/dnsmasq.conf",
 		"/D/em/Core/Dns/containerpilot.json5",
-		"/D/em/Core/agent-stack.yml",
 		"/D/em/Core/backup",
-		"/D/em/Core/Scripts/setup-pwd.sh",
-		"/D/em/Core/Scripts/githubtoken.txt",
-		"/D/em/Core/Dns/Dockerfile",
 		"/D/em/Core/Scripts/start-diag-stack.sh",
-		"/D/em/Core/Dns/docker-entrypoint.sh",
-		"/D/em/Core/Scripts/stop-core-stack.sh",
 		"/D/em/Core/Registry/Dockerfile",
 		"/D/em/Core/Portal/root/etc/containerpilot.json5",
 		"/D/em/Core/Portal/root/etc/nginx/certs/cacerts.pem",
@@ -210,19 +344,16 @@
 		"/D/em/Core/Diagnostics/diag.sh",
 		"/D/em/Core/foo",
 		"/D/em/Core/Vault/secret.txt",
-		"/D/em/Core/Portal/Dockerfile",
 		"/D/em/Core/Vault/Dockerfile",
 		"/D/em/Core/world/Dockerfile",
 		"/D/em/Core/Dns/docker-client-em-0-key.pem",
 		"/D/em/Core/Dns/registry-events.sh",
-		"/D/em/Core/Scripts/connet-to-pwd.sh",
 		"/D/em/Core/Dns/dns.json",
 		"/D/em/Core/Vault/docker-entrypoint.sh",
 		"/D/em/Core/Vault/registry-agent.sh",
 		"/D/em/Core/Vault/docker-client-em-0.pem",
 		"/D/em/Core/Registry/MakeCerts.sh",
 		"/D/em/Core/hello/root/consul/config/dns.json",
-		"/D/em/Core/Scripts/docker-logs-localtime.sh",
 		"/D/em/Core/Dns/EventManager.csproj",
 		"/D/em/Core/Dns/em.docker-agent-ca.pem",
 		"/D/em/Core/Scripts/view-stack-logs.sh",
@@ -274,34 +405,19 @@
 		"/C/Projects/EventManager/Api/Identity/shared/consul/config.d/server.hcl",
 		"/C/Users/Rodney/Desktop/foo.txt",
 		"/C/Users/Rodney/Desktop/# Overrides for Development",
-		"/C/Projects/EventManager/Api/Identity/src/EventManager.Identity.Admin.Api/publish/web.config",
-		"/C/Projects/EventManager/Api/Identity/src/EventManager.Identity.Admin.Api/publish/appsettings.json",
-		"/C/Projects/EventManager/UI/Web/EventManager.Web.csproj",
-		"/C/Projects/AuthSamples/IdentityServer4.Admin/src/Skoruba.IdentityServer4.Admin/Dockerfile",
-		"/C/Projects/AuthSamples/IdentityServer4.Admin/docker-compose.yml",
-		"/C/Projects/EventManager/Api/Identity/shared/consul/config.d/consul.hcl",
-		"/C/Projects/app/services/oauth2.service.ts",
-		"/C/Projects/app/components/login/login.component.ts",
-		"/C/Projects/app/components/controls/oauth2-dialog.component.html",
-		"/C/Projects/app/components/controls/oauth2-dialog.component.ts",
-		"/C/Projects/app/components/orders/orders.component.html",
-		"/C/Projects/app/components/orders/orders.component.ts",
-		"/C/Users/Rodney/OneDrive/Documents/foo",
-		"/C/Projects/EventManager/EventManager.sln",
-		"/C/Projects/EventManager/Web/EventManager.Web.csproj",
-		"/C/Users/Rodney/Documents/azure_ssh_key.txt",
-		"/C/Projects/AzureMol/Bash_Chapter3.txt",
-		"/C/Projects/Iot/winrm_config.cmd"
+		"/C/Projects/EventManager/Api/Identity/src/EventManager.Identity.Admin.Api/publish/web.config"
 	],
 	"find":
 	{
-		"height": 70.0
+		"height": 30.0
 	},
 	"find_in_files":
 	{
-		"height": 158.0,
+		"height": 164.0,
 		"where_history":
 		[
+			"D:\\em\\Core",
+			"D:\\em\\Core\\",
 			"D:\\em\\Core",
 			"d:\\em\\core\\*.*",
 			"C:\\Projects\\app"
@@ -312,6 +428,12 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"chown",
+			"5000",
+			"registry",
+			"proxy",
+			"portainer_agent",
+			".Address",
 			"register_service",
 			"%",
 			"%3",
@@ -416,6 +538,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"agent_network",
 			"$",
 			"\"%3\"",
 			"\"%2\"",
@@ -484,18 +607,267 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1755,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										137,
+										142
+									],
+									[
+										343,
+										348
+									],
+									[
+										900,
+										905
+									],
+									[
+										1100,
+										1105
+									],
+									[
+										1381,
+										1386
+									],
+									[
+										1607,
+										1612
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								1626,
+								1626
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"default_dir": "D:\\Projects\\consul\\pwd",
+							"detect_indentation": false,
+							"function_name_status_row": 39,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ \t].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 308.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Vault/Dockerfile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7276,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7275,
+								7234
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"function_name_status_row": 181,
+							"syntax": "Packages/Dockerfile Syntax Highlighting/Syntaxes/Dockerfile.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3303.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 30.0
 	},
 	"input":
 	{
-		"height": 69.0
+		"height": 72.0
 	},
 	"layout":
 	{
@@ -524,6 +896,10 @@
 	{
 		"height": 0.0
 	},
+	"output.exec":
+	{
+		"height": 57.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
@@ -532,13 +908,17 @@
 	{
 		"height": 0.0
 	},
-	"pinned_build_system": "",
+	"output.project_environment_log":
+	{
+		"height": 168.0
+	},
+	"pinned_build_system": "Packages/sublime-docker/Docker Compose.sublime-build",
 	"project": "EventManager.Core.sublime-project",
 	"replace":
 	{
-		"height": 114.0
+		"height": 77.0
 	},
-	"save_all_on_build": true,
+	"save_all_on_build": false,
 	"select_file":
 	{
 		"height": 0.0,
@@ -556,7 +936,7 @@
 		[
 			[
 				"",
-				"D:\\Projects\\hello-world-cp\\hello-world.sublime-project"
+				"D:\\Containers\\Containers.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -575,10 +955,10 @@
 	{
 	},
 	"show_minimap": true,
-	"show_open_files": true,
+	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 306.0,
+	"side_bar_width": 287.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

@@ -25,7 +25,7 @@ docker build -t ${DOCKER_REGISTRY}world:${DOCKERFILE_VERSION} World/.
 
 
 echo -e "${LT_CYAN} Logging in to repository ${DOCKER_REGISTRY}"
-docker login https://docker.pkg.github.com --username=RodneyWimberly --password=5a45a7688ea36d4572100a47f894435fef6b2aa5
+docker login https://docker.pkg.github.com--username=RodneyWimberly --password=5a45a7688ea36d4572100a47f894435fef6b2aa5
 
 set -e
 echo -e "Deploying image dns for core stack"
