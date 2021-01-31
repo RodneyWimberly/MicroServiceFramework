@@ -1,0 +1,107 @@
+###########################################################################################################
+# Core Stack
+# HA Service discovery, health checks, load-balancing,
+# DNS name lookup, routing intentions, KV store,
+# DNS Server, Secret Store/Vault, & Reverse Proxy / Portal
+###########################################################################################################
+version: "3.8"
+
+volumes:
+  consul_data:
+
+networks:
+  admin_network:
+    external: true
+
+services:
+  consul:
+    image: rodneywimberly/consul:latest
+    init: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - consul_data:/consul/data
+    env_file:
+      - /mnt/scripts/core.env
+    networks:
+      admin_network:
+        aliases:
+          - consul.service.consul
+    deploy:
+      endpoint_mode: dnsrr
+      mode: global
+
+  dns:
+    image: rodneywimberly/dns:latest
+    init: true
+    depends_on:
+     - consul
+    init: true
+    env_file:
+      - /mnt/scripts/core.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    cap_add:
+      - NET_ADMIN
+    networks:
+      admin_network:
+        aliases:
+          - dns.service.consul
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 1s
+        order: stop-first
+
+  registrator:
+    image: gliderlabs/registrator:latest
+    init: true
+    depends_on:
+       - consul
+       - dns
+    command: -cleanup -internal consul://consul.service.consul:8500
+    env_file:
+      - /mnt/scripts/core.env
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    networks:
+      - admin_network
+    deploy:
+      mode: global
+    dns:
+      - dns.service.consul
+
+  vault:
+    image: rodneywimberly/vault:latest
+    init: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - /mnt/scripts/core.env
+    cap_add:
+      - IPC_LOCK
+    networks:
+      - admin_network
+    dns:
+      - dns.service.consul
+    depends_on:
+      - consul
+      - dns
+    deploy:
+      mode: global
+
+  portal:
+    image: rodneywimberly/portal:latest
+    init: true
+    env_file:
+      - /mnt/scripts/core.env
+    networks:
+      - admin_network
+    dns:
+      - dns.service.consul
+    depends_on:
+      - consul
+      - dns
+      - vault
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

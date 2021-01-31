@@ -1,0 +1,7 @@
+password
+
+tasks.devops_agent:9001
+
+
+#'{{ GetInterfaceIP \"eth0\" }}'
+#'{{ GetAllInterfaces | include "network" "192.168.0.0/16" }}'
