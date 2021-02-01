@@ -3,7 +3,7 @@ rm ~/update-stack.sh && \
 touch ~/update-stack.sh && \
 cat > ~/update-stack.sh <<EOL
 rm -rf /msf
-git clone -b master \
+git clone -b DeployCore \
     https://rodneywimberly:30c18052b85cb37658846d156d9f50eb1bf773c2@github.com/RodneyWimberly/MicroServiceFramework.git \
     /msf
 cd /msf/Core/shared/admin
