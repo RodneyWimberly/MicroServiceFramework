@@ -4,7 +4,7 @@ touch ~/update-stack.sh && \
 cat > ~/update-stack.sh <<EOL
 rm -rf /msf
 git clone -b master \
-    https://rodneywimberly:b606a0781f57605d4e5b00b753a6f26c23ff8908@github.com/RodneyWimberly/MicroServiceFramework.git \
+    https://rodneywimberly:30c18052b85cb37658846d156d9f50eb1bf773c2@github.com/RodneyWimberly/MicroServiceFramework.git \
     /msf
 cd /msf/Core/shared/admin
 chmod u+x ./*.sh

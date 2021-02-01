@@ -3,8 +3,8 @@
 #   tears down exiting container resources and builds application stacks on bare containers
 set -e
 
-source ../core.env
-source ../common-functions.sh
+source ../scripts/core.env
+source ../scripts/common-functions.sh
 
 function deploy_stack() {
   log_detail "Deploying $1 Stack to Swarm"
