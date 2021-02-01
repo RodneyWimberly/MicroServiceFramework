@@ -15,7 +15,8 @@ networks:
 
 services:
   consul:
-    image: rodneywimberly/consul:latest
+    image: rodneywimberly/consul:dev
+    command: agent -join consul.service.consul
     init: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -31,7 +32,7 @@ services:
       mode: global
 
   dns:
-    image: rodneywimberly/dns:latest
+    image: rodneywimberly/dns:dev
     init: true
     depends_on:
      - consul
@@ -72,7 +73,7 @@ services:
       - dns.service.consul
 
   vault:
-    image: rodneywimberly/vault:latest
+    image: rodneywimberly/vault:dev
     init: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -91,7 +92,7 @@ services:
       mode: global
 
   portal:
-    image: rodneywimberly/portal:latest
+    image: rodneywimberly/portal:dev
     init: true
     env_file:
       - ./shared/scripts/core.env
