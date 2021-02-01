@@ -4,6 +4,8 @@
 		{
 			"file_exclude_patterns":
 			[
+				"shared/admin/update-stack-worker.sh",
+				"shared/admin/worker.cmd"
 			],
 			"path": "."
 		}
