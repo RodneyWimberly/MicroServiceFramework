@@ -1,20 +1,29 @@
 {
   "ui": true,
-  "api_addr": "http://${ETH0_IP}:8100",
-  "cluster_addr": "https://${ETH0_IP}:8101",
-  "backend": {
+  "api_addr": "http://${ETH0_IP}:8200",
+  "cluster_addr": "https://${ETH0_IP}:8201",
+  "default_lease_ttl": "168h",
+  "max_lease_ttl": "720h",
+  "storage": {
     "consul": {
       "address": "consul.service.consul:8500",
       "path": "vault/",
-      "scheme": "http"
+      "scheme": "http",
+      "service": "vault",
+      "tls_key_file": "${VAULT_CERT_DIR}/docker-server-consul-0-key.pem",
+      "tls_cert_file": "${VAULT_CERT_DIR}/docker-server-consul-0.pem",
+      "tls_ca_file": "${VAULT_CERT_DIR}/consul-agent-ca.pem",
     }
   },
-  "default_lease_ttl": "168h",
   "listener": {
     "tcp": {
-      "address": "0.0.0.0:8100",
-      "tls_disable": "true"
+      "address": "0.0.0.0:8200",
+      "cluster_address": "0.0.0.0:8201",
+      "tls_disable": "true",
+      "tls_require_and_verify_client_cert": "true",
+      "tls_key_file": "${VAULT_CERT_DIR}/docker-server-consul-0-key.pem",
+      "tls_cert_file": "${VAULT_CERT_DIR}/docker-server-consul-0.pem",
+      "tls_client_ca_file": "${VAULT_CERT_DIR}/consul-agent-ca.pem",
     }
-  },
-  "max_lease_ttl": "720h"
+  }
 }
