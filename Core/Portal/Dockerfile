@@ -51,6 +51,7 @@ COPY ./index.html /etc/templates/index.html
 COPY ./.vimrc /.vimrc
 COPY ./stylesheet.css /usr/share/nginx/html/stylesheet.css
 #COPY ./.crt usr/local/share/ca-certificates/.crt
+RUN chmod 755 /usr/local/scripts/*.sh
 
 ENTRYPOINT ["/usr/local/scripts/portal-entrypoint.sh"]
 CMD [ "-g", "'daemon off;'" ]

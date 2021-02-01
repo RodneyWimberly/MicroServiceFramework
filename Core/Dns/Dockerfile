@@ -42,6 +42,7 @@ RUN curl -Lo /tmp/consul_template_0.15.0_linux_amd64.zip ${CONSUL_URL}/consul-te
 COPY ./core.env /usr/local/scripts/core.env
 COPY ./*.sh /usr/local/scripts/
 COPY ./dnsmasq.conf /etc/templates/dnsmasq.conf
+RUN chmod 755 /usr/local/scripts/*.sh
 
 ENTRYPOINT ["/usr/local/scripts/dns-entrypoint.sh"]
 CMD [ "--no-daemon", "--log-queries" ]
