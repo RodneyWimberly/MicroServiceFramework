@@ -1,4 +1,4 @@
-FROM ngnix
+FROM nginx
 
 # Label the image
 LABEL Author rodneywimberly

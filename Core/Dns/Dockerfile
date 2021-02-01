@@ -1,4 +1,4 @@
-FROM dnsmasq
+FROM storytel/dnsmasq
 
 # Label the image
 LABEL Author rodneywimberly
