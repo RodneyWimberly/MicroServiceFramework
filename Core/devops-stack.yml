@@ -41,7 +41,7 @@ services:
         protocol: tcp
         mode: host
     cap_add:
-      -  CAP_HOST_MANAGEMENT
+      - ALL
     networks:
       - admin_network
     deploy:
