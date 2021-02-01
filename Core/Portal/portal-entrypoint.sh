@@ -1,9 +1,10 @@
 #!/bin/sh
 
-# Make our stuff available
-source /etc/scripts/common-functions.sh
-add_path /etc/scripts
 set -e
+
+# Make our stuff available
+source "${CORE_SCRIPT_DIR}"/common-functions.sh
+add_path "${CORE_SCRIPT_DIR}"
 
 export CONSUL_IP=$(get_ip_from_name "consul.service.consul")
 export CONSUL_HTTP_ADDR=http://${CONSUL_IP}:8500
