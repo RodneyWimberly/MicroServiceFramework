@@ -16,11 +16,5 @@
       "tls_disable": "true"
     }
   },
-  "storage": {
-    "raft" : {
-      "path": "./vault/data",
-      "node_id": "node1"
-    }
-  }
   "max_lease_ttl": "720h"
 }
