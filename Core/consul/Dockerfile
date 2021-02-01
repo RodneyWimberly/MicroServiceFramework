@@ -28,4 +28,4 @@ COPY ./consul-agent-ca.pem usr/local/share/ca-certificates/consul-agent-ca.pem
 RUN chmod 755 /usr/local/scripts/*.sh
 
 ENTRYPOINT ["/usr/local/scripts/consul-entrypoint.sh"]
-CMD [ "agent -join consul.service.consul" ]
+CMD [ "agent", "-join", "consul.service.consul" ]
