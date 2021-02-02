@@ -95,6 +95,9 @@ services:
     init: true
     env_file:
       - ./shared/scripts/core.env
+    ports:
+      - 5000:80
+      - 5001:443
     networks:
       - admin_network
     dns:
