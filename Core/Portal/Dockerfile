@@ -1,4 +1,4 @@
-FROM nginxinc/docker-nginx
+FROM alpine
 
 # Label the image
 LABEL Author rodneywimberly
@@ -6,17 +6,17 @@ LABEL Name portal
 
 # Install updates, nginx, and common tools
 RUN set -x && \
-    apt-get update && \
-    apt-get -y --no-install-recommends --no-install-suggests install \
+    apk update && \
+    apk add --no-cache \
         curl \
-        dnsutils \
+        bind-tools \
         unzip \
         jq \
         ca-certificates \
         procps \
         less \
         vim \
-        gettext
+        nginx
 
 # Set Environment Vars
 ENV CONSUL_VERSION 1.9.1
