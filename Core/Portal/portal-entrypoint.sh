@@ -3,9 +3,7 @@
 set -e
 
 # Make our stuff available
-cd "${CORE_SCRIPT_DIR}"
-ls
-source common-functions.sh
+. common-functions.sh
 add_path "${CORE_SCRIPT_DIR}"
 
 export CONSUL_IP=$(get_ip_from_name "consul.service.consul")

@@ -7,9 +7,9 @@ set +e
 
 # Get Docker/Node/Hosting information from the Docker API for use in configuration
 hosting_details
-export VAULT_ADDR="http://127.0.0.1:8200"
-export VAULT_API_ADDR="http://127.0.0.1:8200"
-export VAULT_CLUSTER_ADDR="https://127.0.0.1:8201"
+export VAULT_ADDR="http://${ETH0_IP}:8200"
+export VAULT_API_ADDR="http://${ETH0_IP}:8200"
+export VAULT_CLUSTER_ADDR="https://${ETH0_IP}:8201"
 log "-----------------------------------------------------------"
 log "- Vault Details"
 log "-----------------------------------------------------------"
@@ -21,5 +21,4 @@ log ""
 log_detail "merging expanded variables with configuration templates and placing in the config folder"
 cat /vault/templates/vault.json | envsubst > /vault/config/vault.json
 
-#docker-entrypoint.sh "$@"
-vault server -config=/vault/config
+docker-entrypoint.sh vault server -config=/vault/config
