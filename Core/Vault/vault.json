@@ -4,6 +4,7 @@
   "cluster_addr": "https://${ETH0_IP}:8201",
   "default_lease_ttl": "168h",
   "max_lease_ttl": "720h",
+  "log_level": "debug",
   "storage": {
     "consul": {
       "address": "consul.service.consul:8500",
@@ -19,7 +20,7 @@
     "tcp": {
       "address": "0.0.0.0:8200",
       "cluster_address": "0.0.0.0:8201",
-      "tls_disable": "true",
+      "tls_disable": "false",
       "tls_require_and_verify_client_cert": "true",
       "tls_key_file": "${VAULT_CERT_DIR}/docker-server-consul-0-key.pem",
       "tls_cert_file": "${VAULT_CERT_DIR}/docker-server-consul-0.pem",
