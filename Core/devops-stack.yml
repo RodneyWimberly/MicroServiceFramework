@@ -51,7 +51,7 @@ services:
       placement:
         constraints: [node.platform.os == linux]
 
-   proxy:
+  proxy:
     image: serjs/go-socks5-proxy
     init: true
     ports:
