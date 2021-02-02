@@ -9,6 +9,7 @@ export CONSUL_IP=$(get_ip_from_name "consul.service.consul")
 export CONSUL_HTTP_ADDR=http://${CONSUL_IP}:8500
 
 log_detail "merging expanded variables and updating configuration based on Consul cluster deployment"
+# get_consul_kv config/dns | envsubst > /etc/templates/1.consul-template.conf
 cat /etc/templates/1.consul.conf | envsubst > /etc/templates/1.consul-template.conf
 run_consul_template /etc/templates/1.consul-template.conf 1.consul.conf /etc/dnsmasq/1.consul.conf "consul lock -http-addr=${CONSUL_HTTP_ADDR} -name=service/dnsmasq -shell=false restart killall dnsmasq"
 
