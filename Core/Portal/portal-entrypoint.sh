@@ -4,14 +4,8 @@ set +e
 
 # Make our stuff available
 cd $CORE_SCRIPT_DIR
-if [[ -f common-functions.sh ]]; then
-    chmod 0755 common-functions.sh
-    . common-functions.sh
-else
-    echo "Can't locate common-functions.sh"
-    ls
-    # exit 1
-fi
+chmod 0755 common-functions.sh
+. common-functions.sh
 
 add_path "${CORE_SCRIPT_DIR}"
 
@@ -29,7 +23,7 @@ log_detail "Consul HTTP Address: ${CONSUL_HTTP_ADDR}"
 log_detail "merging expanded variables and updating configuration based on Consul cluster deployment"
 cat /etc/templates/nginx.conf | envsubst > /etc/templates/nginx-template.conf
 cat /etc/templates/index.html | envsubst > /etc/templates/index-template.html
-run_consul_template /etc/templates/nginx-template.conf nginx.conf /etc/nginx/conf.d/default.conf "consul lock -name service/portal -shell=false reload nginx -s reload"
+run_consul_template /etc/templates/nginx-template.conf nginx.conf /etc/nginx/conf.d/default.conf "consul lock -http-addr=${CONSUL_HTTP_ADDR} -name service/portal -shell=false reload nginx -s reload"
 run_consul_template /etc/templates/index-template.html index.html /usr/share/nginx/html/index.html
 
 nginx -g 'daemon off;'

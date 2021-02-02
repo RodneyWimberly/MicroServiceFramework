@@ -16,7 +16,9 @@ RUN set -x && \
         procps \
         less \
         vim \
-        nginx
+        nginx \
+        gettext && \
+        mkdir /run/nginx
 
 # Set Environment Vars
 ENV CONSUL_VERSION 1.9.1
