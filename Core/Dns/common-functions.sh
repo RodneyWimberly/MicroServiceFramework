@@ -8,6 +8,21 @@ elif [[ -f /tmp/consul/scripts/core.env ]]; then
   source /tmp/consul/scripts/core.env
 fi
 
+#################################################################################
+function expand_config_file_from() {
+  set +e
+  log "Processing ${CONSUL_TEMPLATES_DIR}/$1 with variable expansion to ${CONSUL_CONFIG_DIR}/$1"
+  rm -f "${CONSUL_CONFIG_DIR}/$1"
+  cat "${CONSUL_TEMPLATES_DIR}/$1" | envsubst > "${CONSUL_CONFIG_DIR}/$1"
+  set -e
+}
+
+function add_path() {
+  export PATH=$1:${PATH}
+  log "PATH has been updated to ${PATH} "
+}
+
+#################################################################################
 function get_ip_from_adapter() {
   ip -o -4 addr list $1 | head -n1 | awk '{print $4}' | cut -d/ -f1
 }
@@ -68,6 +83,18 @@ function hosting_details() {
   show_hosting_details
 }
 
+
+function docker_api() {
+  docker_api_url="http://localhost/${1}"
+  docker_api_method="${2}"
+  if [[ -z "${docker_api_method}" ]]; then
+    docker_api_method="GET"
+  fi
+
+  curl -sS --connect-timeout 180 --unix-socket /var/run/docker.sock -X "${docker_api_method}" "${docker_api_url}"
+}
+
+#################################################################################
 # G.et J.SON V.alue
 function gjv() {
   if [[ -f "$2" ]]; then
@@ -86,21 +113,7 @@ function sjv() {
   fi
 }
 
-function add_path() {
-  export PATH=$1:${PATH}
-  log "PATH has been updated to ${PATH} "
-}
-
-function docker_api() {
-  docker_api_url="http://localhost/${1}"
-  docker_api_method="${2}"
-  if [[ -z "${docker_api_method}" ]]; then
-    docker_api_method="GET"
-  fi
-
-  curl -sS --connect-timeout 180 --unix-socket /var/run/docker.sock -X "${docker_api_method}" "${docker_api_url}"
-}
-
+#################################################################################
 function log() {
   log_raw "[INF] $1"
 }
@@ -121,14 +134,7 @@ function log_raw() {
   echo "$(date +"%T"): $1"
 }
 
-function expand_config_file_from() {
-  set +e
-  log "Processing ${CONSUL_TEMPLATES_DIR}/$1 with variable expansion to ${CONSUL_CONFIG_DIR}/$1"
-  rm -f "${CONSUL_CONFIG_DIR}/$1"
-  cat "${CONSUL_TEMPLATES_DIR}/$1" | envsubst > "${CONSUL_CONFIG_DIR}/$1"
-  set -e
-}
-
+#################################################################################
 function get_consul_service_health() {
   curl http://consul.service.consul:8500/v1/agent/health/service/name/$1?format=text
 }
@@ -195,38 +201,12 @@ function run_consul_template() {
   fi
 }
 
-function download_consul_template() {
-  log "Installing Consul-Template"
-  curl -Lo /tmp/consul_template_0.15.0_linux_amd64.zip ${CONSUL_URL}/consul-template/${CONSUL_TEMPLATE_VERSION}/consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.zip && \
-    unzip /tmp/consul_template_0.15.0_linux_amd64.zip && \
-    mv consul-template /bin && \
-    rm /tmp/consul_template_0.15.0_linux_amd64.zip
+#################################################################################
+# These functions only work for tasks/services deployed to this node (not other nodes in the SWARM, use SSH)
+function exec_service() {
+  docker exec $(docker ps -q -f name=$1) $2
 }
 
-function download_consul() {
-  log "Installing Consul-Template"
-  curl --remote-name ${CONSUL_URL}/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip && \
-  curl --remote-name ${CONSUL_URL}/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_SHA256SUMS && \
-  curl --remote-name ${CONSUL_URL}/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_SHA256SUMS.sig && \
-  unzip consul_${CONSUL_VERSION}_linux_amd64.zip && \
-  mv consul /usr/bin/ && \
-  rm /consul_${CONSUL_VERSION}_linux_amd64.zip && \
-  rm /consul_${CONSUL_VERSION}_SHA256SUMS && \
-  rm consul_${CONSUL_VERSION}_SHA256SUMS.sig && \
-  # tiny smoke test to ensure the binary we downloaded runs
-  consul version
-}
-
-function download_required_packages() {
-  # Update existing packages
-  apk update
-
-  # Add required packages
-  apk add --no-cache \
-    curl \
-    jq \
-    iputils \
-    iproute2 \
-    bind-tools \
-    gettext
+function service_shell() {
+  docker exec -it $(docker ps -q -f name=$1) /bin/sh
 }

@@ -3,7 +3,7 @@
 set +e
 
 # Make our stuff available
-
+cd $CORE_SCRIPT_DIR
 if [[ -f common-functions.sh ]]; then
     chmod 0755 common-functions.sh
     . common-functions.sh
@@ -32,4 +32,4 @@ cat /etc/templates/index.html | envsubst > /etc/templates/index-template.html
 run_consul_template /etc/templates/nginx-template.conf nginx.conf /etc/nginx/conf.d/default.conf "consul lock -name service/portal -shell=false reload nginx -s reload"
 run_consul_template /etc/templates/index-template.html index.html /usr/share/nginx/html/index.html
 
-nginx "$@"
+nginx -g 'daemon off;'

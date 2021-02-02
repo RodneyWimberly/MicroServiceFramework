@@ -15,7 +15,7 @@ networks:
 
 services:
   consul:
-    image: rodneywimberly/consul:dev
+    image: microserviceframework/consul:dev
     command: agent -join consul.service.consul
     init: true
     volumes:
@@ -32,7 +32,7 @@ services:
       mode: global
 
   dns:
-    image: rodneywimberly/dns:dev
+    image: microserviceframework/dns:dev
     init: true
     depends_on:
      - consul
@@ -73,7 +73,7 @@ services:
       - dns.service.consul
 
   vault:
-    image: rodneywimberly/vault:dev
+    image: microserviceframework/vault:dev
     init: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -92,7 +92,7 @@ services:
       mode: global
 
   portal:
-    image: rodneywimberly/portal:dev
+    image: microserviceframework/portal:dev
     init: true
     env_file:
       - ./shared/scripts/core.env
@@ -107,15 +107,3 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  socks:
-    image: serjs/go-socks5-proxy
-    init: true
-    ports:
-      - 1080:1080
-    networks:
-      - admin_network
-    dns:
-      - dns.service.consul
-    depends_on:
-      - dns
-      - consul

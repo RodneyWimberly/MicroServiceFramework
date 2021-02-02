@@ -54,4 +54,3 @@ COPY ./stylesheet.css /usr/share/nginx/html/stylesheet.css
 RUN chmod 755 /usr/local/scripts/*.sh
 
 ENTRYPOINT ["/usr/local/scripts/portal-entrypoint.sh"]
-CMD [ "-g", "'daemon off;'" ]

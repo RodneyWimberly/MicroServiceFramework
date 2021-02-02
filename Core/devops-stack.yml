@@ -1,8 +1,10 @@
 ###########################################################################################################
 # DevOps Stack
 # Portainer Web & Agent - Used to manage dev-ops stuff like Docker
+# SOCKS Proxy Server - Used to allow dev browser to act as if it is located and routed within the cluster
 ###########################################################################################################
 # External Ports
+# 1080:ingress/tcp      = proxy - SOCKS 4/5 Proxy Server
 # 9000:ingress/tcp      = web - HTTP UI
 # 9001:host/tcp:udp     = agent - HTTP REST
 
@@ -49,3 +51,15 @@ services:
       placement:
         constraints: [node.platform.os == linux]
 
+   proxy:
+    image: serjs/go-socks5-proxy
+    init: true
+    ports:
+      - 1080:1080
+    networks:
+      - admin_network
+    dns:
+      - dns.service.consul
+    depends_on:
+      - dns
+      - consul
