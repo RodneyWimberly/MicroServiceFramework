@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginxinc/docker-nginx
 
 # Label the image
 LABEL Author rodneywimberly
