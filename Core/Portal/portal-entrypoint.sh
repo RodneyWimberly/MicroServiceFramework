@@ -23,7 +23,7 @@ log_detail "Consul HTTP Address: ${CONSUL_HTTP_ADDR}"
 log_detail "merging expanded variables and updating configuration based on Consul cluster deployment"
 # cat /etc/templates/nginx.conf | envsubst > /etc/templates/nginx-template.conf
 # cat /etc/templates/index.html | envsubst > /etc/templates/index-template.html
-run_consul_template /etc/templates/nginx-template.conf nginx.conf /etc/nginx/conf.d/default.conf "consul lock -http-addr=${CONSUL_HTTP_ADDR} -name service/portal -shell=false reload nginx -s reload"
-run_consul_template /etc/templates/index-template.html index.html /usr/share/nginx/html/index.html
+run_consul_template /etc/templates/nginx.conf nginx.conf /etc/nginx/conf.d/default.conf "consul lock -http-addr=${CONSUL_HTTP_ADDR} -name service/portal -shell=false reload nginx -s reload"
+run_consul_template /etc/templates/index.html index.html /usr/share/nginx/html/index.html
 
 nginx -g 'daemon off;'

@@ -184,6 +184,23 @@ function mark_consul_service_maintance() {
     http://consul.service.consul:8500/v1/agent/service/maintenance/$1?enable=$2&reason=$3
 }
 
+function get_consul_kv() {
+  curl http://consul.service.consul:8500/v1/kv/%1
+}
+
+function put_consul_kv() {
+  curl \
+      --request PUT \
+      --data @$2 \
+      http://consul.service.consul:8500/v1/kv/$1
+}
+
+function delete_consul_kv() {
+  curl \
+      --request DELETE \
+      http://consul.service.consul:8500/v1/kv/%1
+}
+
 function run_consul_template() {
   # $1 is the source file
   # $2 is the template file name

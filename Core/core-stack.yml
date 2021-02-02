@@ -23,6 +23,8 @@ services:
       - consul_data:/consul/data
     env_file:
       - ./shared/scripts/core.env
+    ports:
+      - 8500:8500
     networks:
       admin_network:
         aliases:
@@ -80,6 +82,8 @@ services:
       - ./shared/scripts/core.env
     cap_add:
       - IPC_LOCK
+    ports:
+      - 8200:8200
     networks:
       - admin_network
     dns:
