@@ -36,7 +36,6 @@ services:
     init: true
     depends_on:
      - consul
-    init: true
     env_file:
       - ./shared/scripts/core.env
     volumes:
