@@ -21,4 +21,5 @@ log ""
 log_detail "merging expanded variables with configuration templates and placing in the config folder"
 cat /vault/templates/vault.json | envsubst > /vault/config/vault.json
 
-docker-entrypoint.sh "$@"
+#docker-entrypoint.sh "$@"
+vault server -config=/vault/config

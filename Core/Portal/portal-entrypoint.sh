@@ -3,6 +3,8 @@
 set -e
 
 # Make our stuff available
+cd "${CORE_SCRIPT_DIR}"
+ls
 source common-functions.sh
 add_path "${CORE_SCRIPT_DIR}"
 
