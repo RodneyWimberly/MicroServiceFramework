@@ -1,9 +1,18 @@
 #!/bin/sh
 
-set -e
+set +e
 
 # Make our stuff available
-. common-functions.sh
+
+if [[ -f common-functions.sh ]]; then
+    chmod 0755 common-functions.sh
+    . common-functions.sh
+else
+    echo "Can't locate common-functions.sh"
+    ls
+    # exit 1
+fi
+
 add_path "${CORE_SCRIPT_DIR}"
 
 export CONSUL_IP=$(get_ip_from_name "consul.service.consul")
