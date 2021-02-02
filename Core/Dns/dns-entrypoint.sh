@@ -20,4 +20,4 @@ log "-----------------------------------------------------------"
 log_detail "${CONSUL_DOMAIN} domain downstream DNS: ${CONSUL_IP}"
 log_detail "Consul HTTP Address: ${CONSUL_HTTP_ADDR}"
 
-dnsmasq "$@" --server=/consul/${CONSUL_IP}#8600
+dnsmasq --no-daemon --log-queries --server=/consul/${CONSUL_IP}#8600
