@@ -106,3 +106,16 @@ services:
       - vault
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  socks:
+    image: serjs/go-socks5-proxy
+    init: true
+    ports:
+      - 1080:1080
+    networks:
+      - admin_network
+    dns:
+      - dns.service.consul
+    depends_on:
+      - dns
+      - consul
