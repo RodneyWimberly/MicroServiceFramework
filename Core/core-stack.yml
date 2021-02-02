@@ -75,6 +75,7 @@ services:
   vault:
     image: rodneywimberly/vault:dev
     init: true
+    command: server -dev
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     env_file:
