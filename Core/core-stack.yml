@@ -87,6 +87,7 @@ services:
       - IPC_LOCK
     ports:
       - 8200:8200
+      - 8201:8201
     networks:
       - admin_network
     dns:

@@ -20,8 +20,8 @@
     "tcp": {
       "address": "0.0.0.0:8200",
       "cluster_address": "0.0.0.0:8201",
-      "tls_disable": "false",
-      "tls_require_and_verify_client_cert": "true",
+      "tls_disable": "true",
+      "tls_require_and_verify_client_cert": "false",
       "tls_key_file": "${VAULT_CERT_DIR}/docker-server-consul-0-key.pem",
       "tls_cert_file": "${VAULT_CERT_DIR}/docker-server-consul-0.pem",
       "tls_client_ca_file": "${VAULT_CERT_DIR}/consul-agent-ca.pem",
