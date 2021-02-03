@@ -1,14 +1,13 @@
 #!/bin/sh
 
-source ./core.env
-source ./logging-functions.sh
-source ./hosting-functions.sh
-source ./consul-functions.sh
-
+source ~/msf/core/shared/scripts/core.env
+source ~/msf/core/shared/scripts/logging-functions.sh
+source ~/msf/core/shared/scripts/hosting-functions.sh
+source ~/msf/core/shared/scripts/consul-functions.sh
 
 function cd_admin ()
 {
-    cd "${HOME}"/msf/core/shared/admin
+    cd ~/msf/core/shared/admin
 }
 
 function deploy_stack() {
