@@ -2,7 +2,7 @@ touch ~/clone-repo-and-deploy-stack.sh && \
 rm ~/clone-repo-and-deploy-stack.sh && \
 touch ~/clone-repo-and-deploy-stack.sh && \
 cat > ~/clone-repo-and-deploy-stack.sh <<EOL
-rm -rf /msf
+rm -rf ~/msf
 git clone -b DeployCore \
     https://rodneywimberly:30c18052b85cb37658846d156d9f50eb1bf773c2@github.com/RodneyWimberly/MicroServiceFramework.git \
     ~/msf

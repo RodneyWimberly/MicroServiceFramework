@@ -1,9 +1,9 @@
 #!/bin/sh
 
-source ~/msf/core/shared/scripts/core.env
-source ~/msf/core/shared/scripts/logging-functions.sh
-source ~/msf/core/shared/scripts/hosting-functions.sh
-source ~/msf/core/shared/scripts/consul-functions.sh
+source ~/msf/Core/shared/scripts/core.env
+source ~/msf/Core/shared/scripts/logging-functions.sh
+source ~/msf/Core/shared/scripts/hosting-functions.sh
+source ~/msf/Core/shared/scripts/consul-functions.sh
 
 function cd_admin ()
 {
