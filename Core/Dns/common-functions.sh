@@ -31,6 +31,14 @@ function hostip() {
   ip -o ro get $(ip ro | awk '$1 == "default" { print $3 }') | awk '{print $5}'
 }
 
+function get_consul_ip() {
+  CONSUL_IP=
+  while [[ -z "${CONSUL_IP}" ]]; do
+    CONSUL_IP=$(get_ip_from_name "consul.service.consul")
+  done
+  echo "${CONSUL_IP}"
+}
+
 function get_ip_from_name() {
   dig +short $1 | tail -n1
 }
