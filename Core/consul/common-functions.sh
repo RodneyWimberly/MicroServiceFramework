@@ -1,9 +1,9 @@
 #!/bin/sh
 
-source ./core.env
-source ./logging-functions.sh
-source ./hosting-functions.sh
-source ./consul-functions.sh
+source /usr/local/scripts/core.env
+source /usr/local/scripts/logging-functions.sh
+source /usr/local/scripts/hosting-functions.sh
+source /usr/local/scripts/consul-functions.sh
 
 function add_path() {
   export PATH=$1:${PATH}
