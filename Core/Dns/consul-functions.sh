@@ -105,9 +105,9 @@ function run_consul_template() {
   fi
   cp $1 $template_dir/$2
   if [ -z "$4" ]; then
-    /bin/sh -c "sleep 30;nohup consul-template -template=$template_dir/$2:$3 -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
+    /bin/sh -c "sleep 30;nohup consul-template -consul-addr=consul.service.consul:8500 --vault-addr=http://vault.service.consul:8200 -template=$template_dir/$2:$3 -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
   else
-    /bin/sh -c "nohup consul-template -template=$template_dir/$2:$3:'$4' -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
+    /bin/sh -c "nohup consul-template -consul-addr=consul.service.consul:8500 --vault-addr=http://vault.service.consul:8200 -template=$template_dir/$2:$3:'$4' -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
   fi
 }
 
