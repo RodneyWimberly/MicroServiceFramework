@@ -4,21 +4,8 @@
 set -e
 
 source ../scripts/core.env
-source ../scripts/common-functions.sh
+source ../scripts/admin-functions.sh
 
-function deploy_stack() {
-  log_detail "Deploying $1 Stack to Swarm"
-  docker stack deploy --compose-file=../../"$1"-stack.yml "$1"
-}
-
-function create_network() {
-  log_detail "Creating attachable overlay network '$1'"
-  if [[ -z "$2" ]]; then
-    docker network create --driver=overlay --attachable $1
-  else
-    docker network create --driver=overlay --attachable --subnet=$2 $1
-  fi
-}
 
 log "*** >=>=>=>  Stack Deployment  <=<=<=< ***"
 

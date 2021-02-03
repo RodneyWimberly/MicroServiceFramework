@@ -18,7 +18,7 @@ volumes:
   web_volume:
 
 services:
-  web:
+  portainer:
     image: portainer/portainer
     volumes:
       - web_volume:/data
@@ -32,7 +32,7 @@ services:
       placement:
         constraints: [node.platform.os == linux]
 
-  agent:
+  portainer-agent:
     image: portainer/agent
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -51,7 +51,7 @@ services:
       placement:
         constraints: [node.platform.os == linux]
 
-  proxy:
+  socks-proxy:
     image: serjs/go-socks5-proxy
     init: true
     ports:
