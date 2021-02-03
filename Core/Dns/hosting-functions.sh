@@ -1,11 +1,13 @@
 #!/bin/sh
 
 if [[ -d ~/msf ]]; then
-  SCRIPTS_DIR=~/msf/Core/shared/scripts
+  SCRIPT_DIR=~/msf/Core/shared/scripts
+elif [[ -d /mnt/d/em ]]; then
+  SCRIPT_DIR=/mnt/d/em/Core/shared/scripts
 else
-  SCRIPTS_DIR=/usr/local/scripts
+  SCRIPT_DIR=/usr/local/scripts
 fi
-source $SCRIPTS_DIR/core.env
+source "${SCRIPT_DIR}"/core.env
 
 function get_ip_from_adapter() {
   ip -o -4 addr list $1 | head -n1 | awk '{print $4}' | cut -d/ -f1
