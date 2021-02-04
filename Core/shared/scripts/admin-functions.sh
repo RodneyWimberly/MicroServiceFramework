@@ -13,6 +13,11 @@ source "${SCRIPT_DIR}"/logging-functions.sh
 source "${SCRIPT_DIR}"/hosting-functions.sh
 source "${SCRIPT_DIR}"/consul-functions.sh
 
+function curl_api() {
+  curl --socks5-hostname localhost:1080
+  "$@"
+}
+
 function build_and_deploy_image() {
   if [[ -z $2 ]]; then
     image_tag=dev
@@ -21,8 +26,11 @@ function build_and_deploy_image() {
   fi
   image_owner=microserviceframework
   cd ./$1
+  log_detail "Building image $image_owner/$1"
   docker build -t $image_owner/$1 .
+  log_detail "Adding tag $image_owner/$1:$image_tag to image $image_owner/$1"
   docker tag $image_owner/$1 $image_owner/$1:$image_tag
+  log_detail "Pushing image $image_owner/$1:$image_tag"
   docker push $image_owner/$1:$image_tag
   cd ..
 }
