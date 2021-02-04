@@ -7,8 +7,8 @@ set -e
 source ../scripts/core.env
 source ../scripts/admin-functions.sh
 
-DOCKER_USER=rodneywimberly
-DOCKER_PASSWORD=Mich$11$!
+DOCKER_USER="rodneywimberly"
+DOCKER_PASSWORD="P@55w0rd"
 
 echo Building and Deploying Docker Images
 
