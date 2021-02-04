@@ -27,6 +27,7 @@ log_detail "merging expanded variables and updating configuration based on Consu
 # cat /etc/templates/index.html | envsubst > /etc/templates/index-template.html
 run_consul_template /etc/templates/nginx.conf nginx.conf /etc/ngnix/conf.d/default.conf "consul lock -http-addr=http://consul.service.consul:8500 -name service/portal -shell=false reload nginx -s reload"
 run_consul_template /etc/templates/index.html index.html /usr/share/nginx/html/index.html
-
+cat /etc/ngnix/conf.d/default.conf
+mkdir -p /run/nginx
 nginx -g 'daemon off;'
 keep_container_alive
