@@ -1,0 +1,7 @@
+services:
+  hello:
+    build:
+      context: D:\em\Core\hello
+      dockerfile: Dockerfile
+    image: hello
+version: '3.4'

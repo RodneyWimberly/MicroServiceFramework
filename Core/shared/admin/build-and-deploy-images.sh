@@ -1,19 +1,16 @@
 #!/bin/bash
 
-cd ~/msf/Core/shared/admin
+cd /mnt/d/em/Core
 
 set -e
 
-source ../scripts/core.env
-source ../scripts/admin-functions.sh
+source /mnt/d/em/Core/shared/scripts/core.env
+source /mnt/d/em/Core/shared/scripts/admin-functions.sh
 
-DOCKER_USER="rodneywimberly"
-DOCKER_PASSWORD="P@55w0rd"
+log "Building and Deploying Docker Images"
 
-echo Building and Deploying Docker Images
-
-log "Logging in to Docker hub"
-docker login --username="${DOCKER_USER}" --password="${DOCKER_PASSWORD}"
+log_detail "Logging in to Docker hub"
+docker login
 
 build_and_deploy_image "consul"
 build_and_deploy_image "dns"
