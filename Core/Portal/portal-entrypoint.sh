@@ -29,4 +29,4 @@ run_consul_template /etc/templates/nginx.conf nginx.conf /etc/ngnix/conf.d/defau
 run_consul_template /etc/templates/index.html index.html /usr/share/nginx/html/index.html
 
 nginx -g 'daemon off;'
-keep-container-alive
+keep_container_alive
