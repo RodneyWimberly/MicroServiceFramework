@@ -10,7 +10,7 @@ function add_path() {
   log "PATH has been updated to ${PATH} "
 }
 
-function keep-container-alive() {
+function keep_container_alive() {
   exec sh -c 'while true ;do wait ;done'
 }
 
