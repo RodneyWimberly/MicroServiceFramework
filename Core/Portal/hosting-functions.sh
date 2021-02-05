@@ -29,7 +29,7 @@ function get_consul_ip() {
 }
 
 function get_ip_from_name() {
-  dig +short $1 | tail -n1
+  dig @dns.consul.service +short $1 | tail -n1
 }
 
 function show_hosting_details() {
