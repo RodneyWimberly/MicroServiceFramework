@@ -4,6 +4,13 @@ function log() {
   log_raw "[INF] $1"
 }
 
+function log_header() {
+  echo " "
+  log_raw "[HDR] -----------------------------------------------------------"
+  log_raw "[HDR] - $1"
+  log_raw "[HDR] -----------------------------------------------------------"
+}
+
 function log_detail() {
   log_raw "[DTL]  ====> $1"
 }

@@ -41,14 +41,14 @@ fi
 # --------------------------------------------------------------------------------------
 # look for dependencies
 
-if ! which docker-node-ps > /dev/null ; then
-    echo "dependency 'docker-node-ps' not found in PATH. exiting."
+if ! which docker-node-ps.sh > /dev/null ; then
+    echo "dependency 'docker-node-ps.sh' not found in PATH. exiting."
     exit 1
 fi
 
 # --------------------------------------------------------------------------------------
 
-if PAIR=$(docker-node-ps $SERVICE) ; then
+if PAIR=$(docker-node-ps.sh $SERVICE) ; then
   NODE=${PAIR%%:*}
   CONTAINER=${PAIR#*:}
 else

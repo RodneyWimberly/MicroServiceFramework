@@ -29,8 +29,8 @@ docker stack rm "${CORE_STACK_NAME}" ${LOGGING_STACK_NAME} ${UI_STACK_NAME}
 log_detail "Waiting 1 seconds for item deletion finalizes"
 sleep 1
 
-create_network admin_network
-# create_network admin_network ${CORE_SUBNET}
+#create_network admin_network
+create_network admin_network ${CORE_SUBNET}
 # create_network api_network
 # create_network log_network
 set -e

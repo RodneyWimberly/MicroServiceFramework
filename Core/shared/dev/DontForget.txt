@@ -40,3 +40,35 @@ where:
 <command> command to execute (e.g. curl)
 <arguments>... zero or more arguments to pass to the command (e.g., http://example.com/file)
 Note: it is possible to use the swarm-exec script directly, if python3 and the docker Python SDK are installed, and the lib directory is included in the Python module path. The container packaging is easier to use in most cases.
+
+--------------------------------------------------------------------------------
+Your identification has been saved in /home/rodney/.ssh/id_rsa
+Your public key has been saved in /home/rodney/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:13iMuk12Ook7lNd0RVvHiKPs1cKEDrokPXEHbw3Qh8E rodney@RodneyLaptop
+The key's randomart image is:
++--[ED25519 256]--+
+|        o=o+ . ++|
+|      . o.Eo= . *|
+|     . + =o=.o o |
+|    . =  .+== o  |
+|     o oSo+++o   |
+|      . ooo..    |
+|       ..oo..    |
+|        o=oo     |
+|        ooo.     |
++----[SHA256]-----+
+
+SHA256:Xhac7sjJ0xsfixkLjpMxd+8RSxjCVFlTQpqOyGjnRXk rodney@RodneyLaptop
+The key's randomart image is:
++--[ED25519 256]--+
+|        ...+=..  |
+|       o o.+ o   |
+|        = E      |
+|     o o * +     |
+|    o + S * o    |
+|   . oo=.B.. o   |
+|      .=O.=.+    |
+|      oo o O.+   |
+|      ... =.+    |
++----[SHA256]-----+
