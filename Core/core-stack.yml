@@ -36,7 +36,7 @@ services:
       endpoint_mode: dnsrr
       mode: global
 
-  dns:
+  dns1: &dns-template
     image: microserviceframework/dns:dev
     init: true
     depends_on:
@@ -49,14 +49,13 @@ services:
       - NET_ADMIN
     networks:
       admin_network:
-        aliases:
-          - dns.service.consul
-    deploy:
-      replicas: 2
-      update_config:
-        parallelism: 1
-        delay: 1s
-        order: stop-first
+        ipv4_address: 192.168.100.2
+
+  dns2:
+    <<: *dns-template
+    networks:
+      admin_network:
+        ipv4_address: 192.168.100.3
 
   registrator:
     image: gliderlabs/registrator:latest
@@ -74,7 +73,8 @@ services:
     deploy:
       mode: global
     dns:
-      - dns.service.consul
+      - 192.168.100.2
+      - 192.168.100.3
 
   vault:
     image: microserviceframework/vault:dev
@@ -87,11 +87,11 @@ services:
       - IPC_LOCK
     ports:
       - 8200:8200
-      - 8201:8201
     networks:
       - admin_network
     dns:
-      - dns.service.consul
+      - 192.168.100.2
+      - 192.168.100.3
     depends_on:
       - consul
       - dns
@@ -105,11 +105,11 @@ services:
       - ./shared/scripts/core.env
     ports:
       - 5000:80
-      - 5001:443
     networks:
       - admin_network
     dns:
-      - dns.service.consul
+      - 192.168.100.2
+      - 192.168.100.3
     depends_on:
       - consul
       - dns

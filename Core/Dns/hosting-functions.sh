@@ -18,14 +18,18 @@ function hostip() {
 }
 
 function get_consul_ip() {
+  log "Looking up IP address for consul.service.consul"
   CONSUL_IP=
   while [[ -z "${CONSUL_IP}" ]]; do
-    sleep 1
-    log_detail "Looking up IP address for consul.service.consul"
     CONSUL_IP=$(get_ip_from_name "consul.service.consul")
+    if [[ -z "${CONSUL_IP}" ]]; then
+      log_warn "Unable to locate consul.service.consul, retrying in 1 second."
+      sleep 1
+    fi
   done
   export CONSUL_IP
   export CONSUL_HTTP_ADDR=http://${CONSUL_IP}:8500
+  log_header "Consul Details"
   log_detail "Consul IP: ${CONSUL_IP}"
   log_detail "Consul HTTP Addr: ${CONSUL_HTTP_ADDR}"
 }
@@ -35,30 +39,21 @@ function get_ip_from_name() {
 }
 
 function show_hosting_details() {
-  log "-----------------------------------------------------------"
-  log "- Swarm Details"
-  log "-----------------------------------------------------------"
+  log_header "Swarm Details"
   log_detail "Node Id: ${NODE_ID}"
   log_detail "Node Name: ${NODE_NAME}"
   log_detail "Node Address: ${NODE_IP}"
   log_detail "Manager Node: ${NODE_IS_MANAGER}"
   log_detail "Manager Node Count: ${NUM_OF_MGR_NODES}"
-  log ""
-  log "-----------------------------------------------------------"
-  log "- Container Details"
-  log "-----------------------------------------------------------"
+  log_header "Container Details"
   log_detail "Container Name: ${CONTAINER_NAME}"
   log_detail "Container Address: ${CONTAINER_IP}"
-  log ""
-  log "-----------------------------------------------------------"
-  log "- Network Details"
-  log "-----------------------------------------------------------"
+  log_header "Network Details"
   log_detail "eth0 Address: ${ETH0_IP}"
   log_detail "eth1 Address: ${ETH1_IP}"
   log_detail "eth2 Address: ${ETH2_IP}"
   log_detail "eth3 Address: ${ETH3_IP}"
   log_detail "eth4 Address: ${ETH4_IP}"
-  log ""
 }
 
 function get_hosting_details() {

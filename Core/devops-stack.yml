@@ -18,7 +18,7 @@ volumes:
   web_volume:
 
 services:
-  portainer:
+  web:
     image: portainer/portainer
     volumes:
       - web_volume:/data
@@ -28,11 +28,14 @@ services:
       - 9000:9000
     networks:
      - admin_network
+    dns:
+      - 192.168.100.2
+      - 192.168.100.3
     deploy:
       placement:
         constraints: [node.platform.os == linux]
 
-  portainer-agent:
+  agent:
     image: portainer/agent
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -46,6 +49,9 @@ services:
       - ALL
     networks:
       - admin_network
+    dns:
+      - 192.168.100.2
+      - 192.168.100.3
     deploy:
       mode: global
       placement:
@@ -59,7 +65,8 @@ services:
     networks:
       - admin_network
     dns:
-      - dns.service.consul
+      - 192.168.100.2
+      - 192.168.100.3
     depends_on:
       - dns
       - consul
