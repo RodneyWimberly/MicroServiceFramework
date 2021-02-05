@@ -20,6 +20,8 @@ function hostip() {
 function get_consul_ip() {
   CONSUL_IP=
   while [[ -z "${CONSUL_IP}" ]]; do
+    sleep 1
+    log_detail "Looking up IP address for consul.service.consul"
     CONSUL_IP=$(get_ip_from_name "consul.service.consul")
   done
   export CONSUL_IP
@@ -29,7 +31,7 @@ function get_consul_ip() {
 }
 
 function get_ip_from_name() {
-  dig @tasks.core_dns +short $1 | tail -n1
+  dig +short $1 | tail -n1
 }
 
 function show_hosting_details() {
