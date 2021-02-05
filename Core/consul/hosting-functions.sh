@@ -23,6 +23,9 @@ function get_consul_ip() {
     CONSUL_IP=$(get_ip_from_name "consul.service.consul")
   done
   export CONSUL_IP
+  export CONSUL_HTTP_ADDR=http://${CONSUL_IP}:8500
+  log_detail "Consul IP: ${CONSUL_IP}"
+  log_detail "Consul HTTP Addr: ${CONSUL_HTTP_ADDR}"
 }
 
 function get_ip_from_name() {
