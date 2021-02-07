@@ -15,7 +15,7 @@ log_detail "Vault Address: ${VAULT_ADDR}"
 log_detail "Vault API Address: ${VAULT_API_ADDR}"
 log_detail "Vault Cluster Address: ${VAULT_CLUSTER_ADDR}"
 get_consul_ip
-update_dns_config
+# update_dns_config
 
 log_detail "merging expanded variables with configuration templates and placing in the config folder"
 cat /vault/templates/vault.json | envsubst > /vault/config/vault.json
