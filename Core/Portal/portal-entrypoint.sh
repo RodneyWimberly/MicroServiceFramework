@@ -10,7 +10,7 @@ add_path "${CORE_SCRIPT_DIR}"
 # Get Docker/Node/Hosting information from the Docker API for use in configuration
 hosting_details
 get_consul_ip
-update_dns_config
+# update_dns_config
 
 log_detail "merging expanded variables and updating configuration based on Consul cluster deployment"
 # Remove default configuration
