@@ -26,11 +26,17 @@ set +e
 log_detail "Removing the following stacks: ${CORE_STACK_NAME}, ${LOGGING_STACK_NAME}, and ${UI_STACK_NAME}"
 docker stack rm "${CORE_STACK_NAME}" ${LOGGING_STACK_NAME} ${UI_STACK_NAME}
 
-log_detail "Waiting 1 seconds for item deletion finalizes"
+log_detail "Waiting 1 seconds for stack deletion to finalize"
 sleep 1
 
-#create_network admin_network
-create_network admin_network ${CORE_SUBNET}
+log_detail "Removing the following volumes: ${CORE_STACK_NAME}_consul_data"
+docker volume rm "${CORE_STACK_NAME}"_consul_data
+
+log_detail "Waiting 5 seconds for volume deletion to finalize"
+sleep 5
+
+create_network admin_network
+#create_network admin_network ${CORE_SUBNET}
 # create_network api_network
 # create_network log_network
 set -e
