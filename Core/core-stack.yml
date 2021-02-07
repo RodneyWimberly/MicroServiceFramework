@@ -31,7 +31,7 @@ services:
       endpoint_mode: dnsrr
       mode: global
 
-  dns1: &dns-template
+  dns:
     image: microserviceframework/dns:dev
     init: true
     depends_on:
@@ -44,9 +44,8 @@ services:
       - NET_ADMIN
     networks:
       - admin_network
-
-  dns2:
-    <<: *dns-template
+    deploy:
+      replicas: 2
 
   registrator:
     image: gliderlabs/registrator:latest
@@ -76,6 +75,8 @@ services:
       - ./shared/scripts/core.env
     cap_add:
       - IPC_LOCK
+    ports:
+      - 8200:8200
     networks:
       - admin_network
     dns:
