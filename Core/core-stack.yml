@@ -59,7 +59,7 @@ services:
     depends_on:
        - consul
        - dns
-    command: -cleanup -internal admin_network consul://consul.service.consul:8500
+    command: -cleanup -internal consul://consul.service.consul:8500
     env_file:
       - ./shared/scripts/core.env
     volumes:
