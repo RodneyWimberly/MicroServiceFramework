@@ -30,6 +30,8 @@ function add_consul_service() {
         echo "$1" > "$service_file"
       fi
     )
+    log "Registering consul service"
+    cat "$service_file"
     curl \
     --request PUT \
     --data @"$service_file" \

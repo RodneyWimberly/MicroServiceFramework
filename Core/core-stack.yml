@@ -47,24 +47,24 @@ services:
     deploy:
       replicas: 2
 
-  registrator:
-    image: gliderlabs/registrator:latest
-    init: true
-    depends_on:
-       - consul
-       - dns
-    command: -cleanup -internal consul://consul.service.consul:8500
-    env_file:
-      - ./shared/scripts/core.env
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock
-    networks:
-      - admin_network
-    deploy:
-      mode: global
-    dns:
-      - tasks.core_dns1
-      - tasks.core_dns2
+  # registrator:
+  #   image: gliderlabs/registrator:latest
+  #   init: true
+  #   depends_on:
+  #      - consul
+  #      - dns
+  #   command: -cleanup -internal consul://consul.service.consul:8500
+  #   env_file:
+  #     - ./shared/scripts/core.env
+  #   volumes:
+  #     - /var/run/docker.sock:/tmp/docker.sock
+  #   networks:
+  #     - admin_network
+  #   deploy:
+  #     mode: global
+  #   dns:
+  #     - tasks.core_dns1
+  #     - tasks.core_dns2
 
   vault:
     image: microserviceframework/vault:dev

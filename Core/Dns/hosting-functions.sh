@@ -28,8 +28,7 @@ function update_dns_config() {
     fi
   done
   export DNS_IP
-  echo "nameserver ${DNS_IP}" > /etc/resolv.conf
-  echo "nameserver 127.0.0.1" >> /etc/resolv.conf
+  echo "nameserver ${DNS_IP}" >> /etc/resolv.conf
   log_header "DNS Details"
   log_detail "DNS IP: ${CONSUL_IP}"
 }

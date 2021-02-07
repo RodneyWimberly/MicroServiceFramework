@@ -11,6 +11,7 @@ add_path "${CORE_SCRIPT_DIR}"
 hosting_details
 get_consul_ip
 # update_dns_config
+add_consul_service '{"service": {"name": "portal", "tags": [], "port": 53}}'
 
 log_detail "merging expanded variables and updating configuration based on Consul cluster deployment"
 # Remove default configuration
