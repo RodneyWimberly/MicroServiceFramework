@@ -68,19 +68,27 @@
 	"buffers":
 	[
 		{
-			"file": "portal/nginx.conf",
+			"file": "shared/scripts/consul-functions.sh",
 			"settings":
 			{
-				"buffer_size": 3097,
+				"buffer_size": 3397,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shared/admin/clone-repo-and-deploy-stack.sh",
+			"settings":
+			{
+				"buffer_size": 806,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "portal/index.html",
+			"file": "portal/consul-functions.sh",
 			"settings":
 			{
-				"buffer_size": 3181,
+				"buffer_size": 3897,
 				"line_ending": "Unix"
 			}
 		}
@@ -267,33 +275,38 @@
 	"expanded_folders":
 	[
 		"/D/em/Core",
+		"/D/em/Core/dns",
 		"/D/em/Core/portal",
 		"/D/em/Core/shared",
 		"/D/em/Core/shared/admin",
-		"/D/em/Core/shared/dev",
 		"/D/em/Core/shared/scripts",
 		"/D/em/Core/vault"
 	],
 	"file_history":
 	[
-		"/D/em/Core/portal/nginx.conf",
-		"/D/em/Core/devops-stack.yml",
-		"/D/em/Core/vault/vault-entrypoint.sh",
-		"/D/em/Core/portal/portal-entrypoint.sh",
-		"/D/em/Core/core-stack.yml",
+		"/D/em/Core/shared/scripts/consul-functions.sh",
 		"/D/em/Core/shared/scripts/hosting-functions.sh",
 		"/D/em/Core/portal/Dockerfile",
-		"/D/em/Core/vault/Dockerfile",
+		"/D/em/Core/dns/Dockerfile",
+		"/D/em/Core/dns/dns-entrypoint.sh",
+		"/D/em/Core/dns/consul-service.json",
+		"/D/em/Core/portal/consul-service.json",
+		"/D/em/Core/portal/portal-entrypoint.sh",
+		"/D/em/Core/portal/consul-functions.sh",
 		"/D/em/Core/shared/admin/clone-repo-and-deploy-stack.sh",
+		"/D/em/Core/vault/vault-entrypoint.sh",
+		"/D/em/Core/core-stack.yml",
+		"/D/em/Core/dns/hosting-functions.sh",
+		"/D/em/Core/portal/nginx.conf",
 		"/D/em/Core/portal/index.html",
+		"/D/em/Core/devops-stack.yml",
+		"/D/em/Core/vault/Dockerfile",
 		"/D/em/Core/portal/test.conf",
 		"/D/Projects/EventManager/Api/Identity/nginx/nginx.conf",
 		"/D/em/_Core/Portal/root/etc/nginx/nginx.conf",
 		"/D/em/Core/shared/admin/cluster-deploy.sh",
 		"/D/em/Core/shared/admin/initialize-vault.sh",
 		"/D/em/Core/shared/admin/docker-node-ps.sh",
-		"/D/em/Core/shared/scripts/consul-functions.sh",
-		"/D/em/Core/dns/dns-entrypoint.sh",
 		"/D/em/Core/shared/dev/DontForget.txt",
 		"/D/em/Core/shared/scripts/logging-functions.sh",
 		"/D/em/Core/shared/admin/docker-service-exec.sh",
@@ -305,7 +318,6 @@
 		"/D/em/Core/shared/scripts/admin-functions.sh",
 		"/D/em/Core/shared/admin/add-links.sh",
 		"/D/em/Core/shared/admin/add-links.cmd",
-		"/D/em/Core/portal/consul-functions.sh",
 		"/D/em/Core/shared/admin/build-and-deploy-images.sh",
 		"/D/em/Core/shared/scripts/json-functions.sh",
 		"/D/em/Core/shared/documents/DontForget.txt",
@@ -313,7 +325,6 @@
 		"/D/em/Core/shared/admin/manager-ssh.cmd",
 		"/D/em/Core/shared/admin/build-images.cmd",
 		"/D/em/Core/consul/Dockerfile",
-		"/D/em/Core/dns/Dockerfile",
 		"/D/Containers/build-and-push-consul-bootstrapper.cmd",
 		"/D/em/Core/vault/common-functions.sh",
 		"/D/em/Core/consul/common-functions.sh",
@@ -400,14 +411,11 @@
 		"/D/Projects/consul/pwd/screen.txt",
 		"/D/Projects/consul/scripts/admin/build-and-push-docker-images.cmd",
 		"/D/Projects/consul/nfstest-stack.yml",
-		"/D/Projects/consul/scripts/admin/deploy-to-pwd.cmd",
-		"/D/Projects/consul/scripts/admin/curl-tests.txt",
-		"/D/Projects/consul/scripts/admin/screen.txt",
-		"/D/Projects/consul/scripts/admin/update-stack-worker.sh"
+		"/D/Projects/consul/scripts/admin/deploy-to-pwd.cmd"
 	],
 	"find":
 	{
-		"height": 43.0
+		"height": 30.0
 	},
 	"find_in_files":
 	{
@@ -483,24 +491,232 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "portal/nginx.conf",
+					"file": "shared/scripts/consul-functions.sh",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3097,
+						"buffer_size": 3397,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2431,
-								2431
+								329,
+								329
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"function_name_status_row": 13,
+							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "shared/admin/clone-repo-and-deploy-stack.sh",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 806,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								806
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"function_name_status_row": 0,
+							"syntax": "Packages/ShellScript/Bash.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "portal/consul-functions.sh",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 3897,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								698,
+								345
 							]
 						],
 						"settings":
@@ -512,8 +728,8 @@
 								{
 									"1":
 									[
-										2612,
-										2613
+										697,
+										698
 									]
 								},
 								"icon":
@@ -528,8 +744,8 @@
 								{
 									"1":
 									[
-										2394,
-										2395
+										375,
+										376
 									]
 								},
 								"unmatched":
@@ -543,187 +759,67 @@
 								"bh_unmatched_open",
 								"bh_unmatched_close",
 								"bh_unmatched_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
 								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
-								"bh_regex_content"
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
 							],
-							"function_name_status_row": 88,
-							"syntax": "Packages/nginx/Syntaxes/nginx.sublime-syntax",
+							"function_name_status_row": 14,
+							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1363.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "portal/index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3181,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1161,
-								1166
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										1166,
-										1167
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/double_quote.png",
-										"region.greenish"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										1159,
-										1160
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content"
-							],
-							"function_name_status_row": 37,
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 713.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -780,7 +876,7 @@
 	"project": "Core.sublime-project",
 	"replace":
 	{
-		"height": 77.0
+		"height": 56.0
 	},
 	"save_all_on_build": false,
 	"select_file":

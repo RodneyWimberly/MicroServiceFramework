@@ -13,29 +13,28 @@ function get_consul_service() {
 }
 
 function add_consul_service() {
-  export SERVICE_NAME=$1
-  export SERVICE_ID="$SERVICE_NAME-${ETH0_IP}"
+  export SERVICE_NAME="$1"
+  export SERVICE_ID="$SERVICE_NAME-$ETH0_IP"
   cat /etc/templates/consul-service.json | envsubst > /etc/templates/"$SERVICE_NAME".json
-  log_header "Consul Service Registration"
+  log_header "Consul service registration"
   log_detail "Service ID: $SERVICE_ID"
   log_detail "Service Name: $SERVICE_NAME"
   log_detail "Service JSON:"
   cat /etc/templates/"$SERVICE_NAME".json
   curl -sS \
-  --request PUT \
-  --data @/etc/templates/"$SERVICE_NAME".json \
-  http://consul.service.consul:8500/v1/agent/service/register?replace-existing-checks=true
+    --request PUT \
+    --data @/etc/templates/"$SERVICE_NAME".json \
+    http://consul.service.consul:8500/v1/agent/service/register?replace-existing-checks=true
 }
 
 function add_consul_service_old() {
   (
-
+    log "Registering consul service"
     if [ -f "$1" ]; then
       app_name="$(jq -r '.Name' < "$1")"
     else
       app_name="$(echo "$1" | jq -r '.Name')"
     fi
-    log "Registering service $app_name"
     if [[ ! -d "/usr/local/tmp" ]]; then
       mkdir /usr/local/tmp/
     fi
@@ -56,7 +55,7 @@ function add_consul_service_old() {
 }
 
 function remove_consul_service() {
-  log "Removing service $1"
+  log "Deregistering service $1"
   curl -sS  \
     --request PUT \
     http://consul.service.consul:8500/v1/agent/service/deregister/$1
@@ -92,7 +91,7 @@ function take_consul_snapshot() {
     snapshot_file=$1
   fi
 
-  curl -sS http://consul.service.consul/v1/snapshot?dc=docker -o ${snapshot_file}
+  curl -sS http://consul.service.consul/v1/snapshot?dc=${CONSUL_DATACENTER} -o ${snapshot_file}
   if [[ -f "latest_snapshot.tar" ]]; then
     rm -f "latest_snapshot.tar"
   fi

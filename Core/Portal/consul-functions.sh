@@ -13,12 +13,17 @@ function get_consul_service() {
 }
 
 function add_consul_service() {
-  export SERVICE_ID="$1-$ETH0_IP"
-  cat /etc/templates/consul-service.json | envsubst > /etc/templates/"$1".json
-  log_header "Registering consul service"
+  export SERVICE_NAME="$1"
+  export SERVICE_ID="$SERVICE_NAME-$ETH0_IP"
+  cat /etc/templates/consul-service.json | envsubst > /etc/templates/"$SERVICE_NAME".json
+  log_header "Consul service registration"
+  log_detail "Service ID: $SERVICE_ID"
+  log_detail "Service Name: $SERVICE_NAME"
+  log_detail "Service JSON:"
+  cat /etc/templates/"$SERVICE_NAME".json
   curl -sS \
     --request PUT \
-    --data @/etc/templates/"$1".json \
+    --data @/etc/templates/"$SERVICE_NAME".json \
     http://consul.service.consul:8500/v1/agent/service/register?replace-existing-checks=true
 }
 
