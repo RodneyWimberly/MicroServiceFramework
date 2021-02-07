@@ -48,14 +48,10 @@ services:
     cap_add:
       - NET_ADMIN
     networks:
-      admin_network:
-        ipv4_address: 192.168.100.2
+      - admin_network
 
   dns2:
     <<: *dns-template
-    networks:
-      admin_network:
-        ipv4_address: 192.168.100.3
 
   registrator:
     image: gliderlabs/registrator:latest
@@ -63,7 +59,7 @@ services:
     depends_on:
        - consul
        - dns
-    command: -cleanup -internal consul://consul.service.consul:8500
+    command: -cleanup -internal -network admin_network consul://consul.service.consul:8500
     env_file:
       - ./shared/scripts/core.env
     volumes:
@@ -73,8 +69,8 @@ services:
     deploy:
       mode: global
     dns:
-      - 192.168.100.2
-      - 192.168.100.3
+      - tasks.core_dns1
+      - tasks.core_dns2
 
   vault:
     image: microserviceframework/vault:dev
@@ -90,8 +86,8 @@ services:
     networks:
       - admin_network
     dns:
-      - 192.168.100.2
-      - 192.168.100.3
+      - tasks.core_dns1
+      - tasks.core_dns2
     depends_on:
       - consul
       - dns
@@ -108,8 +104,8 @@ services:
     networks:
       - admin_network
     dns:
-      - 192.168.100.2
-      - 192.168.100.3
+      - tasks.core_dns1
+      - tasks.core_dns2
     depends_on:
       - consul
       - dns

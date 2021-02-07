@@ -99,7 +99,7 @@ function run_consul_template() {
   # $2 is the template file name
   # $3 is the destination
   # $4 is the reload command and may not exist
-  template_dir=/etc/template
+  template_dir=/usr/local/tmp
   if [[ ! -d "${template_dir}" ]]; then
     mkdir $template_dir
   fi

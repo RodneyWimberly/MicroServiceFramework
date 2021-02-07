@@ -27,10 +27,10 @@ services:
     ports:
       - 9000:9000
     networks:
-     - admin_network
+      - admin_network
     dns:
-      - 192.168.100.2
-      - 192.168.100.3
+      - tasks.core_dns1
+      - tasks.core_dns2
     deploy:
       placement:
         constraints: [node.platform.os == linux]
@@ -50,8 +50,8 @@ services:
     networks:
       - admin_network
     dns:
-      - 192.168.100.2
-      - 192.168.100.3
+      - tasks.core_dns1
+      - tasks.core_dns2
     deploy:
       mode: global
       placement:
@@ -65,8 +65,8 @@ services:
     networks:
       - admin_network
     dns:
-      - 192.168.100.2
-      - 192.168.100.3
+      - tasks.core_dns1
+      - tasks.core_dns2
     depends_on:
       - dns
       - consul
