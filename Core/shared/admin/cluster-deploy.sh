@@ -26,8 +26,8 @@ set +e
 log_detail "Removing the following stacks: ${CORE_STACK_NAME}, ${LOGGING_STACK_NAME}, and ${UI_STACK_NAME}"
 docker stack rm "${CORE_STACK_NAME}" ${LOGGING_STACK_NAME} ${UI_STACK_NAME}
 
-log_detail "Waiting 5 seconds for stack deletion to finalize"
-sleep 5
+log_detail "Waiting 15 seconds for stack deletion to finalize"
+sleep 15
 
 log_detail "Removing the following volumes: ${CORE_STACK_NAME}_consul_data"
 docker volume rm "${CORE_STACK_NAME}"_consul_data
