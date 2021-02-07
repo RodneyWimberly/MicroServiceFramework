@@ -22,16 +22,10 @@ fi
 # First we use bash to replace all $vars with values
 # Second we replace all ** to $
 # Third we pass to consul-template
-# cat /etc/templates/nginx.conf | envsubst | sed 's/**/$/g' > /etc/templates/nginx-template.conf
-# cat /etc/templates/index.html | envsubst  | sed 's/**/$/g' > /etc/templates/index-template.html
-# run_consul_template /etc/templates/nginx-template.conf nginx.conf /etc/nginx/nginx.conf "consul lock -http-addr=http://consul.service.consul:8500 -name service/portal -shell=false reload nginx -s reload"
-# #/etc/ngnix/http.d/default.conf "consul lock -http-addr=http://consul.service.consul:8500 -name service/portal -shell=false reload nginx -s reload"
-# run_consul_template /etc/templates/index-template.html index.html /usr/share/nginx/html/index.html
-cp /etc/templates/test.conf /etc/nginx/nginx.conf
-cp /etc/templates/index.html /usr/share/nginx/html/index.html
-
-# Make a folder for ngnix.pid
-mkdir -p /run/nginx
+cat /etc/templates/nginx.conf | envsubst | sed 's/\$/$/g' > /etc/templates/nginx-template.conf
+cat /etc/templates/index.html | envsubst  | sed 's/\$/$/g' > /etc/templates/index-template.html
+run_consul_template /etc/templates/nginx-template.conf nginx.conf /etc/nginx/nginx.conf "consul lock -http-addr=http://consul.service.consul:8500 -name service/portal -shell=false reload nginx -s reload"
+run_consul_template /etc/templates/index-template.html index.html /usr/share/nginx/html/index.html
 
 set +e
 log_detail "Starting nginx."
