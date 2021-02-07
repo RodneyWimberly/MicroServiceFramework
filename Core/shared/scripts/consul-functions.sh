@@ -1,24 +1,36 @@
 #!/bin/sh
 
 function get_consul_service_health() {
-  curl http://consul.service.consul:8500/v1/agent/health/service/name/$1?format=text
+  curl -sS  http://consul.service.consul:8500/v1/agent/health/service/name/$1?format=text
 }
 
 function list_consul_services() {
-  curl http://consul.service.consul:8500/v1/agent/services
+  curl -sS  http://consul.service.consul:8500/v1/agent/services
 }
 
 function get_consul_service() {
-  curl http://consul.service.consul:8500/v1/agent/service/$1
+  curl -sS  http://consul.service.consul:8500/v1/agent/service/$1
 }
 
 function add_consul_service() {
+  export SERVICE_ID="$1-${ETH0_IP}"
+  cat /etc/templates/consul-service.json | envsubst > /etc/templates/"$1".json
+  log_detail "Registering service $SERVICE_ID"
+  curl -sS \
+  --request PUT \
+  --data @/etc/templates/"$1".json \
+  http://consul.service.consul:8500/v1/agent/service/register?replace-existing-checks=true
+}
+
+function add_consul_service_old() {
   (
+
     if [ -f "$1" ]; then
-      app_name="$(jq -r '.service.name' < "$1")"
+      app_name="$(jq -r '.Name' < "$1")"
     else
-      app_name="$(echo "$1" | jq -r '.service.name')"
+      app_name="$(echo "$1" | jq -r '.Name')"
     fi
+    log "Registering service $app_name"
     if [[ ! -d "/usr/local/tmp" ]]; then
       mkdir /usr/local/tmp/
     fi
@@ -30,7 +42,8 @@ function add_consul_service() {
         echo "$1" > "$service_file"
       fi
     )
-    curl \
+    cat "$service_file"
+    curl -sS \
     --request PUT \
     --data @"$service_file" \
     http://consul.service.consul:8500/v1/agent/service/register?replace-existing-checks=true
@@ -38,30 +51,31 @@ function add_consul_service() {
 }
 
 function remove_consul_service() {
-  curl \
+  log "Removing service $1"
+  curl -sS  \
     --request PUT \
     http://consul.service.consul:8500/v1/agent/service/deregister/$1
 }
 
 function mark_consul_service_maintance() {
-  curl \
+  curl -sS  \
     --request PUT \
     http://consul.service.consul:8500/v1/agent/service/maintenance/$1?enable=$2&reason=$3
 }
 
 function get_consul_kv() {
-  curl http://consul.service.consul:8500/v1/kv/%1
+  curl -sS  http://consul.service.consul:8500/v1/kv/%1
 }
 
 function put_consul_kv() {
-  curl \
+  curl -sS  \
       --request PUT \
       --data @$2 \
       http://consul.service.consul:8500/v1/kv/$1
 }
 
 function delete_consul_kv() {
-  curl \
+  curl -sS  \
       --request DELETE \
       http://consul.service.consul:8500/v1/kv/%1
 }
@@ -88,7 +102,7 @@ function restore_consul_snapshot() {
     snapshot_file=$1
   fi
   if [[ -f "${snapshot_file}" ]]; then
-    curl --request PUT --data-binary @$snapshot_file http://consul.service.consul:8500/v1/snapshot
+    curl -sS  --request PUT --data-binary @$snapshot_file http://consul.service.consul:8500/v1/snapshot
   else
     log_warning "Restore snapshot failed! Snapshot file '${snapshot_file}' could not be found."
   fi

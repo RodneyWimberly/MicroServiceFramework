@@ -1,0 +1,7 @@
+{
+  "ID": "portal-${ETH0_IP}",
+  "Name": "portal",
+  "Tags": [],
+  "Address": "${ETH0_IP}",
+  "Port": 5000
+}

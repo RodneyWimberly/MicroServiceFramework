@@ -51,6 +51,7 @@ RUN test -e /etc/nsswitch.conf || echo 'hosts: dns files' > /etc/nsswitch.conf
 COPY ./core.env /usr/local/scripts/core.env
 COPY ./*.sh /usr/local/scripts/
 COPY ./*.conf /etc/templates/
+COPY ./consul-service.json /etc/templates/consul-service.json
 COPY ./index.html /etc/templates/index.html
 COPY ./.vimrc /.vimrc
 COPY ./stylesheet.css /usr/share/nginx/html/stylesheet.css

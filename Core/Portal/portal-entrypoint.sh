@@ -11,7 +11,6 @@ add_path "${CORE_SCRIPT_DIR}"
 hosting_details
 get_consul_ip
 # update_dns_config
-add_consul_service '{"ID": "portal-'${ETH0_IP}'", "Name": "portal", "Tags": [], "Address": "'${ETH0_IP}'", "Port": 5000}'
 
 log_detail "merging expanded variables and updating configuration based on Consul cluster deployment"
 # Remove default configuration
@@ -31,8 +30,10 @@ cat /etc/templates/index.html | envsubst  > /etc/templates/index-template.html
 sed -i 's/\*\*/$/g' /etc/templates/index-template.html
 run_consul_template /etc/templates/index-template.html index.html /usr/share/nginx/html/index.html
 
+add_consul_service portal
+
 set +e
 log_detail "Starting nginx."
 nginx -g 'daemon off;'
 
-remove_consul_service "portal-'${ETH0_IP}'"
+remove_consul_service $SERVICE_ID

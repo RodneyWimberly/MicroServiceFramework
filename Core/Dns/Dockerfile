@@ -43,6 +43,7 @@ COPY ./core.env /usr/local/scripts/core.env
 COPY ./*.sh /usr/local/scripts/
 COPY ./0.base.conf /etc/dnsmasq/0.base.conf
 COPY ./1.consul.conf /etc/templates/1.consul.conf
+COPY ./consul-service.json /etc/templates/consul-service.json
 RUN chmod 755 /usr/local/scripts/*.sh
 
 ENTRYPOINT ["/usr/local/scripts/dns-entrypoint.sh"]

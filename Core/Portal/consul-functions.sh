@@ -13,6 +13,16 @@ function get_consul_service() {
 }
 
 function add_consul_service() {
+  export SERVICE_ID="$1-$ETH0_IP"
+  cat /etc/templates/consul-service.json | envsubst > /etc/templates/"$1".json
+  log_header "Registering consul service"
+  curl -sS \
+    --request PUT \
+    --data @/etc/templates/"$1".json \
+    http://consul.service.consul:8500/v1/agent/service/register?replace-existing-checks=true
+}
+
+function add_consul_service_old() {
   (
     log "Registering consul service"
     if [ -f "$1" ]; then
