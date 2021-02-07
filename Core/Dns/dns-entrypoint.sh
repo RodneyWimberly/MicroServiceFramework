@@ -12,6 +12,8 @@ run_consul_template /etc/templates/1.consul-template.conf 1.consul.conf /etc/dns
 # Get Docker/Node/Hosting information from the Docker API for use in configuration
 hosting_details
 get_consul_ip
-add_consul_service '{"Name": "dns", "Tags": [], "Address": "'${ETH0_IP}'", "Port": 53}'
+add_consul_service '{"ID": "dns-'${ETH0_IP}'", "Name": "dns", "Tags": [], "Address": "'${ETH0_IP}'", "Port": 53}'
 
 dnsmasq --no-daemon --log-queries --server=/consul/${CONSUL_IP}#8600
+
+remove_consul_service "dns-'${ETH0_IP}'"

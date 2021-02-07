@@ -11,7 +11,7 @@ add_path "${CORE_SCRIPT_DIR}"
 hosting_details
 get_consul_ip
 # update_dns_config
-add_consul_service '{"Name": "portal", "Tags": [], "Address": "'${ETH0_IP}'", "Port": 5000}'
+add_consul_service '{"ID": "portal-'${ETH0_IP}'", "Name": "portal", "Tags": [], "Address": "'${ETH0_IP}'", "Port": 5000}'
 
 log_detail "merging expanded variables and updating configuration based on Consul cluster deployment"
 # Remove default configuration
@@ -35,4 +35,4 @@ set +e
 log_detail "Starting nginx."
 nginx -g 'daemon off;'
 
-keep_container_alive
+remove_consul_service "portal-'${ETH0_IP}'"
