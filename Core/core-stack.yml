@@ -23,11 +23,6 @@ services:
       - consul_data:/consul/data
     env_file:
       - ./shared/scripts/core.env
-    ports:
-      - target: 8500
-        published: 8500
-        protocol: tcp
-        mode: host
     networks:
       admin_network:
         aliases:
@@ -81,8 +76,6 @@ services:
       - ./shared/scripts/core.env
     cap_add:
       - IPC_LOCK
-    ports:
-      - 8200:8200
     networks:
       - admin_network
     dns:
