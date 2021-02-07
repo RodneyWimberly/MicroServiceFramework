@@ -48,7 +48,7 @@ RUN mkdir /usr/local/scripts && \
 
 COPY ./core.env /usr/local/scripts/core.env
 COPY ./*.sh /usr/local/scripts/
-COPY ./nginx.conf /etc/templates/nginx.conf
+COPY ./*.conf /etc/templates/
 COPY ./index.html /etc/templates/index.html
 COPY ./.vimrc /.vimrc
 COPY ./stylesheet.css /usr/share/nginx/html/stylesheet.css
