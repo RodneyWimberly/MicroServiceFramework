@@ -46,6 +46,8 @@ RUN curl -Lo /tmp/consul_template_0.15.0_linux_amd64.zip ${CONSUL_URL}/consul-te
 RUN mkdir /usr/local/scripts && \
     mkdir /etc/templates
 
+RUN test -e /etc/nsswitch.conf || echo 'hosts: dns files' > /etc/nsswitch.conf
+
 COPY ./core.env /usr/local/scripts/core.env
 COPY ./*.sh /usr/local/scripts/
 COPY ./*.conf /etc/templates/
