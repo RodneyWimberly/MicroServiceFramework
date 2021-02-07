@@ -22,9 +22,12 @@ fi
 # First we use bash to replace all $vars with values
 # Second we replace all ** to $
 # Third we pass to consul-template
-cat /etc/templates/nginx.conf | envsubst | sed 's/**/\$/g' > /etc/templates/nginx-template.conf
-cat /etc/templates/index.html | envsubst  | sed 's/**/\$/g' > /etc/templates/index-template.html
+cat /etc/templates/nginx.conf | envsubst > /etc/templates/nginx-template.conf
+sed -i 's/**/$/g' /etc/templates/nginx-template.conf
 run_consul_template /etc/templates/nginx-template.conf nginx.conf /etc/nginx/nginx.conf "consul lock -http-addr=http://consul.service.consul:8500 -name service/portal -shell=false reload nginx -s reload"
+
+cat /etc/templates/index.html | envsubst  > /etc/templates/index-template.html
+sed -i 's/**/$/g' /etc/templates/index-template.html
 run_consul_template /etc/templates/index-template.html index.html /usr/share/nginx/html/index.html
 
 set +e
