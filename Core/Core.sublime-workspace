@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"sna",
+				"snapshot_file"
+			],
+			[
 				"snap",
 				"snapshot"
 			],
@@ -64,11 +68,19 @@
 	"buffers":
 	[
 		{
-			"file": "devops-stack.yml",
+			"file": "portal/nginx.conf",
 			"settings":
 			{
-				"buffer_size": 1619,
+				"buffer_size": 3097,
 				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "portal/index.html",
+			"settings":
+			{
+				"buffer_size": 3181,
 				"line_ending": "Unix"
 			}
 		}
@@ -255,66 +267,87 @@
 	"expanded_folders":
 	[
 		"/D/em/Core",
-		"/D/em/Core/dns",
 		"/D/em/Core/portal",
 		"/D/em/Core/shared",
 		"/D/em/Core/shared/admin",
+		"/D/em/Core/shared/dev",
 		"/D/em/Core/shared/scripts",
 		"/D/em/Core/vault"
 	],
 	"file_history":
 	[
-		"/D/em/Core/portal/portal-entrypoint.sh",
-		"/D/em/Core/vault/vault-entrypoint.sh",
-		"/D/em/Core/shared/scripts/common-functions.sh",
-		"/D/em/Core/dns/dns-entrypoint.sh",
-		"/D/em/Core/shared/admin/add-links.cmd",
-		"/D/em/Core/core-stack.yml",
-		"/D/em/Core/vault/vault.json",
 		"/D/em/Core/portal/nginx.conf",
-		"/D/Downloads/docker-compose-ha-consul-vault-ui-main/templates/nginx.conf",
+		"/D/em/Core/devops-stack.yml",
+		"/D/em/Core/vault/vault-entrypoint.sh",
+		"/D/em/Core/portal/portal-entrypoint.sh",
+		"/D/em/Core/core-stack.yml",
+		"/D/em/Core/shared/scripts/hosting-functions.sh",
+		"/D/em/Core/portal/Dockerfile",
+		"/D/em/Core/vault/Dockerfile",
+		"/D/em/Core/shared/admin/clone-repo-and-deploy-stack.sh",
 		"/D/em/Core/portal/index.html",
+		"/D/em/Core/portal/test.conf",
+		"/D/Projects/EventManager/Api/Identity/nginx/nginx.conf",
+		"/D/em/_Core/Portal/root/etc/nginx/nginx.conf",
+		"/D/em/Core/shared/admin/cluster-deploy.sh",
+		"/D/em/Core/shared/admin/initialize-vault.sh",
+		"/D/em/Core/shared/admin/docker-node-ps.sh",
+		"/D/em/Core/shared/scripts/consul-functions.sh",
+		"/D/em/Core/dns/dns-entrypoint.sh",
+		"/D/em/Core/shared/dev/DontForget.txt",
+		"/D/em/Core/shared/scripts/logging-functions.sh",
+		"/D/em/Core/shared/admin/docker-service-exec.sh",
+		"/D/em/Core/shared/scripts/core.env",
+		"/D/em/Core/shared/scripts/common-functions.sh",
+		"/D/em/Core/portal/hosting-functions.sh",
 		"/D/em/Core/portal/common-functions.sh",
+		"/D/em/Core/shared/admin/cluster-shutdown.sh",
+		"/D/em/Core/shared/scripts/admin-functions.sh",
+		"/D/em/Core/shared/admin/add-links.sh",
+		"/D/em/Core/shared/admin/add-links.cmd",
+		"/D/em/Core/portal/consul-functions.sh",
+		"/D/em/Core/shared/admin/build-and-deploy-images.sh",
+		"/D/em/Core/shared/scripts/json-functions.sh",
+		"/D/em/Core/shared/documents/DontForget.txt",
+		"/D/em/Core/shared/admin/build-and-deploy-container-images.cmd",
+		"/D/em/Core/shared/admin/manager-ssh.cmd",
+		"/D/em/Core/shared/admin/build-images.cmd",
+		"/D/em/Core/consul/Dockerfile",
+		"/D/em/Core/dns/Dockerfile",
+		"/D/Containers/build-and-push-consul-bootstrapper.cmd",
+		"/D/em/Core/vault/common-functions.sh",
+		"/D/em/Core/consul/common-functions.sh",
+		"/D/em/Core/consul/consul-entrypoint.sh",
+		"/D/em/Core/dns/common-functions.sh",
+		"/D/em/Core/vault/vault.json",
+		"/D/Downloads/docker-compose-ha-consul-vault-ui-main/templates/nginx.conf",
 		"/D/em/Core/shared/admin/manager.cmd",
 		"/D/Downloads/docker-compose-ha-consul-vault-ui-main/templates/index.html",
-		"/D/em/Core/portal/Dockerfile",
 		"/D/Projects/consul/scripts/common-functions.sh",
-		"/D/em/Core/devops-stack.yml",
 		"/D/em/Core/portal/.vimrc",
 		"/D/em/Core/dns/1.consul.conf",
-		"/D/em/Core/dns/Dockerfile",
 		"/D/em/Core/dns/0.base.conf",
 		"/D/em/_Core/Portal/Dockerfile",
 		"/D/em/Core/shared/admin/map-ports.cmd",
-		"/D/em/Core/shared/documents/DontForget.txt",
 		"/D/em/Core/shared/admin/update-stack-manager.sh",
 		"/D/Downloads/docker-compose-ha-consul-vault-ui-main/docker-compose.yml",
-		"/D/em/Core/shared/scripts/core.env",
 		"/D/em/Core/shared/admin/dockernodeps.sh",
 		"/D/em/Core/shared/admin/dockerserviceexec.sh",
-		"/D/em/Core/vault/Dockerfile",
 		"/D/em/Core/dns/dnsmasq.conf",
-		"/D/em/Core/consul/Dockerfile",
 		"/D/em/Core/shared/admin/worker.cmd",
-		"/D/em/Core/consul/consul-entrypoint.sh",
 		"/D/em/Core/shared/admin/deploy.sh",
 		"/D/Projects/consul/pwd/update-stack-manager.sh",
 		"/D/em/Core/shared/admin/update-stack-worker.sh",
 		"/D/em/Core/dns/.dockerignore",
-		"/D/em/Core/shared/admin/build-images.cmd",
 		"/D/em/Core/shared/admin/Making",
 		"/D/em/_Core/Dns/Dockerfile",
-		"/D/Containers/build-and-push-consul-bootstrapper.cmd",
 		"/D/em/Core/ui-stack.yml",
 		"/D/em/Shared/RegistryClient/Dockerfile",
 		"/D/em/_Core/Registry/Dockerfile",
 		"/D/em/Core/shared/admin/DontForget.txt",
 		"/D/em/Core/consul/core.env",
-		"/D/em/Core/dns/common-functions.sh",
 		"/D/em/Core/dns/core.env",
-		"/D/em/Core/vault/common-functions.sh",
 		"/D/em/Core/vault/core.env",
-		"/D/em/Core/consul/common-functions.sh",
 		"/D/em/Core/shared/certs/make-certs.sh",
 		"/D/em/Core/Core.sublime-project",
 		"/D/Projects/consul examples/Consul/pretty/docker-compose.yml",
@@ -370,38 +403,18 @@
 		"/D/Projects/consul/scripts/admin/deploy-to-pwd.cmd",
 		"/D/Projects/consul/scripts/admin/curl-tests.txt",
 		"/D/Projects/consul/scripts/admin/screen.txt",
-		"/D/Projects/consul/scripts/admin/update-stack-worker.sh",
-		"/D/Projects/consul/scripts/admin/update-stack-manager.sh",
-		"/D/Projects/consul/bootstrapper/consul.env",
-		"/D/Projects/consul/bootstrapper/nginx.conf",
-		"/D/Projects/consul/bootstrapper/Dockerfile",
-		"/D/Projects/EventManager/Api/Identity/docker-compose.yml",
-		"/D/em/Core/tools-stack.yml",
-		"/D/em/Core/docker-compose.yml",
-		"/C/Users/Rodney/.ssh/config",
-		"/C/SYSTAG.BIN",
-		"/C/Program Files/Sublime Text 3/Data/Packages/HexViewer/hex_viewer.sublime-settings",
-		"/C/Program Files/Sublime Text 3/Data/Packages/SavePrompt/SavePrompt.sublime-settings",
-		"/D/Projects/consul/bootstrapper/10-listen-on-ipv6-by-default.sh",
-		"/D/Projects/consul/nfs/Dockerfile",
-		"/D/Projects/consul/nfs/empty.file",
-		"/D/Projects/consul/scripts/backup/bootstrap-deployment.sh",
-		"/C/Program Files/Sublime Text 3/Data/Packages/Goto Usage/GotoUsage.sublime-settings",
-		"/C/Program Files/Sublime Text 3/Data/Packages/BetterFindBuffer/BetterFindBuffer.sublime-settings",
-		"/C/Program Files/Sublime Text 3/Data/Packages/User/tgit-st3.sublime-settings",
-		"/C/Program Files/Sublime Text 3/Data/Packages/tgit-st3/tgit-st3.sublime-settings",
-		"/C/Program Files/Sublime Text 3/Data/Packages/sublime-github/GitHub.sublime-settings",
-		"/C/Program Files/Sublime Text 3/Data/Packages/QuickPanelEnhanced/Default.sublime-keymap"
+		"/D/Projects/consul/scripts/admin/update-stack-worker.sh"
 	],
 	"find":
 	{
-		"height": 30.0
+		"height": 43.0
 	},
 	"find_in_files":
 	{
 		"height": 164.0,
 		"where_history":
 		[
+			"D:\\em\\Core",
 			"D:\\em\\Core\\"
 		]
 	},
@@ -410,6 +423,27 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"**",
+			"text",
+			"user",
+			"\\$",
+			"**",
+			"192.168.100.3",
+			"192.168.100.2",
+			"$",
+			"dockerserviceexec",
+			"dockernodeps",
+			"dockerser",
+			"-hosting-functions",
+			"fosting",
+			"ln -f",
+			"/H",
+			"\\",
+			"mklink",
+			"%MSF_DIR%",
+			"%CORE_DIR%",
+			"expand_config_file_from",
+			"update-stack.sh",
 			":=",
 			"/mnt",
 			"CONSUL_BOOTSTRAP_DIR"
@@ -420,6 +454,23 @@
 		"regex": false,
 		"replace_history":
 		[
+			"**",
+			"\\$",
+			"tasks.core_dns2",
+			"tasks.core_dns1",
+			"**",
+			"docker-service-exec",
+			"docker-node-ps",
+			"/hosting-functions",
+			"hosting",
+			"ln -f -v",
+			"-f",
+			"/",
+			"ln",
+			"$MSF_DIR",
+			"$CORE_DIR",
+			"expand_consul_config_from",
+			"clone-repo-and-deploy-stack.sh",
 			"./shared",
 			"CONSUL_TEMPLATES_DIR"
 		],
@@ -432,24 +483,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "devops-stack.yml",
+					"file": "portal/nginx.conf",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1619,
+						"buffer_size": 3097,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1277,
-								1277
+								2431,
+								2431
 							]
 						],
 						"settings":
@@ -459,12 +510,27 @@
 							{
 								"close":
 								{
+									"1":
+									[
+										2612,
+										2613
+									]
 								},
 								"icon":
 								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/curly_bracket.png",
+										"region.purplish"
+									]
 								},
 								"open":
 								{
+									"1":
+									[
+										2394,
+										2395
+									]
 								},
 								"unmatched":
 								{
@@ -472,69 +538,189 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
 								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
-								"bh_square_content"
+								"bh_square_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
 							],
-							"function_name_status_row": -1,
-							"syntax": "Packages/YAML/YAML.sublime-syntax",
+							"function_name_status_row": 88,
+							"syntax": "Packages/nginx/Syntaxes/nginx.sublime-syntax",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 585.0,
+						"translation.y": 1363.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "portal/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3181,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1161,
+								1166
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										1166,
+										1167
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/double_quote.png",
+										"region.greenish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										1159,
+										1160
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"function_name_status_row": 37,
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 713.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -594,7 +780,7 @@
 	"project": "Core.sublime-project",
 	"replace":
 	{
-		"height": 56.0
+		"height": 77.0
 	},
 	"save_all_on_build": false,
 	"select_file":
@@ -636,7 +822,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 311.0,
+	"side_bar_width": 377.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
