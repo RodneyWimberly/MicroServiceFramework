@@ -76,7 +76,7 @@ function take_consul_snapshot() {
     snapshot_file=$1
   fi
 
-  curl -sS http://consul.service.consul/v1/snapshot?dc=docker -o ${snapshot_file}
+  curl -sS http://consul.service.consul/v1/snapshot?dc=${CONSUL_DATACENTER} -o ${snapshot_file}
   if [[ -f "latest_snapshot.tar" ]]; then
     rm -f "latest_snapshot.tar"
   fi
