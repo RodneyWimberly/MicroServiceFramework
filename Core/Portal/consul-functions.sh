@@ -14,10 +14,11 @@ function get_consul_service() {
 
 function add_consul_service() {
   (
+    log "Registering consul service"
     if [ -f "$1" ]; then
-      app_name="$(jq -r '.service.name' < "$1")"
+      app_name="$(jq -r '.Name' < "$1")"
     else
-      app_name="$(echo "$1" | jq -r '.service.name')"
+      app_name="$(echo "$1" | jq -r '.Name')"
     fi
     if [[ ! -d "/usr/local/tmp" ]]; then
       mkdir /usr/local/tmp/
@@ -30,8 +31,7 @@ function add_consul_service() {
         echo "$1" > "$service_file"
       fi
     )
-    log "Registering consul service"
-    log_detail $(cat "$service_file")
+    cat "$service_file"
     curl -sS \
     --request PUT \
     --data @"$service_file" \
