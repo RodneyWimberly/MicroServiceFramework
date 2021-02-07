@@ -1,6 +1,6 @@
 {
-  "ID": "portal-${ETH0_IP}",
-  "Name": "portal",
+  "ID": "${SERVICE_ID}",
+  "Name": "${SERVICE_NAME}",
   "Tags": [],
   "Address": "${ETH0_IP}",
   "Port": 5000

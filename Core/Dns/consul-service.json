@@ -1,6 +1,6 @@
 {
-  "ID": "dns-${ETH0_IP}",
-  "Name": "dns",
+  "ID": "${SERVICE_ID}",
+  "Name": "${SERVICE_NAME}",
   "Tags": [],
   "Address": "${ETH0_IP}",
   "Port": 53

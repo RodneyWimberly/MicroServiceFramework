@@ -18,6 +18,7 @@ function hostip() {
 }
 
 function update_dns_config() {
+  echo " "
   log "Looking up IP address for tasks.core_dns"
   DNS_IP=
   while [[ -z "${DNS_IP}" ]]; do
@@ -35,6 +36,7 @@ function update_dns_config() {
 }
 
 function get_consul_ip() {
+  echo " "
   log "Looking up IP address for consul.service.consul"
   CONSUL_IP=
   while [[ -z "${CONSUL_IP}" ]]; do
