@@ -5,20 +5,12 @@ set -e
 
 source ./admin-functions.sh
 
-
-log "*** >=>=>=>  Stack Deployment  <=<=<=< ***"
-
+log_header "Stack Deployment"
 export NUM_OF_MGR_NODES=$(docker info --format "{{.Swarm.Managers}}")
 export NODE_IP=$(docker info --format "{{.Swarm.NodeAddr}}")
 export NODE_ID=$(docker info --format "{{.Swarm.NodeID}}")
 export NODE_NAME=$(docker info --format "{{.Name}}")
 export NODE_IS_MANAGER=$(docker info --format "{{.Swarm.ControlAvailable}}")
-# export CONTAINER_IP=$(ip -o ro get $(ip ro | awk '$1 == "default" { print $3 }') | awk '{print $5}')
-# export ETH0_IP=$(ip -o -4 addr list eth0 | head -n1 | awk '{print $4}' | cut -d/ -f1)
-# export ETH1_IP=$(ip -o -4 addr list eth1 | head -n1 | awk '{print $4}' | cut -d/ -f1)
-# export ETH2_IP=$(ip -o -4 addr list eth2 | head -n1 | awk '{print $4}' | cut -d/ -f1)
-# export ETH3_IP=$(ip -o -4 addr list eth3 | head -n1 | awk '{print $4}' | cut -d/ -f1)
-# export ETH4_IP=$(ip -o -4 addr list eth4 | head -n1 | awk '{print $4}' | cut -d/ -f1)
 export CONTAINER_IP=$(hostip)
 export CONTAINER_NAME=$(hostname)
 export ETH0_IP=$(get_ip_from_adapter eth0)

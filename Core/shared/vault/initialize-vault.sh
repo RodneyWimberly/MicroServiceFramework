@@ -1,6 +1,7 @@
 #!/bin/bash
 
-include ./vault-functions.sh
+cd ~/msf/Core/shared/vault
+. vault-functions.sh
 
 log "Initializing the Vault"
 set -e

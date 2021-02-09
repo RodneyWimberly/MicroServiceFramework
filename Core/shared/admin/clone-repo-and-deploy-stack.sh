@@ -13,6 +13,7 @@ else
 fi
 cd ~/msf/Core/shared/admin
 chmod u+x ./*.sh
+chmod u+x ../vault/*.sh
 cp ~/msf/Core/shared/admin/docker-node-ps /bin/docker-node-ps
 cp ~/msf/Core/shared/admin/docker-service-exec /bin/docker-service-exec
 ./deploy-cluster.sh
