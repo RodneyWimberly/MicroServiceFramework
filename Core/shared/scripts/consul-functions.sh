@@ -92,16 +92,16 @@ function take_consul_snapshot() {
   fi
 
   curl -sS http://consul.service.consul/v1/snapshot?dc=${CONSUL_DATACENTER} -o ${snapshot_file}
-  if [[ -f "latest_snapshot.tar" ]]; then
-    rm -f "latest_snapshot.tar"
+  if [[ -f "backups/latest_snapshot.tar" ]]; then
+    rm -f "backups/latest_snapshot.tar"
   fi
-  cp $snapshot_file "latest_snapshot.tar"
+  cp $snapshot_file "backups/latest_snapshot.tar"
   echo snapshot_file
 }
 
 function restore_consul_snapshot() {
   if [[ -z "$1" ]]; then
-    snapshot_file="latest_snapshot.tar"
+    snapshot_file="backups/latest_snapshot.tar"
   else
     snapshot_file=$1
   fi

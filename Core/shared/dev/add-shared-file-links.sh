@@ -2,8 +2,7 @@
 
 set -e
 
-source ../scripts/core.env
-source ../scripts/admin-functions.sh
+source ./dev-functions.sh
 
 log "Creating file links for shared files."
 
