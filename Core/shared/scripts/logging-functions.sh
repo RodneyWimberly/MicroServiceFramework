@@ -24,5 +24,5 @@ function log_warning() {
 }
 
 function log_raw() {
-  echo "$(date +"%T"): $1"
+  echo -e "$WHITE $(date +"%T"): $1"
 }
