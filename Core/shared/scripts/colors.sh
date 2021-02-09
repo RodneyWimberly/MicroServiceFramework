@@ -1,5 +1,3 @@
-include ./colors.env
-
 export BLACK='${ESCAPE}[${RESET_ALL};${FOREGROUND_BLACK}m'
 export RED='${ESCAPE}[${RESET_ALL};${FOREGROUND_RED}m'
 export GREEN='${ESCAPE}[${RESET_ALL};${FOREGROUND_GREEN}m'
