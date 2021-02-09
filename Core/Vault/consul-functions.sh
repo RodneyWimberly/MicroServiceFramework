@@ -24,7 +24,7 @@ function add_consul_service() {
   curl -sS \
     --request PUT \
     --data @/etc/templates/"$SERVICE_NAME".json \
-    http://consul.service.consul:8500/v1/agent/service/register?replace-existing-checks=true
+    http://tasks.core_consul:8500/v1/agent/service/register?replace-existing-checks=true
 }
 
 function add_consul_service_old() {
@@ -58,7 +58,7 @@ function remove_consul_service() {
   log "Deregistering service $1"
   curl -sS  \
     --request PUT \
-    http://consul.service.consul:8500/v1/agent/service/deregister/$1
+    http://tasks.core_consul:8500/v1/agent/service/deregister/$1
 }
 
 function mark_consul_service_maintance() {
