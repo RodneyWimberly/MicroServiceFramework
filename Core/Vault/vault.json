@@ -7,7 +7,7 @@
   "log_level": "debug",
   "storage": {
     "consul": {
-      "address": "tasks.core_consul:8500",
+      "address": "consul.service.consul:8500",
       "path": "vault/",
       "scheme": "http",
       "service": "vault",

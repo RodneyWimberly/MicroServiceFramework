@@ -16,7 +16,7 @@ networks:
 services:
   consul:
     image: microserviceframework/consul:dev
-    command: agent -join tasks.core_consul
+    command: agent -join consul.service.consul
     init: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -24,7 +24,9 @@ services:
     env_file:
       - ./shared/scripts/core.env
     networks:
-      - admin_network
+      admin_network:
+        aliases:
+          - consul.service.consul
     deploy:
       endpoint_mode: dnsrr
       mode: global

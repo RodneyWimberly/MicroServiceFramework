@@ -35,12 +35,12 @@ function update_dns_config() {
 }
 
 function get_consul_ip() {
-  log "Looking up IP address for tasks.core_consul"
+  log "Looking up IP address for consul.service.consul"
   CONSUL_IP=
   while [[ -z "${CONSUL_IP}" ]]; do
-    CONSUL_IP=$(get_ip_from_name "tasks.core_consul")
+    CONSUL_IP=$(get_ip_from_name "consul.service.consul")
     if [[ -z "${CONSUL_IP}" ]]; then
-      log_warn "Unable to locate tasks.core_consul, retrying in 1 second."
+      log_warn "Unable to locate consul.service.consul, retrying in 1 second."
       sleep 1
     fi
   done

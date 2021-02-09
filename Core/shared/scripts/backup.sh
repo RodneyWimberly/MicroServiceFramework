@@ -1,15 +1,15 @@
 #!/bin/sh
 
 function get_consul_service_health() {
-  curl -sS  http://tasks.core_consul:8500/v1/agent/health/service/name/$1?format=text
+  curl -sS  http://consul.service.consul:8500/v1/agent/health/service/name/$1?format=text
 }
 
 function list_consul_services() {
-  curl -sS  http://tasks.core_consul:8500/v1/agent/services
+  curl -sS  http://consul.service.consul:8500/v1/agent/services
 }
 
 function get_consul_service() {
-  curl -sS  http://tasks.core_consul:8500/v1/agent/service/$1
+  curl -sS  http://consul.service.consul:8500/v1/agent/service/$1
 }
 
 function add_consul_service() {
@@ -24,7 +24,7 @@ function add_consul_service() {
   curl -sS \
     --request PUT \
     --data @/etc/templates/"$SERVICE_NAME".json \
-    http://tasks.core_consul:8500/v1/agent/service/register?replace-existing-checks=true
+    http://consul.service.consul:8500/v1/agent/service/register?replace-existing-checks=true
 }
 
 function add_consul_service_old() {
@@ -50,7 +50,7 @@ function add_consul_service_old() {
     curl -sS \
     --request PUT \
     --data @"$service_file" \
-    http://tasks.core_consul:8500/v1/agent/service/register?replace-existing-checks=true
+    http://consul.service.consul:8500/v1/agent/service/register?replace-existing-checks=true
   )
 }
 
@@ -58,30 +58,30 @@ function remove_consul_service() {
   log "Deregistering service $1"
   curl -sS  \
     --request PUT \
-    http://tasks.core_consul:8500/v1/agent/service/deregister/$1
+    http://consul.service.consul:8500/v1/agent/service/deregister/$1
 }
 
 function mark_consul_service_maintance() {
   curl -sS  \
     --request PUT \
-    http://tasks.core_consul:8500/v1/agent/service/maintenance/$1?enable=$2&reason=$3
+    http://consul.service.consul:8500/v1/agent/service/maintenance/$1?enable=$2&reason=$3
 }
 
 function get_consul_kv() {
-  curl -sS  http://tasks.core_consul:8500/v1/kv/%1
+  curl -sS  http://consul.service.consul:8500/v1/kv/%1
 }
 
 function put_consul_kv() {
   curl -sS  \
       --request PUT \
       --data @$2 \
-      http://tasks.core_consul:8500/v1/kv/$1
+      http://consul.service.consul:8500/v1/kv/$1
 }
 
 function delete_consul_kv() {
   curl -sS  \
       --request DELETE \
-      http://tasks.core_consul:8500/v1/kv/%1
+      http://consul.service.consul:8500/v1/kv/%1
 }
 
 function take_consul_snapshot() {
@@ -91,7 +91,7 @@ function take_consul_snapshot() {
     snapshot_file=$1
   fi
 
-  curl -sS http://tasks.core_consul/v1/snapshot?dc=${CONSUL_DATACENTER} -o ${snapshot_file}
+  curl -sS http://consul.service.consul/v1/snapshot?dc=${CONSUL_DATACENTER} -o ${snapshot_file}
   if [[ -f "latest_snapshot.tar" ]]; then
     rm -f "latest_snapshot.tar"
   fi
@@ -106,7 +106,7 @@ function restore_consul_snapshot() {
     snapshot_file=$1
   fi
   if [[ -f "${snapshot_file}" ]]; then
-    curl -sS  --request PUT --data-binary @$snapshot_file http://tasks.core_consul:8500/v1/snapshot
+    curl -sS  --request PUT --data-binary @$snapshot_file http://consul.service.consul:8500/v1/snapshot
   else
     log_warning "Restore snapshot failed! Snapshot file '${snapshot_file}' could not be found."
   fi
@@ -123,9 +123,9 @@ function run_consul_template() {
   fi
   cp $1 $template_dir/$2
   if [ -z "$4" ]; then
-    /bin/sh -c "sleep 30;nohup consul-template -consul-addr=tasks.core_consul:8500 --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3 -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
+    /bin/sh -c "sleep 30;nohup consul-template -consul-addr=consul.service.consul:8500 --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3 -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
   else
-    /bin/sh -c "nohup consul-template -consul-addr=tasks.core_consul:8500 --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3:'$4' -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
+    /bin/sh -c "nohup consul-template -consul-addr=consul.service.consul:8500 --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3:'$4' -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
   fi
 }
 
