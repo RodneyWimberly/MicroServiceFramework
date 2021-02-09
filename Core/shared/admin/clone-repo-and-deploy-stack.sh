@@ -3,14 +3,12 @@ rm ~/clone-repo-and-deploy-stack.sh && \
 touch ~/clone-repo-and-deploy-stack.sh && \
 cat > ~/clone-repo-and-deploy-stack.sh <<EOL
 if [[ -d ~/msf ]]; then
-  cd ~/msf
-  ./Core/shared/admin/shutdown-cluster.sh
-  git pull https://rodneywimberly:30c18052b85cb37658846d156d9f50eb1bf773c2@github.com/RodneyWimberly/MicroServiceFramework.git
-else
-  git clone -b DeployCore \
-    https://rodneywimberly:30c18052b85cb37658846d156d9f50eb1bf773c2@github.com/RodneyWimberly/MicroServiceFramework.git \
-    ~/msf
+  ~/msf/Core/shared/admin/shutdown-cluster.sh
 fi
+rm -rf ~/msf
+git clone -b DeployCore \
+  https://rodneywimberly:30c18052b85cb37658846d156d9f50eb1bf773c2@github.com/RodneyWimberly/MicroServiceFramework.git \
+  ~/msf
 cd ~/msf/Core/shared/admin
 chmod u+x ./*.sh
 cp ~/msf/Core/shared/admin/docker-node-ps /bin/docker-node-ps
@@ -20,6 +18,8 @@ exit
 EOL
 chmod u+x ~/clone-repo-and-deploy-stack.sh
 apk add screen git gettext curl jq
+git config --global user.email "rodney.wimberly@gmail.com"
+git config --global user.name "Rodney Wimberly"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
 echo "192.168.0.28 worker1" >> /etc/hosts

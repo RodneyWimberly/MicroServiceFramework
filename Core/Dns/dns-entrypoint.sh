@@ -12,7 +12,7 @@ get_consul_ip
 log_detail "merging expanded variables and updating configuration based on Consul cluster deployment"
 # get_consul_kv config/dns | envsubst > /etc/templates/1.consul-template.conf
 cat /etc/templates/1.consul.conf | envsubst > /etc/templates/1.consul-template.conf
-run_consul_template /etc/templates/1.consul-template.conf 1.consul.conf /etc/dnsmasq/1.consul.conf "consul lock -http-addr=http://consul.service.consul:8500 -name=service/dnsmasq -shell=false restart killall dnsmasq"
+run_consul_template /etc/templates/1.consul-template.conf 1.consul.conf /etc/dnsmasq/1.consul.conf "consul lock -http-addr=http://tasks.core_consul:8500 -name=service/dnsmasq -shell=false restart killall dnsmasq"
 
 
 dnsmasq --no-daemon --log-queries --server=/consul/${CONSUL_IP}#8600
