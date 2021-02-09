@@ -1,26 +1,26 @@
 #!/bin/sh
 
 function log() {
-  log_raw "[INF] $1"
+  log_raw "$GREEN[INF] $1$NC"
 }
 
 function log_header() {
   echo " "
-  log_raw "[HDR] -----------------------------------------------------------"
-  log_raw "[HDR] - $1"
-  log_raw "[HDR] -----------------------------------------------------------"
+  log_raw "$PURPLE[HDR] -----------------------------------------------------------$NC"
+  log_raw "$PURPLE[HDR] - $1$NC"
+  log_raw "$PURPLE[HDR] -----------------------------------------------------------$NC"
 }
 
 function log_detail() {
-  log_raw "[DTL]  ====> $1"
+  log_raw "$LT_GREEN[DTL]  ====> $1$NC"
 }
 
 function log_error() {
-  log_raw "[ERR] $1"
+  log_raw "$RED[ERR] $1$NC"
 }
 
 function log_warning() {
-  log_raw "[WAR] $1"
+  log_raw "$YELLOW[WAR] $1$NC"
 }
 
 function log_raw() {
