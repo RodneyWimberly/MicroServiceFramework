@@ -39,3 +39,14 @@ function build_and_deploy_image() {
 
   cd $current_dir
 }
+
+function link_file() {
+  if [[ ! -f $1 ]]; then
+    log_error "File $1 cannot be located"
+    exit 1
+  fi
+  source_file=$1
+  target_file=$2
+  log_detail "Linking source file ${source_file} to target file ${target_file}"
+  ln -f $source_file $target_file
+}

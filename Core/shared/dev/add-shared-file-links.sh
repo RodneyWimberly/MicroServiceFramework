@@ -10,47 +10,47 @@ MSF_DIR=/mnt/d/em
 CORE_DIR=$MSF_DIR/Core
 
 log_detail "Making links for Core stack"
-ln -f -v $MSF_DIR/.gitignore $CORE_DIR/.gitignore
-ln -f -v $MSF_DIR/.dockerignore $CORE_DIR/.dockerignore
+link_file $MSF_DIR/.gitignore $CORE_DIR/.gitignore
+link_file $MSF_DIR/.dockerignore $CORE_DIR/.dockerignore
 
 log_detail "Making links for Consul"
-ln -f -v $CORE_DIR/shared/certs/consul-agent-ca.pem $CORE_DIR/consul/consul-agent-ca.pem
-ln -f -v $CORE_DIR/shared/certs/docker-client-consul-0.pem $CORE_DIR/consul/docker-client-consul-0.pem
-ln -f -v $CORE_DIR/shared/certs/docker-client-consul-0-key.pem $CORE_DIR/consul/docker-client-consul-0-key.pem
-ln -f -v $CORE_DIR/shared/certs/docker-server-consul-0.pem $CORE_DIR/consul/docker-server-consul-0.pem
-ln -f -v $CORE_DIR/shared/certs/docker-server-consul-0-key.pem $CORE_DIR/consul/docker-server-consul-0-key.pem
-ln -f -v $MSF_DIR/.dockerignore $CORE_DIR/consul/.dockerignore
-ln -f -v $CORE_DIR/shared/scripts/core.env $CORE_DIR/consul/core.env
-ln -f -v $CORE_DIR/shared/scripts/common-functions.sh $CORE_DIR/consul/common-functions.sh
-ln -f -v $CORE_DIR/shared/scripts/consul-functions.sh $CORE_DIR/consul/consul-functions.sh
-ln -f -v $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/consul/hosting-functions.sh
-ln -f -v $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/consul/logging-functions.sh
+link_file $CORE_DIR/shared/certs/consul-agent-ca.pem $CORE_DIR/consul/consul-agent-ca.pem
+link_file $CORE_DIR/shared/certs/docker-client-consul-0.pem $CORE_DIR/consul/docker-client-consul-0.pem
+link_file $CORE_DIR/shared/certs/docker-client-consul-0-key.pem $CORE_DIR/consul/docker-client-consul-0-key.pem
+link_file $CORE_DIR/shared/certs/docker-server-consul-0.pem $CORE_DIR/consul/docker-server-consul-0.pem
+link_file $CORE_DIR/shared/certs/docker-server-consul-0-key.pem $CORE_DIR/consul/docker-server-consul-0-key.pem
+link_file $MSF_DIR/.dockerignore $CORE_DIR/consul/.dockerignore
+link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/consul/core.env
+link_file $CORE_DIR/shared/scripts/common-functions.sh $CORE_DIR/consul/common-functions.sh
+link_file $CORE_DIR/shared/scripts/consul-functions.sh $CORE_DIR/consul/consul-functions.sh
+link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/consul/hosting-functions.sh
+link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/consul/logging-functions.sh
 
 log_detail "Making links for DNS"
-ln -f -v $MSF_DIR/.dockerignore $CORE_DIR/dns/.dockerignore
-ln -f -v $CORE_DIR/shared/scripts/core.env $CORE_DIR/dns/core.env
-ln -f -v $CORE_DIR/shared/scripts/common-functions.sh $CORE_DIR/dns/common-functions.sh
-ln -f -v $CORE_DIR/shared/scripts/consul-functions.sh $CORE_DIR/dns/consul-functions.sh
-ln -f -v $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/dns/hosting-functions.sh
-ln -f -v $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/dns/logging-functions.sh
+link_file $MSF_DIR/.dockerignore $CORE_DIR/dns/.dockerignore
+link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/dns/core.env
+link_file $CORE_DIR/shared/scripts/common-functions.sh $CORE_DIR/dns/common-functions.sh
+link_file $CORE_DIR/shared/scripts/consul-functions.sh $CORE_DIR/dns/consul-functions.sh
+link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/dns/hosting-functions.sh
+link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/dns/logging-functions.sh
 
 log_detail "Making links for Portal"
-ln -f -v $MSF_DIR/.dockerignore $CORE_DIR/portal/.dockerignore
-ln -f -v $CORE_DIR/shared/scripts/core.env $CORE_DIR/portal/core.env
-ln -f -v $CORE_DIR/shared/scripts/common-functions.sh $CORE_DIR/portal/common-functions.sh
-ln -f -v $CORE_DIR/shared/scripts/consul-functions.sh $CORE_DIR/portal/consul-functions.sh
-ln -f -v $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/portal/hosting-functions.sh
-ln -f -v $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/portal/logging-functions.sh
+link_file $MSF_DIR/.dockerignore $CORE_DIR/portal/.dockerignore
+link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/portal/core.env
+link_file $CORE_DIR/shared/scripts/common-functions.sh $CORE_DIR/portal/common-functions.sh
+link_file $CORE_DIR/shared/scripts/consul-functions.sh $CORE_DIR/portal/consul-functions.sh
+link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/portal/hosting-functions.sh
+link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/portal/logging-functions.sh
 
 log_detail "Making links for Vault"
-ln -f -v $CORE_DIR/shared/certs/consul-agent-ca.pem $CORE_DIR/vault/consul-agent-ca.pem
-ln -f -v $CORE_DIR/shared/certs/docker-client-consul-0.pem $CORE_DIR/vault/docker-client-consul-0.pem
-ln -f -v $CORE_DIR/shared/certs/docker-client-consul-0-key.pem $CORE_DIR/vault/docker-client-consul-0-key.pem
-ln -f -v $CORE_DIR/shared/certs/docker-server-consul-0.pem $CORE_DIR/vault/docker-server-consul-0.pem
-ln -f -v $CORE_DIR/shared/certs/docker-server-consul-0-key.pem $CORE_DIR/vault/docker-server-consul-0-key.pem
-ln -f -v $MSF_DIR/.dockerignore $CORE_DIR/vault/.dockerignore
-ln -f -v $CORE_DIR/shared/scripts/core.env $CORE_DIR/vault/core.env
-ln -f -v $CORE_DIR/shared/scripts/common-functions.sh $CORE_DIR/vault/common-functions.sh
-ln -f -v $CORE_DIR/shared/scripts/consul-functions.sh $CORE_DIR/vault/consul-functions.sh
-ln -f -v $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/vault/hosting-functions.sh
-ln -f -v $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/vault/logging-functions.sh
+link_file $CORE_DIR/shared/certs/consul-agent-ca.pem $CORE_DIR/vault/consul-agent-ca.pem
+link_file $CORE_DIR/shared/certs/docker-client-consul-0.pem $CORE_DIR/vault/docker-client-consul-0.pem
+link_file $CORE_DIR/shared/certs/docker-client-consul-0-key.pem $CORE_DIR/vault/docker-client-consul-0-key.pem
+link_file $CORE_DIR/shared/certs/docker-server-consul-0.pem $CORE_DIR/vault/docker-server-consul-0.pem
+link_file $CORE_DIR/shared/certs/docker-server-consul-0-key.pem $CORE_DIR/vault/docker-server-consul-0-key.pem
+link_file $MSF_DIR/.dockerignore $CORE_DIR/vault/.dockerignore
+link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/vault/core.env
+link_file $CORE_DIR/shared/scripts/common-functions.sh $CORE_DIR/vault/common-functions.sh
+link_file $CORE_DIR/shared/scripts/consul-functions.sh $CORE_DIR/vault/consul-functions.sh
+link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/vault/hosting-functions.sh
+link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/vault/logging-functions.sh

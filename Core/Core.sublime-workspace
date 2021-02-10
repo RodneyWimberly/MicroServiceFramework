@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"SER",
+				"SERVICE_ID"
+			],
+			[
 				"sna",
 				"snapshot_file"
 			],
@@ -67,31 +71,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "shared/scripts/consul-functions.sh",
-			"settings":
-			{
-				"buffer_size": 3397,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "shared/admin/clone-repo-and-deploy-stack.sh",
-			"settings":
-			{
-				"buffer_size": 806,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "portal/consul-functions.sh",
-			"settings":
-			{
-				"buffer_size": 3897,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -107,6 +86,26 @@
 			[
 				"Package Control: ",
 				"Package Control: Install Package"
+			],
+			[
+				"commi",
+				"Set Syntax: Git Commit"
+			],
+			[
+				"git",
+				"Github: Plugin Settings"
+			],
+			[
+				"edge",
+				"Edge Theme: Activation"
+			],
+			[
+				"a",
+				"Material Theme: Advanced configuration"
+			],
+			[
+				"activa",
+				"Material Theme: Activate theme"
 			],
 			[
 				"Package Control: re",
@@ -193,10 +192,6 @@
 				"Package Control: Install Package"
 			],
 			[
-				"git",
-				"Git: Commit"
-			],
-			[
 				"build",
 				"Build: New Build System"
 			],
@@ -253,9 +248,16 @@
 	},
 	"console":
 	{
-		"height": 156.0,
+		"height": 137.0,
 		"history":
 		[
+			"$pwd",
+			"pwd",
+			"commit-changes-to-repo.cmd",
+			"quit",
+			"exit",
+			"ls",
+			"dir",
 			"ls",
 			"exit",
 			"cd",
@@ -275,28 +277,83 @@
 	"expanded_folders":
 	[
 		"/D/em/Core",
-		"/D/em/Core/dns",
 		"/D/em/Core/portal",
 		"/D/em/Core/shared",
 		"/D/em/Core/shared/admin",
+		"/D/em/Core/shared/dev",
 		"/D/em/Core/shared/scripts",
-		"/D/em/Core/vault"
+		"/D/em/Core/shared/vault"
 	],
 	"file_history":
 	[
-		"/D/em/Core/shared/scripts/consul-functions.sh",
-		"/D/em/Core/shared/scripts/hosting-functions.sh",
-		"/D/em/Core/portal/Dockerfile",
+		"/D/em/Core/shared/dev/git-commit-drafts.vbs",
+		"/D/em/Core/shared/admin/admin-functions.sh",
+		"/D/em/Core/shared/admin/clone-repo-and-deploy-stack.sh",
+		"/D/documents/git-checkin.vbs",
+		"/D/em/Core/shared/dev/git-push-origin-master.vbs",
+		"/D/em/Core/shared/dev/commit-changes-to-repo.cmd",
+		"/C/Program Files/Sublime Text 3/Data/Packages/ShellCommand/ShellCommand.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/ShellCommand/Default.sublime-commands",
+		"/C/Program Files/Sublime Text 3/Data/Packages/All Autocomplete/All Autocomplete.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Program Files/Sublime Text 3/Data/Packages/sublime-github/GitHub.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/GitHub.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/TabsShortcuts/Default (Windows).sublime-keymap",
+		"/D/em/Core/shared/admin/shutdown-cluster.sh",
+		"/D/em/Core/shared/scripts/common-functions.sh",
+		"/D/em/Core/shared/scripts/stacks.env",
+		"/D/em/Core/shared/vault/vault-functions.sh",
+		"/D/em/Core/shared/dev/dev-functions.sh",
+		"/D/em/Core/shared/dev/build-and-deploy-images.sh",
+		"/D/em/Core/shared/scripts/core.env",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/Github Tools.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/Default (Linux).sublime-keymap",
 		"/D/em/Core/dns/Dockerfile",
+		"/D/em/Core/portal/Dockerfile",
+		"/D/em/Core/shared/scripts/logging-functions.sh",
+		"/D/em/Core/shared/scripts/colors.sh",
+		"/D/em/Core/shared/scripts/colors.env",
+		"/D/em/_Core/docker-hub.sh",
+		"/D/em/_Core/Scripts/common.sh",
+		"/D/em/Core/shared/scripts/hosting-functions.sh",
+		"/D/em/Core/shared/scripts/consul-functions.sh",
+		"/D/em/Core/vault/consul-functions.sh",
+		"/D/em/Core/shared/vault/initialize-vault.sh",
+		"/D/em/Core/shared/admin/deploy-cluster.sh",
+		"/D/em/Core/consul/consul-functions.sh",
+		"/D/em/Core/consul/Dockerfile",
+		"/D/em/Core/consul/hosting-functions.sh",
+		"/D/em/Core/core-stack.yml",
+		"/D/em/Core/dns/1.consul.conf",
+		"/D/em/Core/dns/consul-functions.sh",
 		"/D/em/Core/dns/dns-entrypoint.sh",
+		"/D/em/Core/dns/hosting-functions.sh",
+		"/D/em/Core/portal/consul-functions.sh",
+		"/D/em/Core/portal/hosting-functions.sh",
+		"/D/em/Core/portal/portal-entrypoint.sh",
+		"/D/em/Core/shared/scripts/backup.sh",
+		"/D/em/Core/vault/hosting-functions.sh",
+		"/D/em/Core/vault/vault.json",
+		"/D/em/Core/shared/vault/get-admin-token.sh",
+		"/D/em/Core/shared/vault/curl-api.sh",
+		"/D/em/Core/shared/vault/vault-shell.sh",
+		"/D/em/Core/shared/vault/stop-vault.sh",
+		"/D/em/Core/shared/vault/set-auth-methods.sh",
+		"/D/em/Core/shared/vault/enable-docker-approle.sh",
+		"/D/em/Core/shared/vault/enable-docker-secrets-store.sh",
+		"/D/em/Core/shared/admin/cluster-restore.sh",
+		"/D/em/Core/shared/vault/apply-all-policies.sh",
+		"/D/em/Core/shared/vault/vault-shell-setup.sh",
+		"/D/em/Core/shared/vault/apply-admin-policy.sh",
+		"/D/em/Core/shared/dev/add-shared-file-links.sh",
+		"/D/em/Core/shared/admin/cluster-deploy.sh",
+		"/D/em/Core/shared/admin/cluster-shutdown.sh",
+		"/D/em/Core/shared/vault/test.sh",
+		"/D/em/Core/shared/admin/docker-service-exec.sh",
+		"/D/em/Core/shared/admin/docker-node-ps.sh",
 		"/D/em/Core/dns/consul-service.json",
 		"/D/em/Core/portal/consul-service.json",
-		"/D/em/Core/portal/portal-entrypoint.sh",
-		"/D/em/Core/portal/consul-functions.sh",
-		"/D/em/Core/shared/admin/clone-repo-and-deploy-stack.sh",
 		"/D/em/Core/vault/vault-entrypoint.sh",
-		"/D/em/Core/core-stack.yml",
-		"/D/em/Core/dns/hosting-functions.sh",
 		"/D/em/Core/portal/nginx.conf",
 		"/D/em/Core/portal/index.html",
 		"/D/em/Core/devops-stack.yml",
@@ -304,17 +361,9 @@
 		"/D/em/Core/portal/test.conf",
 		"/D/Projects/EventManager/Api/Identity/nginx/nginx.conf",
 		"/D/em/_Core/Portal/root/etc/nginx/nginx.conf",
-		"/D/em/Core/shared/admin/cluster-deploy.sh",
 		"/D/em/Core/shared/admin/initialize-vault.sh",
-		"/D/em/Core/shared/admin/docker-node-ps.sh",
 		"/D/em/Core/shared/dev/DontForget.txt",
-		"/D/em/Core/shared/scripts/logging-functions.sh",
-		"/D/em/Core/shared/admin/docker-service-exec.sh",
-		"/D/em/Core/shared/scripts/core.env",
-		"/D/em/Core/shared/scripts/common-functions.sh",
-		"/D/em/Core/portal/hosting-functions.sh",
 		"/D/em/Core/portal/common-functions.sh",
-		"/D/em/Core/shared/admin/cluster-shutdown.sh",
 		"/D/em/Core/shared/scripts/admin-functions.sh",
 		"/D/em/Core/shared/admin/add-links.sh",
 		"/D/em/Core/shared/admin/add-links.cmd",
@@ -324,19 +373,16 @@
 		"/D/em/Core/shared/admin/build-and-deploy-container-images.cmd",
 		"/D/em/Core/shared/admin/manager-ssh.cmd",
 		"/D/em/Core/shared/admin/build-images.cmd",
-		"/D/em/Core/consul/Dockerfile",
 		"/D/Containers/build-and-push-consul-bootstrapper.cmd",
 		"/D/em/Core/vault/common-functions.sh",
 		"/D/em/Core/consul/common-functions.sh",
 		"/D/em/Core/consul/consul-entrypoint.sh",
 		"/D/em/Core/dns/common-functions.sh",
-		"/D/em/Core/vault/vault.json",
 		"/D/Downloads/docker-compose-ha-consul-vault-ui-main/templates/nginx.conf",
 		"/D/em/Core/shared/admin/manager.cmd",
 		"/D/Downloads/docker-compose-ha-consul-vault-ui-main/templates/index.html",
 		"/D/Projects/consul/scripts/common-functions.sh",
 		"/D/em/Core/portal/.vimrc",
-		"/D/em/Core/dns/1.consul.conf",
 		"/D/em/Core/dns/0.base.conf",
 		"/D/em/_Core/Portal/Dockerfile",
 		"/D/em/Core/shared/admin/map-ports.cmd",
@@ -367,61 +413,20 @@
 		"/D/Projects/consul examples/docker-compose-ha-consul-vault-ui-main/scripts/restore-consul.sh",
 		"/D/Projects/consul examples/docker-compose-ha-consul-vault-ui-main/Docker Compose HA Consul Vault UI DNS.sublime-project",
 		"/D/Projects/consul/consul-stack.yml",
-		"/D/Projects/consul/pwd/cmdline.txt",
-		"/D/Projects/consul/diagnostics-stack.yml",
-		"/D/Projects/consul/pwd/set-pwd-variables.ps1",
-		"/D/Projects/consul/pwd/update-stack-worker.sh",
-		"/D/Projects/consul/pwd/connect-to-pwd.ps1",
-		"/D/Projects/consul/pwd/deploy-to-pwd.ps1",
-		"/D/Projects/consul/storage-stack.yml",
-		"/D/Projects/consul/scripts/deploy.sh",
-		"/D/Projects/consul/nfsclient-stack.yml",
-		"/D/Projects/consul/bootstrapper/common_functions.sh",
-		"/D/Projects/consul/scripts/bootstrap_functions.sh",
-		"/D/Projects/consul/scripts/bootstrap_entrypoint.sh",
-		"/D/Projects/consul/scripts/consul-entrypoint.sh",
-		"/D/Projects/consul/pwd/connect-to-pwd.cmd",
-		"/D/Projects/consul/config/server-backup.json",
-		"/D/Projects/consul/config/client-backup.json",
-		"/D/Projects/consul/config/client.json",
-		"/D/Projects/consul/config/server.json",
-		"/D/Projects/consul/scripts/consul.env",
-		"/D/Projects/consul/config/sftp.json",
-		"/D/Projects/consul/pwd/set-variables.cmd",
-		"/D/Projects/consul/scripts/jump-box-entrypoint.sh",
-		"/D/Projects/consul/scripts/bootstrap_acl.sh",
-		"/D/Projects/consul/nfsserver-stack.yml",
-		"/D/Projects/consul/config/common.json",
-		"/D/Projects/consul/scripts/common_functions.sh",
-		"/D/Projects/consul/pwd/pwd-remote-cmd.sh",
-		"/D/Projects/consul/config/bootstrap.config",
-		"/D/Projects/consul/logging-stack.yml",
-		"/D/Projects/consul/devops-stack.yml",
-		"/D/Projects/consul/nfs-stack.yml",
-		"/D/Projects/consul/scripts/backup/server_setup.sh",
-		"/D/Projects/consul/scripts/wait-for-it.sh",
-		"/D/Projects/consul/scripts/bootstrap_gossip.sh",
-		"/D/Projects/consul/scripts/bootstrap_tls.sh",
-		"/D/Projects/consul/scripts/bootstrap_acl_anon.sh",
-		"/D/Projects/consul/scripts/bootstrap_acl_bootstrap_agent_token.sh",
-		"/D/Projects/consul/scripts/bootstrap_acl_client_general_token.sh",
-		"/D/Projects/consul/scripts/bootstrapper_entrypoint.sh",
-		"/D/Projects/consul/pwd/deploy-to-pwd.cmd",
-		"/D/keep-alive.sh",
-		"/D/Projects/consul/pwd/screen.txt",
-		"/D/Projects/consul/scripts/admin/build-and-push-docker-images.cmd",
-		"/D/Projects/consul/nfstest-stack.yml",
-		"/D/Projects/consul/scripts/admin/deploy-to-pwd.cmd"
+		"/D/Projects/consul/pwd/cmdline.txt"
 	],
 	"find":
 	{
-		"height": 30.0
+		"height": 31.0
 	},
 	"find_in_files":
 	{
 		"height": 164.0,
 		"where_history":
 		[
+			"D:\\em\\Core\\",
+			"D:\\em\\Core",
+			"D:\\em\\Core\\",
 			"D:\\em\\Core",
 			"D:\\em\\Core\\"
 		]
@@ -431,6 +436,50 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"CORE_SUBNET",
+			"CONSUL_DOMAIN",
+			"CONSUL_VERSION",
+			"CONSUL_TEMPLATE_VERSION",
+			"CONSUL_URL",
+			"CORE_SCRIPT_DIR",
+			"CORE_STACK_NAME",
+			"export ",
+			"COLOR_",
+			"RAW_WHITE",
+			"HDR_PURPLE",
+			"DTL_GREEN",
+			"INF_GREEN",
+			"WRN_YELLOW",
+			"ERR_RED",
+			"}m",
+			"=${",
+			"\"",
+			"}m",
+			"};${",
+			"}[",
+			"[${",
+			"=${",
+			"m'",
+			";$FOREGROUND_",
+			"$SET_BOLD",
+			"$RESET_ALL",
+			"$ESCAPE",
+			"\\033",
+			"FOREGROUND",
+			"\"${CONSUL_API}\"agent/",
+			"\"${CONSUL_API}\"kv/",
+			"http://\"${CONSUL_ENDPOINT}\"/v1/",
+			"\"${CONSUL_SERVER}\":8500",
+			"tasks.core_consul",
+			"consul.service.consul",
+			"tasks.core_consul",
+			"consul.service.consul",
+			"cd_admin",
+			"NODE_ROOT_DIR",
+			"CORE_SUBNET",
+			"CONSUL_BACKUP_DIR",
+			"run_vault",
+			"run_consul",
 			"**",
 			"text",
 			"user",
@@ -462,6 +511,37 @@
 		"regex": false,
 		"replace_history":
 		[
+			"",
+			"LOG_COLOR_",
+			"COLOR_LOG_ENTRY",
+			"COLOR_HEADER",
+			"COLOR_DETAILS",
+			"COLOR_INFORMATION",
+			"COLOR_WARNING",
+			"COLOR_ERROR",
+			"}m\"",
+			"=\"${",
+			"",
+			"}\"m",
+			"}\";\"${",
+			"}\"[",
+			"[\"${",
+			"=\"${",
+			"}m'",
+			";${FOREGROUND_",
+			"${SET_BOLD}",
+			"${RESET_ALL}",
+			"${ESCAPE}",
+			"$ESCAPE",
+			"BACKGROUND",
+			"\"${CONSUL_AGENT_API}\"",
+			"\"${CONSUL_KV_API}\"",
+			"\"${CONSUL_API}\"",
+			"\"${CONSUL_ENDPOINT}\"",
+			"\"${CONSUL_SERVER}\"",
+			"tasks.core_consul",
+			"exec_vault",
+			"exec_consul",
 			"**",
 			"\\$",
 			"tasks.core_dns2",
@@ -491,343 +571,14 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "shared/scripts/consul-functions.sh",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3397,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								329,
-								329
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"function_name_status_row": 13,
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "shared/admin/clone-repo-and-deploy-stack.sh",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 806,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								806
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"function_name_status_row": 0,
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "portal/consul-functions.sh",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 3897,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								698,
-								345
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										697,
-										698
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/curly_bracket.png",
-										"region.purplish"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										375,
-										376
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"function_name_status_row": 14,
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 30.0
+		"height": 31.0
 	},
 	"input":
 	{
@@ -876,7 +627,7 @@
 	"project": "Core.sublime-project",
 	"replace":
 	{
-		"height": 56.0
+		"height": 79.0
 	},
 	"save_all_on_build": false,
 	"select_file":
@@ -918,7 +669,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 377.0,
+	"side_bar_width": 283.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

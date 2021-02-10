@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # DESCRIPTION
 #  This script sets up curl to talk with Vault using temporary admin credentials.
 

@@ -20,7 +20,7 @@ apk add screen git gettext curl jq
 export PATH=$PATH:~/msf/Core/shared/scripts
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
-echo "192.168.0.23 worker1" >> /etc/hosts
+echo "192.168.0.13 worker1" >> /etc/hosts
 echo "caption always \"%{= kc}Screen session %S on %H %-20=%{= .m}%D %d.%m.%Y %0c\"" > ~/.screenrc
 screen -q -t stack-deployment -S stack-deployment
 ./clone-repo-and-deploy-stack.sh

@@ -1,14 +1,16 @@
 #!/bin/sh
 
+function log_new_line() {
+  echo " "
+}
+
 function log() {
   log_raw "[INF]${LOG_COLOR_INFORMATION} $1"
 }
 
 function log_header() {
-  echo " "
-  #log_raw "${PURPLE}[HDR] -----------------------------------------------------------"
+  log_new_line
   log_raw "[HDR] ${LOG_COLOR_HEADER}$1"
-  #log_raw "${PURPLE}[HDR] -----------------------------------------------------------"
 }
 
 function log_detail() {
