@@ -1,4 +1,4 @@
-#!/bin/sh /usr/bin/env bash
+#!/bin/sh
 
 # --------------------------------------------------------------------------------------
 # Easily exec into a random task of your service running on any container

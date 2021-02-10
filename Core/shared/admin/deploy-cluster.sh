@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # DESCRIPTION: Retrieves Node info and populates environment vars for later use,
 #   tears down exiting container resources and builds application stacks on bare containers
 set -e

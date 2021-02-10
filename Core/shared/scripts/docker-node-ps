@@ -1,4 +1,4 @@
-#!/bin/sh /usr/bin/env bash
+#!/bin/sh
 
 # --------------------------------------------------------------------------------------
 # Returns the docker node-id and the container-id in format NODE-ID:CONTAINER-ID
