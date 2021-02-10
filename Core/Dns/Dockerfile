@@ -1,7 +1,7 @@
 FROM storytel/dnsmasq
 
 # Label the image
-LABEL Author rodneywimberly
+LABEL Author microserviceframework
 LABEL Name dns
 
 # Add required pacakges

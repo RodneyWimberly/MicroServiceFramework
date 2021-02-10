@@ -1,15 +1,35 @@
 #!/bin/sh
 
+function get_consul_ip() {
+  log "Looking up IP address for ${CONSUL_SERVER}"
+  CONSUL_IP=
+  while [[ -z "${CONSUL_IP}" ]]; do
+    CONSUL_IP=$(get_ip_from_name "${CONSUL_SERVER}")
+    if [[ -z "${CONSUL_IP}" ]]; then
+      log_warn "Unable to locate ${CONSUL_SERVER}, retrying in 1 second."
+      sleep 1
+    fi
+  done
+  export CONSUL_IP
+  export CONSUL_HTTP_ADDR=http://${CONSUL_IP}:8500
+  log_header "Consul Details"
+  log_detail "Consul IP: ${CONSUL_IP}"
+  log_detail "Consul HTTP Addr: ${CONSUL_HTTP_ADDR}"
+}
+
 function get_consul_service_health() {
-  curl -sS  http://consul.service.consul:8500/v1/agent/health/service/name/$1?format=text
+  log "Getting Consul service health for $1"
+  curl -sS  "${CONSUL_AGENT_API}"health/service/name/$1?format=text
 }
 
 function list_consul_services() {
-  curl -sS  http://consul.service.consul:8500/v1/agent/services
+  log "Listing Consul services"
+  curl -sS  "${CONSUL_AGENT_API}"services
 }
 
 function get_consul_service() {
-  curl -sS  http://consul.service.consul:8500/v1/agent/service/$1
+  log "Getting Consul service $1"
+  curl -sS  "${CONSUL_AGENT_API}"service/$1
 }
 
 function add_consul_service() {
@@ -24,64 +44,41 @@ function add_consul_service() {
   curl -sS \
     --request PUT \
     --data @/etc/templates/"$SERVICE_NAME".json \
-    http://tasks.core_consul:8500/v1/agent/service/register?replace-existing-checks=true
-}
-
-function add_consul_service_old() {
-  (
-    log "Registering consul service"
-    if [ -f "$1" ]; then
-      app_name="$(jq -r '.Name' < "$1")"
-    else
-      app_name="$(echo "$1" | jq -r '.Name')"
-    fi
-    if [[ ! -d "/usr/local/tmp" ]]; then
-      mkdir /usr/local/tmp/
-    fi
-    service_file=/usr/local/tmp/"$app_name".json
-    [ -f "$service_file" ] || (
-      if [ -f "$1" ]; then
-        cp "$1" "$service_file"
-      else
-        echo "$1" > "$service_file"
-      fi
-    )
-    cat "$service_file"
-    curl -sS \
-    --request PUT \
-    --data @"$service_file" \
-    http://consul.service.consul:8500/v1/agent/service/register?replace-existing-checks=true
-  )
+    "${CONSUL_AGENT_API}"service/register?replace-existing-checks=true
 }
 
 function remove_consul_service() {
   log "Deregistering service $1"
   curl -sS  \
     --request PUT \
-    http://tasks.core_consul:8500/v1/agent/service/deregister/$1
+    "${CONSUL_AGENT_API}"service/deregister/$1
 }
 
 function mark_consul_service_maintance() {
+  log "Set maintance mode: Service=$1 Enabled=$2 Reason=$3"
   curl -sS  \
     --request PUT \
-    http://consul.service.consul:8500/v1/agent/service/maintenance/$1?enable=$2&reason=$3
+    "${CONSUL_AGENT_API}"service/maintenance/$1?enable=$2&reason=$3
 }
 
 function get_consul_kv() {
-  curl -sS  http://consul.service.consul:8500/v1/kv/%1
+  log "Getting value for key $1 from KV store"
+  curl -sS  "${CONSUL_KV_API}"$1
 }
 
 function put_consul_kv() {
+  log "Saving value for key $1 to KV store"
   curl -sS  \
       --request PUT \
       --data @$2 \
-      http://consul.service.consul:8500/v1/kv/$1
+      "${CONSUL_KV_API}"$1
 }
 
 function delete_consul_kv() {
+  log "Removing value for key $1 to KV store"
   curl -sS  \
       --request DELETE \
-      http://consul.service.consul:8500/v1/kv/%1
+      "${CONSUL_KV_API}"%1
 }
 
 function take_consul_snapshot() {
@@ -90,13 +87,13 @@ function take_consul_snapshot() {
   else
     snapshot_file=$1
   fi
-
-  curl -sS http://consul.service.consul/v1/snapshot?dc=${CONSUL_DATACENTER} -o ${snapshot_file}
+  log "Taking Consul cluster snapshot to file $snapshot_file"
+  curl -sS "${CONSUL_API}"snapshot?dc=${CONSUL_DATACENTER} -o ${snapshot_file}
   if [[ -f "backups/latest_snapshot.tar" ]]; then
     rm -f "backups/latest_snapshot.tar"
   fi
   cp $snapshot_file "backups/latest_snapshot.tar"
-  echo snapshot_file
+  echo $snapshot_file
 }
 
 function restore_consul_snapshot() {
@@ -106,7 +103,8 @@ function restore_consul_snapshot() {
     snapshot_file=$1
   fi
   if [[ -f "${snapshot_file}" ]]; then
-    curl -sS  --request PUT --data-binary @$snapshot_file http://consul.service.consul:8500/v1/snapshot
+    log "Restoring Consul cluster snapshot from file $snapshot_file"
+    curl -sS  --request PUT --data-binary @$snapshot_file "${CONSUL_API}"snapshot
   else
     log_warning "Restore snapshot failed! Snapshot file '${snapshot_file}' could not be found."
   fi
@@ -123,15 +121,17 @@ function run_consul_template() {
   fi
   cp $1 $template_dir/$2
   if [ -z "$4" ]; then
-    /bin/sh -c "sleep 30;nohup consul-template -consul-addr=consul.service.consul:8500 --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3 -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
+    log "Processing Consul template $1"
+    /bin/sh -c "sleep 30;nohup consul-template -consul-addr="${CONSUL_ENDPOINT}" --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3 -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
   else
-    /bin/sh -c "nohup consul-template -consul-addr=consul.service.consul:8500 --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3:'$4' -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
+    log "Processing Consul template $1 and running $4"
+    /bin/sh -c "nohup consul-template -consul-addr="${CONSUL_ENDPOINT}" --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3:'$4' -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
   fi
 }
 
 function expand_consul_config_from() {
   set +e
-  log "Processing ${CONSUL_TEMPLATES_DIR}/$1 with variable expansion to ${CONSUL_CONFIG_DIR}/$1"
+  log "Updating ${CONSUL_TEMPLATES_DIR}/$1 with variable value substitution and saving to ${CONSUL_CONFIG_DIR}/$1"
   rm -f "${CONSUL_CONFIG_DIR}/$1"
   cat "${CONSUL_TEMPLATES_DIR}/$1" | envsubst > "${CONSUL_CONFIG_DIR}/$1"
   set -e

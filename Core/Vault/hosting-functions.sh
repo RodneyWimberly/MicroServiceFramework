@@ -34,22 +34,6 @@ function update_dns_config() {
   log_detail "DNS IP: ${CONSUL_IP}"
 }
 
-function get_consul_ip() {
-  log "Looking up IP address for consul.service.consul"
-  CONSUL_IP=
-  while [[ -z "${CONSUL_IP}" ]]; do
-    CONSUL_IP=$(get_ip_from_name "consul.service.consul")
-    if [[ -z "${CONSUL_IP}" ]]; then
-      log_warn "Unable to locate consul.service.consul, retrying in 1 second."
-      sleep 1
-    fi
-  done
-  export CONSUL_IP
-  export CONSUL_HTTP_ADDR=http://${CONSUL_IP}:8500
-  log_header "Consul Details"
-  log_detail "Consul IP: ${CONSUL_IP}"
-  log_detail "Consul HTTP Addr: ${CONSUL_HTTP_ADDR}"
-}
 
 function get_ip_from_name() {
   dig +short $1 | tail -n1

@@ -3,11 +3,19 @@
 # HA Service discovery, health checks, load-balancing,
 # DNS name lookup, routing intentions, KV store,
 # DNS Server, Secret Store/Vault, & Reverse Proxy / Portal
+# Portainer Web & Agent - Used to manage dev-ops stuff like Docker
+# SOCKS Proxy Server - Used to allow dev browser to act as if it is located and routed within the cluster
 ###########################################################################################################
+# External Ports
+# 1080      = socks-proxy - SOCKS 4/5 Proxy Server
+# 5000      = portal - HTML UI
+# 8200      = vault - HTML UI
+
 version: "3.8"
 
 volumes:
   consul_data:
+  portainer_data:
 
 networks:
   admin_network:
@@ -43,7 +51,9 @@ services:
     cap_add:
       - NET_ADMIN
     networks:
-      - admin_network
+      admin_network:
+        aliases:
+          - dns.service.consul
     deploy:
       replicas: 2
 
@@ -61,8 +71,7 @@ services:
     networks:
       - admin_network
     dns:
-      - tasks.core_dns1
-      - tasks.core_dns2
+      - dns.service.consul
     depends_on:
       - consul
       - dns
@@ -75,16 +84,75 @@ services:
     env_file:
       - ./shared/scripts/core.env
     ports:
-      - 5000:80
+      - 80:80
     networks:
       - admin_network
     dns:
-      - tasks.core_dns1
-      - tasks.core_dns2
+      - dns.service.consul
     depends_on:
       - consul
       - dns
       - vault
+      - portainer
+      - portainer-agent
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
+  portainer:
+    image: microserviceframework/portainer:dev
+    init: true
+    env_file:
+      - ./shared/scripts/core.env
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    networks:
+      - admin_network
+    dns:
+      - dns.service.consul
+    depends_on:
+      - dns
+      - consul
+    deploy:
+      placement:
+        constraints: [node.platform.os == linux]
+
+  portainer-agent:
+    image: microserviceframework/portainer-agent:dev
+    init: true
+    env_file:
+      - ./shared/scripts/core.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+      - /:/host
+    # ports:
+    #   - target: 9001
+    #     published: 9001
+    #     protocol: tcp
+    #     mode: host
+    networks:
+      - admin_network
+    dns:
+      - dns.service.consul
+    depends_on:
+      - dns
+      - consul
+    deploy:
+      mode: global
+      placement:
+        constraints: [node.platform.os == linux]
+
+  socks-proxy:
+    image: serjs/go-socks5-proxy
+    init: true
+    ports:
+      - 1080:1080
+    networks:
+      - admin_network
+    dns:
+      - dns.service.consul
+    depends_on:
+      - dns
+      - consul

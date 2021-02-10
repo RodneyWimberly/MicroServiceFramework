@@ -1,0 +1,7 @@
+{
+  "ID": "${SERVICE_ID}",
+  "Name": "${SERVICE_NAME}",
+  "Tags": [ "portal" ],
+  "Address": "${ETH0_IP}",
+  "Port": 9000
+}

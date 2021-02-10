@@ -1,7 +1,7 @@
 FROM vault
 
 # Label the image
-LABEL Author rodneywimberly
+LABEL Author microserviceframework
 LABEL Name vault
 
 RUN apk add --no-cache \

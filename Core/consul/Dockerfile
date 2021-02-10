@@ -1,7 +1,7 @@
 FROM consul
 
 # Label the image
-LABEL Author rodneywimberly
+LABEL Author microserviceframework
 LABEL Name consul
 
 RUN set -eux && \

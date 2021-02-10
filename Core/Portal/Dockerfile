@@ -1,7 +1,7 @@
 FROM alpine
 
 # Label the image
-LABEL Author rodneywimberly
+LABEL Author microserviceframework
 LABEL Name portal
 
 # Install updates, nginx, and common tools

@@ -10,7 +10,6 @@ else
 fi
 
 source "${SCRIPT_DIR}"/core.env
-source "${SCRIPT_DIR}"/stacks.env
 source "${SCRIPT_DIR}"/colors.env
 source "${SCRIPT_DIR}"/colors.sh
 source "${SCRIPT_DIR}"/logging-functions.sh
