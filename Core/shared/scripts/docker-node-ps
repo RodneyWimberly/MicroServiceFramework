@@ -1,5 +1,4 @@
 #!/bin/sh
-
 # --------------------------------------------------------------------------------------
 # Returns the docker node-id and the container-id in format NODE-ID:CONTAINER-ID
 #   running the given service as parameter

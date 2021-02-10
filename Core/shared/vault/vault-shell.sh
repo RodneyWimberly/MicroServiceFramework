@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # DESCRIPTION
 # Provides an interactive shell to type commands directly into Vault.  The
 # session is pre-authenticated with an admin token.

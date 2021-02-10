@@ -1,5 +1,4 @@
 #!/bin/sh
-
 # --------------------------------------------------------------------------------------
 # Easily exec into a random task of your service running on any container
 #  in your swarm. (uses docker-node-ps in PATH as a dependency)

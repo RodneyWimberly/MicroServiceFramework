@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # This enables docker infrastructure to log into Vault using an approle.  This
 # allows docker infrastructure to not have knowledge of any secrets initially
 # and to log into Vault by it residing in the docker CIDR network.

@@ -1,5 +1,4 @@
 #!/bin/sh
-
 set -ex
 
 source ./vault-functions.sh

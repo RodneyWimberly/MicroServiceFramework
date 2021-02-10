@@ -1,5 +1,6 @@
 #!/bin/sh
 
+
 if [[ -d ~/msf ]]; then
   SCRIPT_DIR=~/msf/Core/shared/scripts
 elif [[ -d /mnt/d/em ]]; then
