@@ -17,7 +17,7 @@ RUN set -eux && \
         jq
 
 # Set Environment Vars
-ENV CONSUL_VERSION 1.9.1
+ENV CONSUL_VERSION 1.9.2
 ENV CONSUL_TEMPLATE_VERSION=0.25.1
 ENV CONSUL_URL https://releases.hashicorp.com
 

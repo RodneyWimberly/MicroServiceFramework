@@ -2,6 +2,7 @@
 
 source /usr/local/scripts/core.env
 source /usr/local/scripts/colors.env
+source /usr/local/scripts/stacks.env
 source /usr/local/scripts/colors.sh
 source /usr/local/scripts/logging-functions.sh
 source /usr/local/scripts/hosting-functions.sh

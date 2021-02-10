@@ -4,7 +4,6 @@ cd /mnt/d/em/Core
 
 set -e
 
-source ./shared/scripts/core.env
 source ./shared/dev/dev-functions.sh
 
 log "Building and Deploying Docker Images"
