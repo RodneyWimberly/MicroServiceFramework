@@ -8,7 +8,7 @@ CONSUL_TEMPLATES_DIR=/consul/templates
 VAULT_CERT_DIR=/vault/certs
 CORE_SCRIPT_DIR=/usr/local/scripts
 
-CONSUL_SERVER=tasks.core_consul
+CONSUL_SERVER=consul.service.consul
 CONSUL_ENDPOINT="${CONSUL_SERVER}:8500"
 CONSUL_API="http://${CONSUL_ENDPOINT}/v1/"
 CONSUL_AGENT_API="${CONSUL_API}agent/"
