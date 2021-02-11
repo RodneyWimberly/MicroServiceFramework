@@ -22,7 +22,7 @@ show_hosting_details
 
 set +e
 log_detail "Removing the following stacks: ${CORE_STACK_NAME} & ${LOG_STACK_NAME}"
-docker stack rm "${CORE_STACK_NAME}" ${LOG_STACK_NAME}
+docker stack rm "${CORE_STACK_NAME}" "${LOG_STACK_NAME}"
 
 log_detail "Waiting 15 seconds for stack deletion to finalize"
 sleep 15
