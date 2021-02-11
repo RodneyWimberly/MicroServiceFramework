@@ -6,7 +6,7 @@ function get_consul_ip() {
   while [[ -z "${CONSUL_IP}" ]]; do
     CONSUL_IP=$(get_ip_from_name "${CONSUL_SERVER}")
     if [[ -z "${CONSUL_IP}" ]]; then
-      log_warn "Unable to locate ${CONSUL_SERVER}, retrying in 1 second."
+      log_warning "Unable to locate ${CONSUL_SERVER}, retrying in 1 second."
       sleep 1
     fi
   done
@@ -60,7 +60,7 @@ function add_consul_service() {
 }
 
 function remove_consul_service() {
-  log "Deregistering service $1"
+  log "Deregistering service ${1}"
   curl -sS  \
     --request PUT \
     "${CONSUL_AGENT_API}"service/deregister/$1

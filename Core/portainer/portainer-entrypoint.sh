@@ -13,5 +13,5 @@ get_consul_ip
 
 SERVICE_ID=$(add_consul_service portainer 9000)
 log_detail "Starting portainer."
-/app/portainer
+/portainer
 remove_consul_service $SERVICE_ID
