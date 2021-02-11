@@ -18,7 +18,8 @@ RUN mkdir /usr/local/scripts && \
     mkdir /consul/templates && \
     mkdir /consul/certs && \
     chown -R consul:consul /usr/local/scripts && \
-    chown -R consul:consul /consul
+    chown -R consul:consul /consul && \
+    ln -f /consul/templates /etc/templates
 
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
