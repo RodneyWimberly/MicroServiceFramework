@@ -8,6 +8,9 @@ add_path "${CORE_SCRIPT_DIR}"
 hosting_details
 
 # Merge expanded variables with configuration templates and place in the config folder
+log_detail "Linking the /consul/templates folder to the /etc/templates folder"
+ln -f /consul/templates /etc/templates
+
 expand_consul_config_from "common.json"
 if [ "${NODE_IS_MANAGER}" == "true" ]; then
   agent_mode="server"
