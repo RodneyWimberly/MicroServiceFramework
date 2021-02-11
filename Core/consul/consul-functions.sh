@@ -41,17 +41,21 @@ function add_consul_service() {
   else
     export SERVICE_TAGS=
   fi
-  cat /etc/templates/consul-service.json | envsubst > /etc/templates/"$SERVICE_NAME".json
+  cat /etc/templates/consul-service.json | envsubst > /etc/templates/"$SERVICE_NAME-$SERVICE_PORT".json
   log_header "Consul service registration"
   log_detail "Service ID: $SERVICE_ID"
   log_detail "Service Name: $SERVICE_NAME"
   log_detail "Service Address: $ETH0_IP"
   log_detail "Service Port: $SERVICE_PORT"
   log_detail "Service Tags: $SERVICE_TAGS"
-  curl -sS \
-    --request PUT \
-    --data @/etc/templates/"$SERVICE_NAME".json \
-    "${CONSUL_AGENT_API}"service/register?replace-existing-checks=true
+  if [[ "${SERVICE_NAME}" == "consul" ]]; then
+    cp /etc/templates/"$SERVICE_NAME-$SERVICE_PORT".json /consul/config/"$SERVICE_NAME-$SERVICE_PORT".json
+  else
+    curl -sS \
+      --request PUT \
+      --data @/etc/templates/"$SERVICE_NAME-$SERVICE_PORT".json \
+      "${CONSUL_AGENT_API}"service/register?replace-existing-checks=true
+  fi
   echo "$SERVICE_ID"
 }
 
