@@ -20,4 +20,6 @@ get_consul_ip
 log_detail "merging expanded variables with configuration templates and placing in the config folder"
 cat /vault/templates/vault.json | envsubst > /vault/config/vault.json
 
+SERVICE_ID=$(add_consul_service "vault" 8200 "\"portal\"")
 docker-entrypoint.sh vault server -config=/vault/config
+remove_consul_service $SERVICE_ID

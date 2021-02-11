@@ -27,6 +27,7 @@ link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/consul/hosting
 link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/consul/logging-functions.sh
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/consul/colors.env
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/consul/colors.sh
+link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/consul/consul-service.json
 
 log_detail "Making links for DNS"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/dns/.dockerignore
@@ -37,6 +38,7 @@ link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/dns/hosting-fu
 link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/dns/logging-functions.sh
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/dns/colors.env
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/dns/colors.sh
+link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/dns/consul-service.json
 
 log_detail "Making links for Portainer"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/portainer/.dockerignore
@@ -47,6 +49,7 @@ link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/portainer/host
 link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/portainer/logging-functions.sh
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/portainer/colors.env
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/portainer/colors.sh
+link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/portainer/consul-service.json
 
 log_detail "Making links for Portainer-Agent"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/portainer-agent/.dockerignore
@@ -57,6 +60,7 @@ link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/portainer-agen
 link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/portainer-agent/logging-functions.sh
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/portainer-agent/colors.env
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/portainer-agent/colors.sh
+link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/portainer-agent/consul-service.json
 
 log_detail "Making links for Portal"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/portal/.dockerignore
@@ -67,6 +71,7 @@ link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/portal/hosting
 link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/portal/logging-functions.sh
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/portal/colors.env
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/portal/colors.sh
+link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/portal/consul-service.json
 
 log_detail "Making links for Socks-Proxy"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/socks-proxy/.dockerignore
@@ -77,6 +82,7 @@ link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/socks-proxy/ho
 link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/socks-proxy/logging-functions.sh
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/socks-proxy/colors.env
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/socks-proxy/colors.sh
+link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/socks-proxy/consul-service.json
 
 log_detail "Making links for Vault"
 link_file $CORE_DIR/shared/certs/consul-agent-ca.pem $CORE_DIR/vault/consul-agent-ca.pem
@@ -92,3 +98,4 @@ link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/vault/hosting-
 link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/vault/logging-functions.sh
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/vault/colors.env
 link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/vault/colors.sh
+link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/vault/consul-service.json

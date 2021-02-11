@@ -30,10 +30,7 @@ cat /etc/templates/index.html | envsubst  > /etc/templates/index-template.html
 sed -i 's/\*\*/$/g' /etc/templates/index-template.html
 run_consul_template /etc/templates/index-template.html index.html /usr/share/nginx/html/index.html
 
-add_consul_service portal
-
-set +e
+SERVICE_ID=$(add_consul_service "portal" 80 "\"portal\"")
 log_detail "Starting nginx."
 nginx -g 'daemon off;'
-
 remove_consul_service $SERVICE_ID

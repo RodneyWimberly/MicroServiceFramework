@@ -34,17 +34,25 @@ function get_consul_service() {
 
 function add_consul_service() {
   export SERVICE_NAME="$1"
-  export SERVICE_ID="$SERVICE_NAME-$ETH0_IP"
+  export SERVICE_PORT="$2"
+  export SERVICE_ID="$SERVICE_NAME:$ETH0_IP:$SERVICE_PORT"
+  if [[ $# > 2 ]]; then
+    export SERVICE_TAGS="$3"
+  else
+    export SERVICE_TAGS=
+  fi
   cat /etc/templates/consul-service.json | envsubst > /etc/templates/"$SERVICE_NAME".json
   log_header "Consul service registration"
   log_detail "Service ID: $SERVICE_ID"
   log_detail "Service Name: $SERVICE_NAME"
-  log_detail "Service JSON:"
-  cat /etc/templates/"$SERVICE_NAME".json
+  log_detail "Service Address: $ETH0_IP"
+  log_detail "Service Port: $SERVICE_PORT"
+  log_detail "Service Tags: $SERVICE_TAGS"
   curl -sS \
     --request PUT \
     --data @/etc/templates/"$SERVICE_NAME".json \
     "${CONSUL_AGENT_API}"service/register?replace-existing-checks=true
+  echo "$SERVICE_ID"
 }
 
 function remove_consul_service() {

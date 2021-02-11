@@ -14,7 +14,6 @@ log_detail "merging expanded variables and updating configuration based on Consu
 cat /etc/templates/1.consul.conf | envsubst > /etc/templates/1.consul-template.conf
 run_consul_template /etc/templates/1.consul-template.conf 1.consul.conf /etc/dnsmasq/1.consul.conf "consul lock -http-addr=http://consul.service.consul:8500 -name=service/dnsmasq -shell=false restart killall dnsmasq"
 
-
+# SERVICE_ID=$(add_consul_service dns 53 "\"dns\"")
 dnsmasq --no-daemon --log-queries --server=/consul/${CONSUL_IP}#8600
-
 # remove_consul_service $SERVICE_ID

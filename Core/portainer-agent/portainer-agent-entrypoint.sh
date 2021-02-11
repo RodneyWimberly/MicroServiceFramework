@@ -11,9 +11,7 @@ add_path "${CORE_SCRIPT_DIR}"
 hosting_details
 get_consul_ip
 
-add_consul_service portainer-agent
-
+SERVICE_ID=$(add_consul_service portainer-agent 9001)
 log_detail "Starting portainer agent."
 /app/agent
-
 remove_consul_service $SERVICE_ID
