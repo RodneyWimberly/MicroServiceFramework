@@ -38,7 +38,7 @@ services:
         aliases:
           - consul.service.consul
     deploy:
-      endpoint_mode: dnsrr
+      # endpoint_mode: dnsrr
       mode: global
 
   dns:
