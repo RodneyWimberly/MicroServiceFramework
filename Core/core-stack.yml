@@ -1,13 +1,14 @@
 ###########################################################################################################
 # Core Stack
-# HA Service discovery, health checks, load-balancing,
-# DNS name lookup, routing intentions, KV store,
-# DNS Server, Secret Store/Vault, & Reverse Proxy / Portal
-# Portainer Web & Agent - Used to manage dev-ops stuff like Docker
-# SOCKS Proxy Server - Used to allow dev browser to act as if it is located and routed within the cluster
+# HA Service discovery, health checks, load-balancing, DNS, service mesh routing, KV store, (HashiCorp Consul)
+# HA DNS Server (DnsMasq)
+# HA Secret Store/Vault (HashiCorp Vault)
+# HA Reverse Proxy / Portal (Nginx)
+# DevOps Management Web & Agent - Used to manage dev-ops stuff like Docker (Portainer)
+# SSH Server - Used to allow dev browser to act as if it is located and routed within the cluster (OpenSSH)
 ###########################################################################################################
 # External Ports
-# 1080      = socks-proxy - SOCKS 4/5 Proxy Server
+# 14403     = ssh - SSH Server
 # 5000      = portal - HTML UI
 # 8200      = vault - HTML UI
 
@@ -146,25 +147,13 @@ services:
       placement:
         constraints: [node.platform.os == linux]
 
-  proxy:
-    image: yarmak/socks5-server
+  ssh-server:
+    image: microserviceframework/ssh-server
     init: true
-    environment:
-      ENV PROXY_USER:
-      # Set proxy password for auth, used with PROXY_USER
-      ENV PROXY_PASSWORD:
-      # Set listen address for application
-      ENV PROXY_ADDRESS: 0.0.0.0
-      # Set listen port for application
-      ENV PROXY_PORT: 1080
-      # If set, enable TLS and use certificate from specified file
-      ENV PROXY_TLS_CERT:
-      # Key file for certificate specified in PROXY_TLS_CERT
-      ENV PROXY_TLS_KEY:
-      # If set, enable mutual TLS authentication and verify client certificates against CAs specified in CACERT
-      ENV PROXY_TLS_CACERT:
+    env_file:
+      - ./shared/scripts/core.env
     ports:
-      - 1080:1080
+      - 14403:22
     networks:
       - admin_network
     dns:

@@ -13,8 +13,8 @@ docker login
 
 build_and_deploy_image "consul"
 build_and_deploy_image "dns"
-build_and_deploy_image "portal"
+build_and_deploy_image "portal"`
 build_and_deploy_image "portainer"
 build_and_deploy_image "portainer-agent"
-# build_and_deploy_image "socks-proxy"
+build_and_deploy_image "ssh-server"
 build_and_deploy_image "vault"

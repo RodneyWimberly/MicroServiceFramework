@@ -14,6 +14,6 @@ function add_path() {
 
 function keep_container_alive() {
   log_detail "Doing a wait loop to keep the container alive."
-  exec sh -c 'while true ;do wait ;done'
+  exec sh -c 'while true ;do wait ;done
 }
 

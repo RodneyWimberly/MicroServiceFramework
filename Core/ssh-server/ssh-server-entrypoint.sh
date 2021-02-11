@@ -11,9 +11,8 @@ add_path "${CORE_SCRIPT_DIR}"
 hosting_details
 get_consul_ip
 
-add_consul_service socks-proxy
-
-log_detail "Starting socks-proxy."
-socks5
-
+add_consul_service ssh-server 22
+log_detail "Starting ssh service."
+service ssh start
+trap keep_container_alive SIGQUIT SIGTERM SIGKILL
 remove_consul_service $SERVICE_ID
