@@ -9,7 +9,7 @@ volumes:
   log_web_data:
 
 networks:
-  log_network:
+  stack_network:
   admin_network:
     external: true
 
@@ -38,7 +38,7 @@ services:
         - '/var/run/docker.sock:/var/run/docker.sock'
         - '/var/log:/mylogs'
     networks:
-        log_network:
+        stack_network:
           aliases:
             - logagent
         admin_network: {}
@@ -52,7 +52,7 @@ services:
       - log_db_data:/data/db
     networks:
       admin_network: {}
-      log_network:
+      stack_network:
         aliases:
             - mongo
     dns:
@@ -82,7 +82,7 @@ services:
       - log_api_data:/usr/share/elasticsearch/data
     networks:
       admin_network: {}
-      log_network:
+      stack_network:
         aliases:
           - elasticsearch
     dns:
@@ -103,7 +103,7 @@ services:
       - log_web_data:/usr/share/graylog/data
     networks:
      admin_network: {}
-     log_network:
+     stack_network:
         aliases:
           - graylog
     dns:
