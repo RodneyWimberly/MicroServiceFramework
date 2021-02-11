@@ -18,18 +18,17 @@ function hostip() {
 }
 
 function update_dns_config() {
-  log "Looking up IP address for tasks.core_dns"
+  log "Looking up IP address for dns.service.consul"
   DNS_IP=
   while [[ -z "${DNS_IP}" ]]; do
-    DNS_IP=$(get_ip_from_name "tasks.core_dns")
+    DNS_IP=$(get_ip_from_name "dns.service.consul")
     if [[ -z "${DNS_IP}" ]]; then
-      log_warn "Unable to locate tasks.core_dns, retrying in 1 second."
+      log_warn "Unable to locate dns.service.consul, retrying in 1 second."
       sleep 1
     fi
   done
   export DNS_IP
-  echo "nameserver ${DNS_IP}" > /etc/resolv.conf
-  echo "nameserver 127.0.0.1" >> /etc/resolv.conf
+  echo "nameserver ${DNS_IP}" >> /etc/resolv.conf
   log_header "DNS Details"
   log_detail "DNS IP: ${CONSUL_IP}"
 }

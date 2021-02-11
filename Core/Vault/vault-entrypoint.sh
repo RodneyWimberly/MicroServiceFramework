@@ -17,6 +17,9 @@ log_detail "Vault Cluster Address: ${VAULT_CLUSTER_ADDR}"
 get_consul_ip
 # update_dns_config
 
+log_detail "Linking the /vault/templates folder to the /etc/templates folder"
+ln -s /vault/templates /etc/templates
+
 log_detail "merging expanded variables with configuration templates and placing in the config folder"
 cat /vault/templates/vault.json | envsubst > /vault/config/vault.json
 

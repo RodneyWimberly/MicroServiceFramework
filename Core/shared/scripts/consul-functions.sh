@@ -56,7 +56,7 @@ function add_consul_service() {
       --data @/etc/templates/"$SERVICE_NAME-$SERVICE_PORT".json \
       "${CONSUL_AGENT_API}"service/register?replace-existing-checks=true
   fi
-  echo "$SERVICE_ID"
+  #echo "$SERVICE_ID"
 }
 
 function remove_consul_service() {

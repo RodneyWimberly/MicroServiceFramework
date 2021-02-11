@@ -31,14 +31,12 @@ services:
       - consul_data:/consul/data
     env_file:
       - ./shared/scripts/core.env
-    ports:
-      - 8500:8500
     networks:
       admin_network:
         aliases:
           - consul.service.consul
     deploy:
-      # endpoint_mode: dnsrr
+      endpoint_mode: dnsrr
       mode: global
 
   dns:
@@ -149,10 +147,24 @@ services:
         constraints: [node.platform.os == linux]
 
   proxy:
-    image: yarmak/dumbproxy
+    image: yarmak/socks5-server
     init: true
+    environment:
+      ENV PROXY_USER:
+      # Set proxy password for auth, used with PROXY_USER
+      ENV PROXY_PASSWORD:
+      # Set listen address for application
+      ENV PROXY_ADDRESS: 0.0.0.0
+      # Set listen port for application
+      ENV PROXY_PORT: 1080
+      # If set, enable TLS and use certificate from specified file
+      ENV PROXY_TLS_CERT:
+      # Key file for certificate specified in PROXY_TLS_CERT
+      ENV PROXY_TLS_KEY:
+      # If set, enable mutual TLS authentication and verify client certificates against CAs specified in CACERT
+      ENV PROXY_TLS_CACERT:
     ports:
-      - 8080:8080
+      - 1080:1080
     networks:
       - admin_network
     dns:
