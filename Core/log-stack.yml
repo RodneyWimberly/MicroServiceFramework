@@ -34,7 +34,6 @@ services:
         #- LOGAGENT_ARGS="-n httpd"
     cap_add:
         - SYS_ADMIN
-    restart: always
     volumes:
         - '/var/run/docker.sock:/var/run/docker.sock'
         - '/var/log:/mylogs'
