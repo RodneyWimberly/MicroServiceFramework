@@ -1,23 +1,63 @@
-CONSUL_DOMAIN=consul
-CONSUL_DATACENTER=docker
+##########################################################
+# Normal
+BLACK="${ESCAPE}[${RESET_ALL};${FOREGROUND_BLACK}m"
+RED="${ESCAPE}[${RESET_ALL};${FOREGROUND_RED}m"
+GREEN="${ESCAPE}[${RESET_ALL};${FOREGROUND_GREEN}m"
+YELLOW="${ESCAPE}[${RESET_ALL};${FOREGROUND_YELLOW}m"
+BLUE="${ESCAPE}[${RESET_ALL};${FOREGROUND_BLUE}m"
+PURPLE="${ESCAPE}[${RESET_ALL};${FOREGROUND_MAGENTA}m"
+CYAN="${ESCAPE}[${RESET_ALL};${FOREGROUND_CYAN}m"
+GRAY="${ESCAPE}[${RESET_ALL};${FOREGROUND_LIGHT_GRAY}m"
 
-CONSUL_CONFIG_DIR=/consul/config
-CONSUL_DATA_DIR=/consul/data
-CONSUL_CERT_DIR=/consul/certs
-CONSUL_TEMPLATES_DIR=/consul/templates
-VAULT_CERT_DIR=/vault/certs
-CORE_SCRIPT_DIR=/usr/local/scripts
+##########################################################
+# Bold
+BOLD_BLACK="${ESCAPE}[${SET_BOLD};${FOREGROUND_BLACK}m"
+BOLD_RED="${ESCAPE}[${SET_BOLD};${FOREGROUND_RED}m"
+BOLD_GREEN="${ESCAPE}[${SET_BOLD};${FOREGROUND_GREEN}m"
+BOLD_YELLOW="${ESCAPE}[${SET_BOLD};${FOREGROUND_YELLOW}m"
+BOLD_BLUE="${ESCAPE}[${SET_BOLD};${FOREGROUND_BLUE}m"
+BOLD_PURPLE="${ESCAPE}[${SET_BOLD};${FOREGROUND_MAGENTA}m"
+BOLD_CYAN="${ESCAPE}[${SET_BOLD};${FOREGROUND_CYAN}m"
+BOLD_GRAY="${ESCAPE}[${SET_BOLD};${FOREGROUND_LIGHT_GRAY}m"
 
-CONSUL_SERVER=consul.service.consul
-CONSUL_ENDPOINT="${CONSUL_SERVER}:8500"
-CONSUL_API="http://${CONSUL_ENDPOINT}/v1/"
-CONSUL_AGENT_API="${CONSUL_API}agent/"
-CONSUL_KV_API="${CONSUL_API}kv/"
+##########################################################
+# Dim
+DIM_BLACK="${ESCAPE}[${SET_DIM};${FOREGROUND_BLACK}m"
+DIM_RED="${ESCAPE}[${SET_DIM};${FOREGROUND_RED}m"
+DIM_GREEN="${ESCAPE}[${SET_DIM};${FOREGROUND_GREEN}m"
+DIM_YELLOW="${ESCAPE}[${SET_DIM};${FOREGROUND_YELLOW}m"
+DIM_BLUE="${ESCAPE}[${SET_DIM};${FOREGROUND_BLUE}m"
+DIM_PURPLE="${ESCAPE}[${SET_DIM};${FOREGROUND_MAGENTA}m"
+DIM_CYAN="${ESCAPE}[${SET_DIM};${FOREGROUND_CYAN}m"
+DIM_GRAY="${ESCAPE}[${SET_DIM};${FOREGROUND_LIGHT_GRAY}m"
 
-CORE_STACK_NAME=core
-LOG_STACK_NAME=log
-AGENT_CLUSTER_ADDR=tasks.core_portainer-agent
+##########################################################
+# No Color
+NC="${ESCAPE}[${RESET_ALL}m"
+NO_COLOR="${ESCAPE}[${RESET_ALL}m"
 
-LOGS_ENABLED=true
-LOGS_TOKEN=177434fe-0862-43e4-a162-de767c346723
-LOGS_RECEIVER_URL=http://tasks.log_api:9200
+##########################################################
+# Logging text colors
+# error - red
+LOG_COLOR_ERROR="${ESCAPE}[${RESET_ALL};${SET_BLINK};${FOREGROUND_RED}m"
+# warning -yellow
+LOG_COLOR_WARNING="${ESCAPE}[${SET_BOLD};;${SET_BLINK};${FOREGROUND_YELLOW}m"
+# information - green
+LOG_COLOR_INFORMATION="${ESCAPE}[${SET_BOLD};${FOREGROUND_GREEN}m"
+# details - light green
+LOG_COLOR_DETAILS="${ESCAPE}[${RESET_ALL};${FOREGROUND_GREEN}m"
+# header - light blue
+LOG_COLOR_HEADER="${ESCAPE}[${SET_BOLD};${SET_UNDERLINE};${FOREGROUND_GREEN}m"
+# time stamp - white
+LOG_COLOR_TIMESTAMP="${ESCAPE}[${SET_BOLD};${FOREGROUND_LIGHT_GRAY}m"
+# log type - light gray
+LOG_COLOR_TYPE="${ESCAPE}[${SET_BOLD};${FOREGROUND_LIGHT_GRAY}m"
+
+function set_color() {
+  COLOR=$1
+  echo -e "${ESCAPE}[${COLOR}m"
+}
+
+function no_color() {
+  echo -e  "${NO_COLOR}"
+}
