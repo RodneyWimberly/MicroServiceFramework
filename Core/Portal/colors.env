@@ -16,7 +16,7 @@ CONSUL_KV_API="${CONSUL_API}kv/"
 
 CORE_STACK_NAME=core
 LOG_STACK_NAME=log
-AGENT_CLUSTER_ADDR=tasks.core_portainer-agent:9001
+AGENT_CLUSTER_ADDR=tasks.core_portainer-agent
 
 LOGS_ENABLED=true
 LOGS_TOKEN=177434fe-0862-43e4-a162-de767c346723

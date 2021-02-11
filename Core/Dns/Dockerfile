@@ -39,7 +39,7 @@ RUN curl -Lo /tmp/consul_template_0.15.0_linux_amd64.zip ${CONSUL_URL}/consul-te
     mv consul-template /bin && \
     rm /tmp/consul_template_0.15.0_linux_amd64.zip
 
-COPY ./core.env /usr/local/scripts/core.env
+COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./0.base.conf /etc/dnsmasq/0.base.conf
 COPY ./1.consul.conf /etc/templates/1.consul.conf

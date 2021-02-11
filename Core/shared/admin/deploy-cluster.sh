@@ -3,7 +3,7 @@
 #   tears down exiting container resources and builds application stacks on bare containers
 set -e
 
-source ./admin-functions.sh
+source ~/msf/Core/shared/admin/admin-functions.sh
 
 log_header "Stack Deployment"
 export NUM_OF_MGR_NODES=$(docker info --format "{{.Swarm.Managers}}")

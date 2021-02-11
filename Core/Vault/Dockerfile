@@ -18,7 +18,7 @@ RUN mkdir /usr/local/scripts && \
     chown -R vault:vault /usr/local/scripts && \
     chown -R vault:vault /vault
 
-COPY ./core.env /usr/local/scripts/core.env
+COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./*.pem /vault/certs/
 COPY ./vault.json /vault/templates/vault.json

@@ -20,7 +20,7 @@ RUN mkdir /usr/local/scripts && \
     chown -R consul:consul /usr/local/scripts && \
     chown -R consul:consul /consul
 
-COPY ./core.env /usr/local/scripts/core.env
+COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./*.pem /consul/certs/
 COPY ./*.json /consul/templates/

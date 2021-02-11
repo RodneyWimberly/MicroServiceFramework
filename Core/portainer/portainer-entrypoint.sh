@@ -14,6 +14,6 @@ get_consul_ip
 add_consul_service portainer
 
 log_detail "Starting portainer."
-portainer
+/app/portainer
 
 remove_consul_service $SERVICE_ID
