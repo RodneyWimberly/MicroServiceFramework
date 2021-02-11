@@ -1,4 +1,5 @@
-FROM portainer/agent
+FROM portainer/agent:linux-amd64-2.1.0-alpine
+
 
 # Label the image
 LABEL Author microserviceframework
@@ -12,7 +13,6 @@ RUN set -x && \
     apk add --no-cache \
         curl \
         bind-tools \
-        unzip \
         jq \
         gettext
 

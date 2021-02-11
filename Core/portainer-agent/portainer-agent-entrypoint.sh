@@ -14,6 +14,6 @@ get_consul_ip
 add_consul_service portainer-agent
 
 log_detail "Starting portainer agent."
-agent
+/app/agent
 
 remove_consul_service $SERVICE_ID

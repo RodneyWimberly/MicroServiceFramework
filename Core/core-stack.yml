@@ -144,11 +144,11 @@ services:
       placement:
         constraints: [node.platform.os == linux]
 
-  socks-proxy:
-    image: serjs/go-socks5-proxy
+  proxy:
+    image: yarmak/dumbproxy
     init: true
     ports:
-      - 1080:1080
+      - 8080:8080
     networks:
       - admin_network
     dns:

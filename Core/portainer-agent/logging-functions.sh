@@ -14,7 +14,7 @@ function log_header() {
 }
 
 function log_detail() {
-  log_raw "[DTL] ${LOG_COLOR_DETAILS} ====> $1"
+  log_raw "[DTL] ${LOG_COLOR_DETAILS}====> $1"
 }
 
 function log_error() {
@@ -28,3 +28,4 @@ function log_warning() {
 function log_raw() {
   echo -e "${LOG_COLOR_TIMESTAMP}$(date +"%T"): ${LOG_COLOR_LOGTYPE}$1 ${NC}"
 }
+

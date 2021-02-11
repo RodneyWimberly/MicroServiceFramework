@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [[ -d ~/msf ]]; then
   SCRIPT_DIR=~/msf/Core/shared/scripts
@@ -23,9 +23,8 @@ function build_and_deploy_image() {
   fi
   image_owner=microserviceframework
   image_name=$1
-  current_dir=$pwd
 
-  cd ./$image_name
+  pushd ./$image_name
 
   log_detail "Building image $image_owner/$image_name"
   docker build -t $image_owner/$image_name .
@@ -36,7 +35,7 @@ function build_and_deploy_image() {
   log_detail "Pushing image $image_owner/$image_name:$image_tag"
   docker push $image_owner/$image_name:$image_tag
 
-  cd $current_dir
+  popd
 }
 
 function link_file() {

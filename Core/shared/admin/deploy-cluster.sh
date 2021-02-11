@@ -21,8 +21,8 @@ export ETH4_IP=$(get_ip_from_adapter eth4)
 show_hosting_details
 
 set +e
-log_detail "Removing the following stacks: ${CORE_STACK_NAME}"
-docker stack rm "${CORE_STACK_NAME}"
+log_detail "Removing the following stacks: ${CORE_STACK_NAME} & ${LOG_STACK_NAME}"
+docker stack rm "${CORE_STACK_NAME}" ${LOG_STACK_NAME}
 
 log_detail "Waiting 15 seconds for stack deletion to finalize"
 sleep 15
@@ -37,10 +37,11 @@ create_network admin_network
 set -e
 
 deploy_stack "${CORE_STACK_NAME}"
+deploy_stack "${LOG_STACK_NAME}"
 
-# log_detail "Waiting 15 seconds for stack to come up"
-# sleep 15
+log_detail "Waiting 15 seconds for stack to come up"
+sleep 15
 
-# ../vault/initialize-vault.sh
+../vault/initialize-vault.sh
 
 exit
