@@ -1,0 +1,5 @@
+#!/bin/sh
+SWARM_MANAGER_HOST=$1
+SERVICE_NAME=$2
+SERVICE_JSON=$(ssh $SWARM_MANAGER_HOST "docker service ps $SERVICE_NAME --no-trunc --format '{{ json . }}' -f desired-state=running")
+ssh -t $(echo $SERVICE_JSON | jq -r '.Node') "docker exec -it $(echo $SERVICE_JSON | jq -r '.Name').$(echo $SERVICE_JSON | jq -r '.ID') bash"

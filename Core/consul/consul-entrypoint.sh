@@ -12,7 +12,7 @@ log_detail "Linking the /consul/templates folder to the /etc/templates folder"
 ln -s /consul/templates /etc/templates
 
 expand_consul_config_from "common.json"
-if [ "${NODE_IS_MANAGER}" == "true" ]; then
+if [ "${NODE_IS_MANAGER}" = "true" ]; then
   agent_mode="server"
   expand_consul_config_from "server.json"
 else
@@ -20,7 +20,7 @@ else
   expand_consul_config_from "client.json"
 fi
 
-add_consul_service "consul" 8500 "\"portal\""
+add_consul_service "consul" 8500 "\"portal\", \"$NODE_NAME\""
 log "Starting Consul in ${agent_mode} mode using the following command: exec docker-entrypoint.sh $@"
 docker-entrypoint.sh "$@"
-remove_consul_service $SERVICE_ID
+remove_consul_service "$SERVICE_ID"

@@ -14,5 +14,5 @@ get_consul_ip
 add_consul_service ssh-server 22
 log_detail "Starting ssh service."
 service ssh start
-trap keep_container_alive SIGQUIT SIGTERM SIGKILL
-remove_consul_service $SERVICE_ID
+keep_container_alive
+remove_consul_service "$SERVICE_ID"
