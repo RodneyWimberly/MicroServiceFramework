@@ -16,4 +16,5 @@ cd ~/msf/Core/shared/admin
 exit
 EOL
 chmod u+x ~/clone-repo-and-deploy-stack.sh
+
 ./clone-repo-and-deploy-stack.sh

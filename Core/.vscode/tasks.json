@@ -16,7 +16,8 @@
         {
             "label": "add-shared-file-links.sh",
             "type": "shell",
-            "command": "/mnt/d/em/Core/shared/dev/add-shared-file-links.sh"
+            "command": "/mnt/d/em/Core/shared/dev/add-shared-file-links.sh",
+            "problemMatcher": []
         }
     ]
 }

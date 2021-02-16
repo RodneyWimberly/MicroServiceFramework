@@ -1,44 +1,43 @@
-#!/bin/sh
+#!/bin/sh /bin/bash
 
-if [[ -d ~/msf ]]; then
+if [ -d ~/msf ]; then
   SCRIPT_DIR=~/msf/Core/shared/scripts
-elif [[ -d /mnt/d/em ]]; then
+elif [ -d /mnt/d/em ]; then
   SCRIPT_DIR=/mnt/d/em/Core/shared/scripts
 else
   SCRIPT_DIR=/usr/local/scripts
 fi
-source "${SCRIPT_DIR}"/core.env
+. "${SCRIPT_DIR}"/core.env
 
-function get_ip_from_adapter() {
+get_ip_from_adapter() {
   ip -o -4 addr list $1 | head -n1 | awk '{print $4}' | cut -d/ -f1
 }
 
-function hostip() {
-  ip -o ro get $(ip ro | awk '$1 == "default" { print $3 }') | awk '{print $5}'
+hostip() {
+  ip -o ro get "$(ip ro | awk '$1 == "default" { print $3 }')" | awk '{print $5}'
 }
 
-function update_dns_config() {
+update_dns_config() {
   log "Looking up IP address for dns.service.consul"
   DNS_IP=
-  while [[ -z "${DNS_IP}" ]]; do
+  while [ -z "${DNS_IP}" ]; do
     DNS_IP=$(get_ip_from_name "dns.service.consul")
-    if [[ -z "${DNS_IP}" ]]; then
+    if [ -z "${DNS_IP}" ]; then
       log_warn "Unable to locate dns.service.consul, retrying in 1 second."
       sleep 1
     fi
   done
   export DNS_IP
-  echo "nameserver ${DNS_IP}" >> /etc/resolv.conf
+  echo "nameserver ${DNS_IP}" >>/etc/resolv.conf
   log_header "DNS Details"
   log_detail "DNS IP: ${CONSUL_IP}"
 }
 
-
-function get_ip_from_name() {
+get_ip_from_name() {
   dig +short $1 | tail -n1
 }
 
-function show_hosting_details() {
+show_hosting_details() {
   log_header "Swarm Details"
   log_detail "Node Id: ${NODE_ID}"
   log_detail "Node Name: ${NODE_NAME}"
@@ -56,10 +55,10 @@ function show_hosting_details() {
   log_detail "eth4 Address: ${ETH4_IP}"
 }
 
-function get_hosting_details() {
+get_hosting_details() {
   NODE_INFO=$(docker_api "info")
   export NUM_OF_MGR_NODES=$(echo ${NODE_INFO} | jq -r -M '.Swarm.Managers')
-  export NODE_IP=$( echo ${NODE_INFO} | jq -r -M '.Swarm.NodeAddr')
+  export NODE_IP=$(echo ${NODE_INFO} | jq -r -M '.Swarm.NodeAddr')
   export NODE_ID=$(echo ${NODE_INFO} | jq -r -M '.Swarm.NodeID')
   export NODE_NAME=$(echo ${NODE_INFO} | jq -r -M '.Name')
   export NODE_IS_MANAGER=$(echo ${NODE_INFO} | jq -r -M '.Swarm.ControlAvailable')
@@ -72,16 +71,15 @@ function get_hosting_details() {
   export ETH4_IP=$(get_ip_from_adapter eth4)
 }
 
-function hosting_details() {
+hosting_details() {
   get_hosting_details
   show_hosting_details
 }
 
-
-function docker_api() {
+docker_api() {
   docker_api_url="http://localhost/${1}"
   docker_api_method="${2}"
-  if [[ -z "${docker_api_method}" ]]; then
+  if [ -z "${docker_api_method}" ]; then
     docker_api_method="GET"
   fi
 

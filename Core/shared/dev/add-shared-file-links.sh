@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
-source ./dev-functions.sh
+. /mnt/d/em/Core/shared/dev/dev-functions.sh
 
 log "Creating file links for shared files."
 
@@ -74,15 +74,15 @@ link_file $CORE_DIR/shared/scripts/colors.sh $CORE_DIR/portal/colors.sh
 link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/portal/consul-service.json
 
 log_detail "Making links for Socks-Proxy"
-link_file $MSF_DIR/.dockerignore $CORE_DIR/socks-proxy/.dockerignore
-link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/socks-proxy/core.env
-link_file $CORE_DIR/shared/scripts/common-functions.sh $CORE_DIR/socks-proxy/common-functions.sh
-link_file $CORE_DIR/shared/scripts/consul-functions.sh $CORE_DIR/socks-proxy/consul-functions.sh
-link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/socks-proxy/hosting-functions.sh
-link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/socks-proxy/logging-functions.sh
-link_file $CORE_DIR/shared/scripts/colors.env $CORE_DIR/socks-proxy/colors.env
-link_file $CORE_DIR/shared/scripts/colors.sh $CORE_DIR/socks-proxy/colors.sh
-link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/socks-proxy/consul-service.json
+link_file $MSF_DIR/.dockerignore $CORE_DIR/ssh-server/.dockerignore
+link_file $CORE_DIR/shared/scripts/core.env $CORE_DIR/ssh-server/core.env
+link_file $CORE_DIR/shared/scripts/common-functions.sh $CORE_DIR/ssh-server/common-functions.sh
+link_file $CORE_DIR/shared/scripts/consul-functions.sh $CORE_DIR/ssh-server/consul-functions.sh
+link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/ssh-server/hosting-functions.sh
+link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/ssh-server/logging-functions.sh
+link_file $CORE_DIR/shared/scripts/colors.env $CORE_DIR/ssh-server/colors.env
+link_file $CORE_DIR/shared/scripts/colors.sh $CORE_DIR/ssh-server/colors.sh
+link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/ssh-server/consul-service.json
 
 log_detail "Making links for Vault"
 link_file $CORE_DIR/shared/certs/consul-agent-ca.pem $CORE_DIR/vault/consul-agent-ca.pem
