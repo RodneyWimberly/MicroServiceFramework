@@ -36,6 +36,7 @@ sleep 5
 create_network admin_network
 set -e
 
+cp ../../docker-compose.yml ../../core-stack.yml
 deploy_stack "${CORE_STACK_NAME}"
 deploy_stack "${LOG_STACK_NAME}"
 

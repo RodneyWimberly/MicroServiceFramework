@@ -21,8 +21,6 @@ volumes:
 networks:
   admin_network:
     external: true
-  host:
-    external: true
 
 services:
   consul:
@@ -34,13 +32,10 @@ services:
       - consul_data:/consul/data
     env_file:
       - ./shared/scripts/core.env
-    cap_add:
-      - ALL
     networks:
       admin_network:
         aliases:
           - consul.service.consul
-      host: {}
     deploy:
       endpoint_mode: dnsrr
       mode: global
@@ -57,8 +52,9 @@ services:
     cap_add:
       - NET_ADMIN
     networks:
-      - admin_network
-      - host
+      admin_network:
+        aliases:
+          - dns.service.consul
     deploy:
       replicas: 2
 
@@ -75,9 +71,8 @@ services:
       - 8200:8200
     networks:
       - admin_network
-      - host
     dns:
-      - 169.254.1.1
+      - dns.service.consul
     depends_on:
       - consul
       - dns
@@ -93,9 +88,8 @@ services:
       - 5000:80
     networks:
       - admin_network
-      - host
     dns:
-      - 169.254.1.1
+      - dns.service.consul
     depends_on:
       - consul
       - dns
@@ -116,11 +110,10 @@ services:
       - /var/lib/docker/volumes:/var/lib/docker/volumes
     networks:
       - admin_network
-      - host
     ports:
       - 9000:9000
     dns:
-      - 169.254.1.1
+      - dns.service.consul
     depends_on:
       - dns
       - consul
@@ -142,13 +135,10 @@ services:
         published: 9001
         protocol: tcp
         mode: host
-    cap_add:
-      - ALL
     networks:
       - admin_network
-      - host
     dns:
-      - 169.254.1.1
+      - dns.service.consul
     depends_on:
       - dns
       - consul
@@ -166,9 +156,8 @@ services:
       - 14403:22
     networks:
       - admin_network
-      - host
     dns:
-      - 169.254.1.1
+      - dns.service.consul
     depends_on:
       - dns
       - consul

@@ -15,8 +15,8 @@ EOL
 apk add screen git gettext curl jq
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
-echo "192.168.0.8 worker1" >> /etc/hosts
-echo "192.168.0.7 manager1" >> /etc/hosts
+echo "192.168.0.22 worker1" >> /etc/hosts
+echo "192.168.0.23 manager1" >> /etc/hosts
 # sudo ip link add dummy0 type dummy
 # sudo ip link set dev dummy0 up
 # sudo ip addr add 169.254.1.1/32 dev dummy0
