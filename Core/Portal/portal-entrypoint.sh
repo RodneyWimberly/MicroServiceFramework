@@ -24,13 +24,13 @@ fi
 # Third we pass to consul-template
 cat /etc/templates/nginx.conf | envsubst > /etc/templates/nginx-template.conf
 sed -i 's/\*\*/$/g' /etc/templates/nginx-template.conf
-run_consul_template /etc/templates/nginx-template.conf nginx.conf /etc/nginx/nginx.conf "consul lock -http-addr=http://consul.service.consul:8500 -name service/portal -shell=false reload nginx -s reload"
+run_consul_template /etc/templates/nginx-template.conf nginx.conf /etc/nginx/nginx.conf "consul lock -http-addr=${CONSUL_HTTP_ADDR} -name service/portal -shell=false reload nginx -s reload"
 
 cat /etc/templates/index.html | envsubst  > /etc/templates/index-template.html
 sed -i 's/\*\*/$/g' /etc/templates/index-template.html
 run_consul_template /etc/templates/index-template.html index.html /usr/share/nginx/html/index.html
 
-add_consul_service "portal" 80 "\"portal\""
+add_consul_service "portal" 80 "\"portal\"" SERVICE_ID
 log_detail "Starting nginx."
 nginx -g 'daemon off;'
 remove_consul_service $SERVICE_ID

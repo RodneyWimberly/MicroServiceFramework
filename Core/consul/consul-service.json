@@ -1,9 +1,7 @@
 {
-  "service": {
-    "id": "${SERVICE_ID}",
-    "name": "${SERVICE_NAME}",
-    "tags": [ ${SERVICE_TAGS} ],
-    "address": "${ETH0_IP}",
-    "port": ${SERVICE_PORT}
-  }
+  "ID": "${SERVICE_ID}",
+  "Name": "${SERVICE_NAME}",
+  "Tags": [ $SERVICE_TAGS ],
+  "Address": "${ETH0_IP}",
+  "Port": ${SERVICE_PORT}
 }

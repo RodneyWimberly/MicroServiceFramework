@@ -1,0 +1,6 @@
+D:\em\Web\obj\Debug\net5.0\EventManager.Web.csprojAssemblyReference.cache
+D:\em\Web\obj\Debug\net5.0\EventManager.Web.GeneratedMSBuildEditorConfig.editorconfig
+D:\em\Web\obj\Debug\net5.0\EventManager.Web.AssemblyInfoInputs.cache
+D:\em\Web\obj\Debug\net5.0\EventManager.Web.AssemblyInfo.cs
+D:\em\Web\obj\Debug\net5.0\EventManager.Web.csproj.CoreCompileInputs.cache
+D:\em\Web\obj\Debug\net5.0\EventManager.Web.MvcApplicationPartsAssemblyInfo.cache

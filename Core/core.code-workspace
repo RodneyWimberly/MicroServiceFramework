@@ -5,6 +5,7 @@
 		}
 	],
 	"settings": {
-		"powershell.codeFormatting.addWhitespaceAroundPipe": true
+		"files.eol": "\n",
+		"powershell.codeFormatting.addWhitespaceAroundPipe": true,
 	}
 }

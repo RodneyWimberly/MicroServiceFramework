@@ -38,11 +38,11 @@ export NO_COLOR="${ESCAPE}[${RESET_ALL}m"
 
 ##########################################################
 # Logging text colors
-
 export BOLD_GRAY_UNDERLINE="${ESCAPE}[${SET_BOLD};${SET_UNDERLINE};${FOREGROUND_LIGHT_GRAY}m"
 export BOLD_GREEN_UNDERLINE="${ESCAPE}[${SET_BOLD};${SET_UNDERLINE};${FOREGROUND_GREEN}m"
 export PURPLE_UNDERLINE="${ESCAPE}[${RESET_ALL};${SET_UNDERLINE};${FOREGROUND_MAGENTA}m"
 export NO_COLOR_UNDERLINE="${ESCAPE}[${RESET_ALL};${SET_UNDERLINE}m"
+
 set_color() {
   COLOR=$1
   echo -e "${ESCAPE}[${COLOR}m"

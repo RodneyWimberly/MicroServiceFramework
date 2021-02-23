@@ -1,22 +1,33 @@
-FROM php:7.3-apache
+FROM alpine
 ARG SSH_PASS=P@55w0rd
 
 LABEL Author microserviceframework
 LABEL Name ssh-server
+LABEL Version 1.0
 
-RUN apt-get -y update && \
-  apt-get -y --no-install-recommends install --fix-missing openssh-server && \
-  rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache \
+  curl \
+  jq \
+  iputils \
+  iproute2 \
+  bind-tools \
+  gettext \
+  openssh-server \ 
+  openssl \
+  bash \
+  shadow \
+  openrc
 
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./consul-service.json /etc/templates/consul-service.json
 COPY ./sshd_config /etc/ssh/sshd_config
 
-RUN useradd -m -s /bin/bash -p $(openssl passwd -1 $SSH_PASS) webssh && \
-  usermod -g www-data webssh && \
+RUN addgroup  www-data && \
+  echo -e "${SSH_PASS}\n${SSH_PASS}" | adduser -s /bin/bash -G www-data webssh && \
   usermod -a -G www-data,root root && \
-  chown -R :www-data /var/www/html && \
   chmod 755 /usr/local/scripts/*.sh
 
-ENTRYPOINT ["/usr/local/scripts/ssh-server-entrypoint.sh"]
+EXPOSE 22
+# ENTRYPOINT ["/usr/local/scripts/ssh-server-entrypoint.sh"]
+CMD ["/usr/local/scripts/ssh-server-entrypoint.sh"]

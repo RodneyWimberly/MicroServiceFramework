@@ -2,13 +2,35 @@
 
 set -e
 
-source ./admin-functions.sh
-../vault/stop-vault.sh
+# shellcheck source=./admin-functions.sh
+. ./admin-functions.sh
+# ../vault/stop-vault.sh
 
-SNAPSHOT_FILE=$(take_consul_snapshot)
+log_header "Shutting down consul cluster"
+
+log_detail "Taking a cluster snapshot"
+SNAPSHOT_FILE=$(take_consul_snapshot "$@")
+export SNAPSHOT_FILE
+
+log_detail "Removing all service registrations"
+docker exec "$(docker ps -q -f status=running --filter name=core_consul)" rm -fr /consul/data/services/*
 
 for SERVICE in $(docker-node-ps -a core_consul); do
-  docker-service-exec $SERVICE consul leave
+  log_detail "$SERVICE leaving the cluster"
+  docker-service-exec "$SERVICE" "consul leave"
 done
+
+log_detail "Removing the following stacks: ${CORE_STACK_NAME} & ${LOG_STACK_NAME}"
+docker stack rm "${CORE_STACK_NAME}" "${LOG_STACK_NAME}"
+
+log_detail "Waiting 15 seconds for stack deletion to finalize"
+sleep 15
+
+log_detail "Removing the following volumes: ${CORE_STACK_NAME}_consul_data & ${CORE_STACK_NAME}_portainer_data"
+docker volume rm "${CORE_STACK_NAME}"_consul_data
+docker volume rm "${CORE_STACK_NAME}"_portainer_data
+
+log_detail "Waiting 5 seconds for volume deletion to finalize"
+sleep 5
 
 

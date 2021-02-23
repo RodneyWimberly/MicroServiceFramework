@@ -3,6 +3,7 @@
 cd /mnt/d/em/Core
 
 set -e
+# shellcheck source=./dev-functions.sh
 source ./shared/dev/dev-functions.sh
 IMAGE_TAG=dev
 log_header "Building and Deploying Docker Images with Tag: $IMAGE_TAG"
@@ -17,3 +18,5 @@ build_and_deploy_image "portainer" "$IMAGE_TAG"
 build_and_deploy_image "portainer-agent" "$IMAGE_TAG"
 build_and_deploy_image "ssh-server" "$IMAGE_TAG" "SSH_PASS=P@55w0rd"
 build_and_deploy_image "vault" "$IMAGE_TAG"
+
+# ../admin/deploy-cluster.sh

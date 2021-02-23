@@ -2,8 +2,13 @@
 # DESCRIPTION: Retrieves Node info and populates environment vars for later use,
 #   tears down exiting container resources and builds application stacks on bare containers
 set -e
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
 
-source ~/msf/Core/shared/admin/admin-functions.sh
+# shellcheck source=./admin-functions.sh
+. ~/msf/admin/admin-functions.sh
+
+cd ~/msf/admin/
 
 log_header "Stack Deployment"
 export NUM_OF_MGR_NODES=$(docker info --format "{{.Swarm.Managers}}")
@@ -21,28 +26,22 @@ export ETH4_IP=$(get_ip_from_adapter eth4)
 show_hosting_details
 
 set +e
-log_detail "Removing the following stacks: ${CORE_STACK_NAME} & ${LOG_STACK_NAME}"
-docker stack rm "${CORE_STACK_NAME}" "${LOG_STACK_NAME}"
-
-log_detail "Waiting 15 seconds for stack deletion to finalize"
-sleep 15
-
-log_detail "Removing the following volumes: ${CORE_STACK_NAME}_consul_data"
-docker volume rm "${CORE_STACK_NAME}"_consul_data
-
-log_detail "Waiting 5 seconds for volume deletion to finalize"
-sleep 5
-
-create_network admin_network
+if [ -n "$(docker ps -q -f status=running --filter name=core_consul)" ]; then
+    ./shutdown-cluster.sh
+else
+    create_network admin_network
+fi
 set -e
 
-cp ../../docker-compose.yml ../../core-stack.yml
+cp -f ~/msf/docker-compose.yml ~/msf/"${CORE_STACK_NAME}"-stack.yml
 deploy_stack "${CORE_STACK_NAME}"
 deploy_stack "${LOG_STACK_NAME}"
 
 log_detail "Waiting 15 seconds for stack to come up"
 sleep 15
 
-../vault/initialize-vault.sh
+pushd ~/msf/vault || exit 1
+./initialize-vault.sh
+popd || exit 1
 
 exit

@@ -31,14 +31,18 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - consul_data:/consul/data
     env_file:
-      - ./shared/scripts/core.env
+      - ./scripts/core.env
+    ports:
+      - 8500:8500
     networks:
       admin_network:
         aliases:
           - consul.service.consul
     deploy:
-      endpoint_mode: dnsrr
+      # endpoint_mode: dnsrr
       mode: global
+      update_config:
+        delay: 15s
 
   dns:
     image: microserviceframework/dns:dev
@@ -46,7 +50,7 @@ services:
     depends_on:
       - consul
     env_file:
-      - ./shared/scripts/core.env
+      - ./scripts/core.env
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     cap_add:
@@ -64,7 +68,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     env_file:
-      - ./shared/scripts/core.env
+      - ./scripts/core.env
     cap_add:
       - IPC_LOCK
     ports:
@@ -83,7 +87,7 @@ services:
     image: microserviceframework/portal:dev
     init: true
     env_file:
-      - ./shared/scripts/core.env
+      - ./scripts/core.env
     ports:
       - 5000:80
     networks:
@@ -103,7 +107,7 @@ services:
     image: microserviceframework/portainer:dev
     init: true
     env_file:
-      - ./shared/scripts/core.env
+      - ./scripts/core.env
     volumes:
       - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
@@ -125,7 +129,7 @@ services:
     image: microserviceframework/portainer-agent:dev
     init: true
     env_file:
-      - ./shared/scripts/core.env
+      - ./scripts/core.env
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
@@ -148,16 +152,18 @@ services:
         constraints: [node.platform.os == linux]
 
   ssh-server:
-    image: microserviceframework/ssh-server
+    image: microserviceframework/ssh-server:dev
     init: true
     env_file:
-      - ./shared/scripts/core.env
+      - ./scripts/core.env
     ports:
       - 14403:22
     networks:
       - admin_network
     dns:
       - dns.service.consul
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - dns
       - consul

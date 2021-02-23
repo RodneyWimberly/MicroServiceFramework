@@ -27,7 +27,7 @@ link_file $CORE_DIR/shared/scripts/hosting-functions.sh $CORE_DIR/consul/hosting
 link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/consul/logging-functions.sh
 link_file $CORE_DIR/shared/scripts/colors.env $CORE_DIR/consul/colors.env
 link_file $CORE_DIR/shared/scripts/colors.sh $CORE_DIR/consul/colors.sh
-# link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/consul/consul-service.json
+link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/consul/consul-service.json
 
 log_detail "Making links for DNS"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/dns/.dockerignore

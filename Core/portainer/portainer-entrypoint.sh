@@ -11,7 +11,7 @@ add_path "${CORE_SCRIPT_DIR}"
 hosting_details
 get_consul_ip
 
-add_consul_service "portainer" 9000 "\"portal\""
+add_consul_service "portainer" 9000 "\"portal\"" SERVICE_ID
 log_detail "Starting portainer."
 /portainer
 remove_consul_service $SERVICE_ID

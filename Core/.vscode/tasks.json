@@ -4,20 +4,61 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build-and-deploy-images",
+            "label": "Build and Deploy Images",
             "type": "shell",
             "command": "/mnt/d/em/Core/shared/dev/build-and-deploy-images.sh",
             "problemMatcher": [],
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true,
+                "group": "build-and-deploy"
+            },
+            "group": "build" 
+        },
+        {
+            "label": "Add Shared File Links",
+            "type": "shell",
+            "command": "/mnt/d/em/Core/shared/dev/add-shared-file-links.sh",
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure PWD",
+            "type": "shell",
+            "command": "/mnt/d/em/Core/shared/dev/configure-pwd.sh",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true,
+                "group": "deploy"
+            },
+            "group": "build"
+        },
+        {
+            "label": "Copy and Deploy Packages",
+            "type": "shell",
+            "command": "/mnt/d/em/Core/shared/dev/copy-and-deploy.sh",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true,
+                "group": "build-and-deploy"
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
-        },
-        {
-            "label": "add-shared-file-links.sh",
-            "type": "shell",
-            "command": "/mnt/d/em/Core/shared/dev/add-shared-file-links.sh",
-            "problemMatcher": []
         }
     ]
 }

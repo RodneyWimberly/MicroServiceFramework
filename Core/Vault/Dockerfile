@@ -3,6 +3,7 @@ FROM vault
 # Label the image
 LABEL Author microserviceframework
 LABEL Name vault
+LABEL Version 1.0
 
 RUN apk add --no-cache \
     curl \
@@ -25,6 +26,8 @@ COPY ./vault.json /vault/templates/vault.json
 COPY ./consul-agent-ca.pem usr/local/share/ca-certificates/consul-agent-ca.pem
 RUN chmod 755 /usr/local/scripts/*.sh
 RUN test -e /etc/nsswitch.conf || echo 'hosts: dns files' > /etc/nsswitch.conf
+
+EXPOSE 8200
 
 ENTRYPOINT ["/usr/local/scripts/vault-entrypoint.sh"]
 CMD [ "server", "-config=/vault/config" ]

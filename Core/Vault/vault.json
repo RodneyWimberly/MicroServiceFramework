@@ -29,8 +29,8 @@
   },
   "service_registration": {
     "consul" : {
-      "service_tags": [ "portal"],
-      "address": "tasks.core_consul:8500",
+      "service_tags": "portal",
+      "address": "${CONSUL_AGENT}"
     }
   }
 }

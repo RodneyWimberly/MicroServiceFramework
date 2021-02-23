@@ -12,6 +12,6 @@ hosting_details
 get_consul_ip
 
 add_consul_service portainer-agent 9001
-log_detail "Starting portainer agent."
+log_detail "Starting portainer agent." "" SERVICE_ID
 /app/agent
 remove_consul_service $SERVICE_ID

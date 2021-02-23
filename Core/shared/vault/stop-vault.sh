@@ -1,7 +1,7 @@
 #!/bin/sh
 set -ex
 
-source ./vault-functions.sh
+. ./vault-functions.sh
 set_vault_admin_token 1m
 
 ./scripts/curl-api.sh \

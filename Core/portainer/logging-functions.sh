@@ -10,11 +10,11 @@ log_header() {
 }
 
 log_detail() {
-  log_raw "${CYAN}" "DETAILS" "====> $1"
+  log_raw "${CYAN}" "DETAILS" "=> $1"
 }
 
 log() {
-  log_raw "${PURPLE}" "VERBOSE" "$1"
+  log_raw "${PURPLE}" "VERBOSE" "+ $1"
 }
 
 log_warning() {

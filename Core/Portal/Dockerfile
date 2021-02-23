@@ -44,7 +44,12 @@ RUN curl -Lo /tmp/consul_template_0.15.0_linux_amd64.zip ${CONSUL_URL}/consul-te
     rm /tmp/consul_template_0.15.0_linux_amd64.zip
 
 RUN mkdir /usr/local/scripts && \
-    mkdir /etc/templates
+    mkdir /etc/templates && \
+    chown -R nginx:nginx /etc/nginx && \
+    chown -R nginx:nginx /usr/local/scripts && \
+    chown -R nginx:nginx /etc/templates && \
+    chown -R nginx:nginx /var/log/nginx && \
+    chown -R nginx:nginx /run/nginx
 
 RUN test -e /etc/nsswitch.conf || echo 'hosts: dns files' > /etc/nsswitch.conf
 

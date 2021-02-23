@@ -1,13 +1,13 @@
 #!/bin/sh
 
 
-cd ~/msf/Core/shared/vault
+cd ~/msf/vault
 . vault-functions.sh
 
 log "Initializing the Vault"
 set -e
 
-until docker-service-exec core_consul "consul catalog services" | grep -- '^vault$' > /dev/null; do
+until docker-service-exec core_consul "consul catalog services" | grep -- '^vault' > /dev/null; do
   sleep 3
 done
 

@@ -1,7 +1,8 @@
 #!/bin/sh
 
 # Make our stuff available
-source "${CORE_SCRIPT_DIR}"/common-functions.sh
+# shellcheck source=./common-functions.sh
+. "${CORE_SCRIPT_DIR}"/common-functions.sh
 add_path "${CORE_SCRIPT_DIR}"
 
 # Get Docker/Node/Hosting information from the Docker API for use in configuration
@@ -18,9 +19,11 @@ if [ "${NODE_IS_MANAGER}" = "true" ]; then
 else
   agent_mode="client"
   expand_consul_config_from "client.json"
+  # log_detail "Waiting 15 seconds for the cluster to hold an election before we try to join the cluster."
+  # sleep 15
 fi
 
-add_consul_service "consul" 8500 "\"portal\", \"$NODE_NAME\""
-log "Starting Consul in ${agent_mode} mode using the following command: exec docker-entrypoint.sh $@"
+add_consul_service "consul" 8500 "\"portal\", \"api\", \"$NODE_NAME\"" SERVICE_ID
+log "Starting Consul in ${agent_mode} mode."
 docker-entrypoint.sh "$@"
 remove_consul_service "$SERVICE_ID"
