@@ -4,28 +4,19 @@
   "Tags": [ $SERVICE_TAGS ],
   "Address": "${ETH0_IP}",
   "Port": ${SERVICE_PORT},
+  "Meta": {
+    "title": "${SERVICE_NAME}",
+    "description": "${SERVICE_ID} service"
+  },
   "Checks": [
     {
-      "Id": "${SERVICE_ID}-ping",
-      "Name": "${SERVICE_ID} Ping",
       "Args": ["ping", "-q", "-w 1", "${ETH0_IP}"],
       "Interval": "10s",
-      "Timeout": "2s"
-    }
-    ,{
-      "Id": "${SERVICE_ID}-tcp",
-      "Name": "${SERVICE_ID} tcp",
+      "Timeout": "2s",
+      "Deregister_critical_service_after": "1m"
+    },
+    {
       "Tcp": "${ETH0_IP}:${SERVICE_PORT}",
       "Interval": "10s",
-      "Timeout": "1s"
-    }
-    // ,{
-    //   "Id": "${SERVICE_ID}-docker",
-    //   "Name": "${SERVICE_ID} Docker",
-    //   "Docker_container_id": "$CONTAINER_ID",
-    //   "Shell": "/bin/sh",
-    //   "Args": ["/usr/local/scripts/health-entrypoint.sh"],
-    //   "Interval": "10s"
-    // }
-  ],
-}
+      "Timeout": "1s",
+      "

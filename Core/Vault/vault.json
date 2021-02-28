@@ -13,7 +13,7 @@
       "service": "vault",
       "tls_key_file": "${VAULT_CERT_DIR}/docker-server-consul-0-key.pem",
       "tls_cert_file": "${VAULT_CERT_DIR}/docker-server-consul-0.pem",
-      "tls_ca_file": "${VAULT_CERT_DIR}/consul-agent-ca.pem",
+      "tls_ca_file": "${VAULT_CERT_DIR}/consul-agent-ca.pem"
     }
   },
   "listener": {
@@ -24,7 +24,7 @@
       "tls_require_and_verify_client_cert": "false",
       "tls_key_file": "${VAULT_CERT_DIR}/docker-server-consul-0-key.pem",
       "tls_cert_file": "${VAULT_CERT_DIR}/docker-server-consul-0.pem",
-      "tls_client_ca_file": "${VAULT_CERT_DIR}/consul-agent-ca.pem",
+      "tls_client_ca_file": "${VAULT_CERT_DIR}/consul-agent-ca.pem"
     }
   },
   "service_registration": {

@@ -10,6 +10,15 @@ fi
 # shellcheck source=./core.env
 . "${SCRIPT_DIR}"/core.env
 
+set_static_ip() {
+  if [ -z "${STATIC_IP}" ]; then
+    echo "Using default IP from Docker"
+  else
+    echo "Found static IP: ${STATIC_IP} using it"
+    ifconfig eth0 "${STATIC_IP}" netmask 255.255.0.0 up
+  fi
+}
+
 get_ip_from_adapter() {
   ip -o -4 addr list "$1" | head -n1 | awk '{print $4}' | cut -d/ -f1
 }
@@ -19,19 +28,9 @@ hostip() {
 }
 
 update_dns_config() {
-  log "Looking up IP address for dns.service.consul"
-  DNS_IP=
-  while [ -z "${DNS_IP}" ]; do
-    DNS_IP=$(get_ip_from_name "dns.service.consul")
-    if [ -z "${DNS_IP}" ]; then
-      log_warn "Unable to locate dns.service.consul, retrying in 1 second."
-      sleep 1
-    fi
-  done
-  export DNS_IP
-  echo "nameserver ${DNS_IP}" >>/etc/resolv.conf
-  log_header "DNS Details"
-  log_detail "DNS_IP: ${DNS_IP}"
+  log "Updating resolv.conf with DNS server addresses"
+  echo "nameserver 192.168.100.2" >>/etc/resolv.conf
+  echo "nameserver 192.168.100.3" >>/etc/resolv.conf
 }
 
 get_ip_from_name() {
@@ -108,6 +107,10 @@ add_path() {
 
 keep_container_alive() {
   log_detail "Doing a wait loop to keep the container alive."
-  while true ;do wait ;done
+  while true ; do
+    trap 'break' QUIT TERM EXIT
+    wait
+  done
+  # while true ;do wait ;done
   # trap "exec sh -c 'while true ;do wait ;done'" QUIT TERM
 }

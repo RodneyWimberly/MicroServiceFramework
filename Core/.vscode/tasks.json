@@ -15,7 +15,7 @@
                 "panel": "dedicated",
                 "showReuseMessage": false,
                 "clear": true,
-                "group": "build-and-deploy"
+                "group": "build-images"
             },
             "group": "build" 
         },
@@ -37,7 +37,7 @@
                 "panel": "dedicated",
                 "showReuseMessage": false,
                 "clear": true,
-                "group": "deploy"
+                "group": "configure"
             },
             "group": "build"
         },
@@ -53,7 +53,7 @@
                 "panel": "dedicated",
                 "showReuseMessage": false,
                 "clear": true,
-                "group": "build-and-deploy"
+                "group": "deploy"
             },
             "group": {
                 "kind": "build",

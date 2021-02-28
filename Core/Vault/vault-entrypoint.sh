@@ -4,11 +4,12 @@
 # shellcheck source=./common-functions.sh
 . "${CORE_SCRIPT_DIR}"/common-functions.sh
 add_path "${CORE_SCRIPT_DIR}"
+update_dns_config
 set +e
 
 # Get Docker/Node/Hosting information from the Docker API for use in configuration
 hosting_details
-export VAULT_ADDR="http://${ETH0_IP}:8200"
+export VAULT_ADDR="http://127.0.0.1:8200"
 export VAULT_API_ADDR="http://${ETH0_IP}:8200"
 export VAULT_CLUSTER_ADDR="https://${ETH0_IP}:8201"
 log_header "Vault Details"

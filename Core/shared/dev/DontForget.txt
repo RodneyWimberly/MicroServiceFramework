@@ -9,3 +9,5 @@ ssh -L 8500:tasks.core_consul:8500 -L 8200:tasks.core_vault:8200 -L 8100:tasks.c
 --------------------------------------------------------------------------------
 #'{{ GetInterfaceIP \"eth0\" }}'
 #'{{ GetAllInterfaces | include "network" "192.168.0.0/16" }}'
+
+"/bin/sh -c 'rm -f entrypoint.sh && echo \"export VAULT_ADDR=http://127.0.0.1:8200\" >> entrypoint.sh && echo \"/bin/sh\" >> entrypoint.sh && /bin/sh entrypoint.sh'"

@@ -27,10 +27,11 @@ show_hosting_details
 
 set +e
 if [ -n "$(docker ps -q -f status=running --filter name=core_consul)" ]; then
-    ./shutdown-cluster.sh
-else
-    create_network admin_network
+  ./shutdown-cluster.sh
 fi
+# IP Range: 192.168.100.1 - 192.168.100.254 /24
+# IP Range: 192.168.100.5 - 192.168.100.6  (for DNS Servers)/30  192.168.100.4/30
+create_network admin_network 192.168.100.0/24
 set -e
 
 cp -f ~/msf/docker-compose.yml ~/msf/"${CORE_STACK_NAME}"-stack.yml

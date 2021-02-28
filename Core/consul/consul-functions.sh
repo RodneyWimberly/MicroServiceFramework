@@ -14,7 +14,7 @@ get_consul_ip() {
   done
   export CONSUL_IP
   export CONSUL_AGENT="${CONSUL_IP}:8500"
-  export CONSUL_HTTP_ADDR="http://${CONSUL_AGENT}"
+  export CONSUL_HTTP_ADDR="http://${CONSUL_IP}:8500"
   export CONSUL_HTTPS_ADDR="https://${CONSUL_IP}:8501"
   export CONSUL_RPC_ADDR="rpc://${CONSUL_IP}:8400"
   export CONSUL_API="${CONSUL_HTTP_ADDR}/v1"
@@ -65,7 +65,7 @@ add_consul_service() {
   log_detail "SERVICE_PORT: $SERVICE_PORT"
   log_detail "SERVICE_TAGS: $SERVICE_TAGS"
   if [ "${SERVICE_NAME}" = "consul" ]; then
-      /bin/sh -c "sleep 30; curl -sS --request PUT --data @/etc/templates/$SERVICE_NAME-$SERVICE_PORT.json http://127.0.0.1:8500/v1/agent/service/register?replace-existing-checks=true" &
+      /bin/sh -c "while true; do sleep 15; if curl -sS --request PUT --data @/etc/templates/$SERVICE_NAME-$SERVICE_PORT.json http://127.0.0.1:8500/v1/agent/service/register?replace-existing-checks=true; then break; fi; done" &
   else
     curl -sS \
       --request PUT \
@@ -159,7 +159,7 @@ run_consul_template() {
   cp "$1" "$template_dir/$2"
   if [ -z "$4" ]; then
     log "Processing Consul template $1"
-    /bin/sh -c "nohup consul-template -consul-addr=${CONSUL_AGENT} --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3 -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
+    /bin/sh -c "sleep 5;nohup consul-template -consul-addr=${CONSUL_AGENT} --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3 -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
   else
     log "Processing Consul template $1 and running $4"
     /bin/sh -c "nohup consul-template -consul-addr=${CONSUL_AGENT} --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3:'$4' -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"

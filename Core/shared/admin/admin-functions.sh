@@ -35,9 +35,13 @@ deploy_stack() {
 create_network() {
   log_detail "Creating attachable overlay network '$1'"
   if [ -z "$2" ]; then
-    docker network create --driver=overlay --attachable $1
+    docker network create --driver=overlay --attachable "$1"
   else
-    docker network create --driver=overlay --attachable --subnet=$2 $1
+    if [ -z "$3" ]; then
+      docker network create --driver=overlay --attachable --subnet="$2" "$1"
+    else
+      docker network create --driver=overlay --attachable --subnet="$2" --ip-range="$3" "$1"
+    fi
   fi
 }
 

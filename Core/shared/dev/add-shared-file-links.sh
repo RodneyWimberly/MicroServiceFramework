@@ -28,6 +28,7 @@ link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/consul/logging
 link_file $CORE_DIR/shared/scripts/colors.env $CORE_DIR/consul/colors.env
 link_file $CORE_DIR/shared/scripts/colors.sh $CORE_DIR/consul/colors.sh
 link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/consul/consul-service.json
+link_file $CORE_DIR/shared/scripts/health-entrypoint.sh $CORE_DIR/consul/health-entrypoint.sh
 
 log_detail "Making links for DNS"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/dns/.dockerignore
@@ -39,6 +40,7 @@ link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/dns/logging-fu
 link_file $CORE_DIR/shared/scripts/colors.env $CORE_DIR/dns/colors.env
 link_file $CORE_DIR/shared/scripts/colors.sh $CORE_DIR/dns/colors.sh
 link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/dns/consul-service.json
+link_file $CORE_DIR/shared/scripts/health-entrypoint.sh $CORE_DIR/dns/health-entrypoint.sh
 
 log_detail "Making links for Portainer"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/portainer/.dockerignore
@@ -50,6 +52,7 @@ link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/portainer/logg
 link_file $CORE_DIR/shared/scripts/colors.env $CORE_DIR/portainer/colors.env
 link_file $CORE_DIR/shared/scripts/colors.sh $CORE_DIR/portainer/colors.sh
 link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/portainer/consul-service.json
+link_file $CORE_DIR/shared/scripts/health-entrypoint.sh $CORE_DIR/portainer/health-entrypoint.sh
 
 log_detail "Making links for Portainer-Agent"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/portainer-agent/.dockerignore
@@ -61,6 +64,7 @@ link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/portainer-agen
 link_file $CORE_DIR/shared/scripts/colors.env $CORE_DIR/portainer-agent/colors.env
 link_file $CORE_DIR/shared/scripts/colors.sh $CORE_DIR/portainer-agent/colors.sh
 link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/portainer-agent/consul-service.json
+link_file $CORE_DIR/shared/scripts/health-entrypoint.sh $CORE_DIR/portainer-agent/health-entrypoint.sh
 
 log_detail "Making links for Portal"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/portal/.dockerignore
@@ -72,6 +76,7 @@ link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/portal/logging
 link_file $CORE_DIR/shared/scripts/colors.env $CORE_DIR/portal/colors.env
 link_file $CORE_DIR/shared/scripts/colors.sh $CORE_DIR/portal/colors.sh
 link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/portal/consul-service.json
+link_file $CORE_DIR/shared/scripts/health-entrypoint.sh $CORE_DIR/portal/health-entrypoint.sh
 
 log_detail "Making links for Socks-Proxy"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/ssh-server/.dockerignore
@@ -83,6 +88,7 @@ link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/ssh-server/log
 link_file $CORE_DIR/shared/scripts/colors.env $CORE_DIR/ssh-server/colors.env
 link_file $CORE_DIR/shared/scripts/colors.sh $CORE_DIR/ssh-server/colors.sh
 link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/ssh-server/consul-service.json
+link_file $CORE_DIR/shared/scripts/health-entrypoint.sh $CORE_DIR/ssh-server/health-entrypoint.sh
 
 log_detail "Making links for Vault"
 link_file $CORE_DIR/shared/certs/consul-agent-ca.pem $CORE_DIR/vault/consul-agent-ca.pem
@@ -99,3 +105,4 @@ link_file $CORE_DIR/shared/scripts/logging-functions.sh $CORE_DIR/vault/logging-
 link_file $CORE_DIR/shared/scripts/colors.env $CORE_DIR/vault/colors.env
 link_file $CORE_DIR/shared/scripts/colors.sh $CORE_DIR/vault/colors.sh
 link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/vault/consul-service.json
+link_file $CORE_DIR/shared/scripts/health-entrypoint.sh $CORE_DIR/vault/health-entrypoint.sh

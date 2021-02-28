@@ -33,4 +33,12 @@ docker volume rm "${CORE_STACK_NAME}"_portainer_data
 log_detail "Waiting 5 seconds for volume deletion to finalize"
 sleep 5
 
+log_detail "Removing the following networks admin_network"
+docker network rm admin_network
+
+log_detail "Waiting 5 seconds for network deletion to finalize"
+sleep 5
+
+
+
 

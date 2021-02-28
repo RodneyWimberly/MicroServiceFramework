@@ -8,8 +8,8 @@
 # SSH Server - Used to allow dev browser to act as if it is located and routed within the cluster (OpenSSH)
 ###########################################################################################################
 # External Ports
-# 14403     = ssh - SSH Server
-# 5000      = portal - HTML UI
+# 22        = ssh - SSH Server
+# 80        = portal - HTML UI
 # 8200      = vault - HTML UI
 
 version: "3.8"
@@ -32,23 +32,23 @@ services:
       - consul_data:/consul/data
     env_file:
       - ./scripts/core.env
-    ports:
-      - 8500:8500
     networks:
       admin_network:
         aliases:
           - consul.service.consul
     deploy:
-      # endpoint_mode: dnsrr
+      endpoint_mode: dnsrr
       mode: global
       update_config:
         delay: 15s
 
-  dns:
+  dns1: &dns_template
     image: microserviceframework/dns:dev
     init: true
     depends_on:
       - consul
+    environment:
+      STATIC_IP: 192.168.100.2
     env_file:
       - ./scripts/core.env
     volumes:
@@ -57,10 +57,21 @@ services:
       - NET_ADMIN
     networks:
       admin_network:
+        ipv4_address: 192.168.100.2/24
         aliases:
           - dns.service.consul
     deploy:
-      replicas: 2
+      replicas: 1
+
+  dns2:
+    <<: *dns_template
+    environment:
+      STATIC_IP: 192.168.100.3
+    networks:
+      admin_network:
+        ipv4_address: 192.168.100.3/24
+        aliases:
+          - dns.service.consul
 
   vault:
     image: microserviceframework/vault:dev
@@ -76,12 +87,11 @@ services:
     networks:
       - admin_network
     dns:
-      - dns.service.consul
+      - 192.168.100.2
+      - 192.168.100.3
     depends_on:
       - consul
       - dns
-    # deploy:
-    #   mode: global
 
   portal:
     image: microserviceframework/portal:dev
@@ -89,11 +99,12 @@ services:
     env_file:
       - ./scripts/core.env
     ports:
-      - 5000:80
+      - 80:80
     networks:
       - admin_network
     dns:
-      - dns.service.consul
+      - 192.168.100.2
+      - 192.168.100.3
     depends_on:
       - consul
       - dns
@@ -114,10 +125,9 @@ services:
       - /var/lib/docker/volumes:/var/lib/docker/volumes
     networks:
       - admin_network
-    ports:
-      - 9000:9000
     dns:
-      - dns.service.consul
+      - 192.168.100.2
+      - 192.168.100.3
     depends_on:
       - dns
       - consul
@@ -133,16 +143,11 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
-      # - /:/host
-    ports:
-      - target: 9001
-        published: 9001
-        protocol: tcp
-        mode: host
     networks:
       - admin_network
     dns:
-      - dns.service.consul
+      - 192.168.100.2
+      - 192.168.100.3
     depends_on:
       - dns
       - consul
@@ -157,11 +162,12 @@ services:
     env_file:
       - ./scripts/core.env
     ports:
-      - 14403:22
+      - 22:22
     networks:
       - admin_network
     dns:
-      - dns.service.consul
+      - 192.168.100.2
+      - 192.168.100.3
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:

@@ -3,5 +3,23 @@
   "Name": "${SERVICE_NAME}",
   "Tags": [ $SERVICE_TAGS ],
   "Address": "${ETH0_IP}",
-  "Port": ${SERVICE_PORT}
+  "Port": ${SERVICE_PORT},
+  "Meta": {
+    "title": "${SERVICE_NAME}",
+    "description": "${SERVICE_ID} service"
+  },
+  "Checks": [
+    {
+      "Args": ["ping", "-q", "-w 1", "${ETH0_IP}"],
+      "Interval": "10s",
+      "Timeout": "2s",
+      "Deregister_critical_service_after": "1m"
+    },
+    {
+      "Tcp": "${ETH0_IP}:${SERVICE_PORT}",
+      "Interval": "10s",
+      "Timeout": "1s",
+      "Deregister_critical_service_after": "1m"
+    }
+  ]
 }
