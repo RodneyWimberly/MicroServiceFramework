@@ -11,7 +11,8 @@ RUN apk add --no-cache \
     iputils \
     iproute2 \
     bind-tools \
-    gettext
+    gettext \
+    gawk
 
 RUN mkdir /usr/local/scripts && \
     mkdir /vault/templates && \
@@ -19,6 +20,7 @@ RUN mkdir /usr/local/scripts && \
     chown -R vault:vault /usr/local/scripts && \
     chown -R vault:vault /vault
 
+COPY ./*.hcl /usr/local/policies/
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./*.pem /vault/certs/

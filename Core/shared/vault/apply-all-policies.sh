@@ -1,12 +1,11 @@
-#!/bin/sh
-source ./vault-functions.sh
+#!/bin/bash
+. ./vault-functions.sh
 
+log "Applying policies to vault"
 set_vault_admin_token
 
-for x in policies/*.hcl; do
-  policy="${x##*/}"
-  policy="${policy%.hcl}"
-  execute_vault_command policy write "${policy}" - < "${x}"
-done
-
+log_detail "Applying admin policy to vault"
+./vault-exec policy write admin /usr/local/policies/admin.hcl
+log_detail "Applying docker policy to vault"
+./vault-exec policy write docker /usr/local/policies/docker.hcl
 revoke_self

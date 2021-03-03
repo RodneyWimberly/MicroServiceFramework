@@ -99,7 +99,7 @@ services:
     env_file:
       - ./scripts/core.env
     ports:
-      - 80:80
+      - 8000:80
     networks:
       - admin_network
     dns:
@@ -162,7 +162,7 @@ services:
     env_file:
       - ./scripts/core.env
     ports:
-      - 22:22
+      - 8080:22
     networks:
       - admin_network
     dns:

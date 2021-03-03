@@ -5,13 +5,17 @@
 
 # --------------------------------------------------------------------------------------
 # Setup environment
-set -e
-set -o pipefail
+# Ignore non existent vars
 set -u
+# Terminate on command error
+set -e
+# Apply -e to pipe commands
+set -o pipefail
+# Output commands
+# set -x
 
 # --------------------------------------------------------------------------------------
 # parse parameters
-echo "$# parameters were passed"
 if [[ $# < 2 ]] ; then
   echo ""
   echo "Usage:"
@@ -27,13 +31,13 @@ if [[ $# < 2 ]] ; then
 else
   SERVICE="$1"
   shift
-  COMMAND="$@"
+  COMMAND="$*"
 fi
 
 # --------------------------------------------------------------------------------------
 # look for dependencies
-if ! which docker-node-ps > /dev/null ; then
-  echo "dependency 'docker-node-ps' not found in PATH. exiting."
+if  [[ $SERVICE != *":"* ]] && ! which docker-node-ps > /dev/null ; then
+  echo "$0 ERROR: Dependency 'docker-node-ps' not found in PATH. exiting."
   exit 1
 fi
 
@@ -43,7 +47,7 @@ if [[ $SERVICE == *":"* ]]; then
   NODE=${SERVICE%%:*}
   CONTAINER=${SERVICE#*:}
 else
-  if PAIR=$(docker-node-ps $SERVICE) ; then
+  if PAIR=$(docker-node-ps "$SERVICE") ; then
     NODE=${PAIR%%:*}
     CONTAINER=${PAIR#*:}
   else
@@ -52,12 +56,11 @@ else
 fi
 
 # --------------------------------------------------------------------------------------
-# check if tty is present (because no tty is present when running from gitlab-deployment with gitlab-runner and docker-in-docker)
+# Check if tty is present (because no tty is present when running from gitlab-deployment with gitlab-runner and docker-in-docker)
 if [ -t 0 ] ; then
-  set -x
-  ssh -t $NODE docker exec -it $CONTAINER $COMMAND
+  # set -x
+  ssh -t "$NODE" docker exec -it "$CONTAINER" "$COMMAND"
 else
-  set -x
-  echo ssh $NODE docker exec -i $CONTAINER $COMMAND
-  ssh $NODE docker exec -i $CONTAINER $COMMAND
+  # set -x
+  ssh "$NODE" docker exec -i "$CONTAINER" "$COMMAND"
 fi

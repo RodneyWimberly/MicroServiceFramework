@@ -1,7 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 set -ex
 
 . ./vault-functions.sh
+log "Sealing and stopping vault"
 set_vault_admin_token 1m
 
 ./scripts/curl-api.sh \

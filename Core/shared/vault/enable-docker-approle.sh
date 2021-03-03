@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # This enables docker infrastructure to log into Vault using an approle.  This
 # allows docker infrastructure to not have knowledge of any secrets initially
@@ -6,7 +6,9 @@
 #
 # Basically anonymous login to vault based on source IP.
 
-source ./vault-functions.sh
+. ./vault-functions.sh
+
+log "Enabling docker approle to vault"
 
 # configure auth
 set_vault_admin_token

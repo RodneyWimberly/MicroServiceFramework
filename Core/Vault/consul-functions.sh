@@ -114,7 +114,7 @@ delete_consul_kv() {
 }
 
 take_consul_snapshot() {
-  if [ -z "$1" ]; then
+  if [ $# -eq 0 ]; then
     snapshot_file="snapshot_$(date +%Y-%m-%d-%s).tar"
   else
     snapshot_file=$1

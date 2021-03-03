@@ -1,6 +1,8 @@
-#!/bin/sh
-source ./vault-functions.sh
+#!/bin/bash
+. ./vault-functions.sh
 
+log "Applying admin policy to vault"
 set -e
-export VAULT_TOKEN="$(gawk '$0 ~ /Initial Root Token/ { print $NF;exit }' secret.txt)"
-docker-service-exec core_vault "/bin/sh -c export VAULT_TOKEN=$VAULT_TOKEN && vault policy write admin - < policies/admin.hcl"
+VAULT_TOKEN="$(gawk '$0 ~ /Initial Root Token/ { print $NF;exit }' secret.txt)"
+export VAULT_TOKEN
+./vault-exec policy write admin /usr/local/policies/admin.hcl

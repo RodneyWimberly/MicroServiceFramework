@@ -1,23 +1,28 @@
-#!/bin/sh
+#!/bin/bash
 # --------------------------------------------------------------------------------------
 # Returns the docker node-id and the container-id in format NODE-ID:CONTAINER-ID
 #   running the given service as parameter
 
 # --------------------------------------------------------------------------------------
 # Setup environment
+# Ignore non existent vars
 set -u
+# Terminate on command error
 set -e
+# Apply -e to pipe commands
 set -o pipefail
+# Output commands
+# set -x
 
-# --------------------------------------------------------------------------------------
-# parse parameters
 ALL=false
 CONTAINERFOUND=false
 
-if [[ $# = 0 ]] ; then
+# --------------------------------------------------------------------------------------
+# Parse parameters
+if [ $# = 0 ] ; then
   echo ""
   echo "Usage:"
-  echo "$0 [-a] <SERVICE_NAME>"
+  echo "$0 [-a | --all] <SERVICE_NAME>"
   echo ""
   echo "Example:"
   echo "$0 stack1_influxdb"
@@ -28,9 +33,13 @@ if [[ $# = 0 ]] ; then
   exit 1
 fi
 
-for PARAMETER in $@ ; do
+for PARAMETER in "$@" ; do
   case $1 in
     -a)
+      ALL=true
+      shift
+      ;;
+    --all)
       ALL=true
       shift
       ;;
@@ -46,36 +55,28 @@ for PARAMETER in $@ ; do
 done
 
 # --------------------------------------------------------------------------------------
-# check if ssh-agent contains key
+# Check if ssh-agent contains key
 if ! ssh-add -l >/dev/null ; then
-  echo ssh-agent does not contain key. Be sure to use key-forwarding with ssh.
+  echo "$0 ERROR: The ssh-agent does not contain key. Be sure to use key-forwarding with ssh."
   exit 1
 fi
 
 # --------------------------------------------------------------------------------------
-# parse docker nodes running the service
-for NODEID in $(docker node ls -q) ; do
-  if [[ $(docker service ps -f "node=$NODEID" --format "{{.CurrentState}}" "$SERVICENAME" 2>/dev/null | grep -cw 'Running') > 0 ]] ; then
-    NODENAME=$(docker node ls --format {{.Hostname}} -f id=$NODEID)
-    CONTAINERIDCOMMAND="docker ps -q -f status=running --filter name=$SERVICENAME 2>/dev/null"
-    CONTAINERID=$(ssh "$NODENAME" "$CONTAINERIDCOMMAND")
-    CONTAINERFOUND=true
-    if $ALL ; then
-      echo "${NODENAME}:${CONTAINERID}"
-    else
-      RETURN="${NODENAME}:${CONTAINERID}"
+# Get list of nodes then iterate list and discover container id and output result
+for NODENAME in $(docker service ps --filter desired-state=Running --format '{{ .Node }}' "$SERVICENAME") ; do
+  CONTAINERID=$(ssh "$NODENAME" docker ps -q -f status=running --filter name="$SERVICENAME" 2>/dev/null)
+  CONTAINERFOUND=$([ -n "$CONTAINERID" ])
+  if $CONTAINERFOUND; then
+    echo "${NODENAME}:${CONTAINERID}"
+    if ! $ALL; then
+      break
     fi
   fi
 done
 
 # --------------------------------------------------------------------------------------
-# OUTPUT
-if $CONTAINERFOUND ; then
-  if ! $ALL ; then
-    echo $RETURN
-  fi
-  exit 0
-else
-  echo "no container with running $SERVICENAME found in this swarm."
+# Check for no service found and notify
+if ! $CONTAINERFOUND ; then
+  echo "$0 ERROR: There was no container running with the name $SERVICENAME found in this swarm."
   exit 1
 fi

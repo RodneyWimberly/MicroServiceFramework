@@ -1,7 +1,20 @@
-#!/bin/sh
+#!/bin/bash
 # DESCRIPTION: Retrieves Node info and populates environment vars for later use,
 #   tears down exiting container resources and builds application stacks on bare containers
-set -e
+
+# Setup environment
+# Ignore non existent vars
+# set -u
+set -o nounset
+# Terminate on command error
+# set -e
+set -o errexit
+# Apply -e to pipe commands
+set -o pipefail
+# Output commands
+# set -x
+# set -oxtrace
+
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
 
@@ -25,12 +38,9 @@ export ETH3_IP=$(get_ip_from_adapter eth3)
 export ETH4_IP=$(get_ip_from_adapter eth4)
 show_hosting_details
 
+./shutdown-cluster.sh
+
 set +e
-if [ -n "$(docker ps -q -f status=running --filter name=core_consul)" ]; then
-  ./shutdown-cluster.sh
-fi
-# IP Range: 192.168.100.1 - 192.168.100.254 /24
-# IP Range: 192.168.100.5 - 192.168.100.6  (for DNS Servers)/30  192.168.100.4/30
 create_network admin_network 192.168.100.0/24
 set -e
 
@@ -41,8 +51,8 @@ deploy_stack "${LOG_STACK_NAME}"
 log_detail "Waiting 15 seconds for stack to come up"
 sleep 15
 
-pushd ~/msf/vault || exit 1
+cd ~/msf/vault || exit 1
 ./initialize-vault.sh
-popd || exit 1
 
+log "Deployment completed successfully!"
 exit

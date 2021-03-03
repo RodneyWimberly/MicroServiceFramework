@@ -19,4 +19,7 @@
       "Tcp": "${ETH0_IP}:${SERVICE_PORT}",
       "Interval": "10s",
       "Timeout": "1s",
-      "
+      "Deregister_critical_service_after": "1m"
+    }
+  ]
+}
