@@ -1,0 +1,68 @@
+{
+  "addresses": {
+    "http": "0.0.0.0",
+    "https": "0.0.0.0"
+  },
+  "advertise_addr": "${ETH0_IP}",
+  "bind_addr": "${ETH0_IP}",
+  "ca_file": "${CONSUL_CERT_DIR}/consul-agent-ca.pem",
+  "ca_path": "${CONSUL_CERT_DIR}",
+  "check_update_interval": "0s",
+  "client_addr": "169.254.1.1",
+  "connect": {
+    "enabled": true
+  },
+  "data_dir": "${CONSUL_DATA_DIR}",
+  "datacenter": "${CONSUL_DATACENTER}",
+  "disable_host_node_id": true,
+  "disable_remote_exec": true,
+  "disable_update_check": true,
+  "dns_config": {
+    "allow_stale": false,
+    "node_ttl": "0s",
+    "service_ttl": { "*": "0s" },
+    "enable_truncate": false,
+    "enable_additional_node_meta_txt": true,
+    "only_passing": true
+  },
+  "encrypt": "jgtdlbpgSBj8YoJGkuf4jw+Aa7it9dQeWm4yyBqHIVU=",
+  "encrypt_verify_incoming" : true,
+  "encrypt_verify_outgoing" : true,
+  "http_config": {
+    "response_headers": {
+      "Access-Control-Allow-Origin": "*"
+    }
+  },
+  "ports": {
+    "http": 8500,
+    "https": 8501,
+    "dns": 8600,
+    "serf_lan": 8301,
+    "serf_wan": 8302,
+    "server": 8300
+  },
+  "node_meta": {
+    "instance_type": "Docker Swarm",
+    "node_id": "${NODE_ID}",
+    "manager_nodes_count": "${NUM_OF_MGR_NODES}",
+    "manager_node": "${NODE_IS_MANAGER}",
+    "node_name": "${NODE_NAME}",
+    "node_ip": "${NODE_IP}"
+  },
+  "node_name": "${NODE_NAME}",
+  "leave_on_terminate" : true,
+  "log_level": "debug",
+  "server": ${NODE_IS_MANAGER},
+  "skip_leave_on_interrupt" : false,
+  "telemetry": {
+    "disable_compat_1.9": true
+  },
+  "ui_config": {
+    "enabled": true
+  },
+  "verify_incoming": true,
+  "verify_incoming_https" : true,
+  "verify_incoming_rpc" : true,
+  "verify_outgoing": true,
+  "verify_server_hostname": false
+}

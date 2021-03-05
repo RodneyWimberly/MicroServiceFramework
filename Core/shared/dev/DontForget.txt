@@ -1,9 +1,8 @@
 password
-
-tasks.devops_agent:9001
-
-
+tasks.core_portainer-agent:9001
 --------------------------------------------------------------------------------
+SSH Port Redirect 
+
 ssh -L 8080:www.slashdot.org:80 localhost
 ssh -L 8080:tasks.core_consul:8500 localhost
 ssh -L 8500:tasks.core_consul:8500 -L 8200:tasks.core_vault:8200 -L 8100:tasks.core_portal:80 localhost
@@ -11,64 +10,9 @@ ssh -L 8500:tasks.core_consul:8500 -L 8200:tasks.core_vault:8200 -L 8100:tasks.c
 #'{{ GetInterfaceIP \"eth0\" }}'
 #'{{ GetAllInterfaces | include "network" "192.168.0.0/16" }}'
 
---------------------------------------------------------------------------------
-Install Docker-Machine
+"/bin/sh -c 'rm -f entrypoint.sh && echo \"export VAULT_ADDR=http://127.0.0.1:8200\" >> entrypoint.sh && echo \"/bin/sh\" >> entrypoint.sh && /bin/sh entrypoint.sh'"
 
-curl -L https://github.com/docker/machine/releases/download/v0.8.2/docker-machine-`uname -s`-`uname -m` >/usr/local/bin/docker-machine && \
-chmod +x /usr/local/bin/docker-machine
+docker node ps $(docker node ls -q) --filter desired-state=Running | uniq
 
---------------------------------------------------------------------------------
-docker exec $(docker ps -q -f name=servicename) ls
-
---------------------------------------------------------------------------------
-docker exec -ti stack_myservice.1.$(docker service ps -f 'name=stack_myservice.1' stack_myservice -q --no-trunc | head -n1) /bin/bash
-
---------------------------------------------------------------------------------
-SERVICE_JSON=$(ssh $SWARM_MANAGER_HOST "docker service ps $SERVICE_NAME --no-trunc --format '{{ json . }}' -f desired-state=running")
-ssh -t $(echo $SERVICE_JSON | jq -r '.Node') "docker exec -it $(echo $SERVICE_JSON | jq -r '.Name').$(echo $SERVICE_JSON | jq -r '.ID') bash"
-
---------------------------------------------------------------------------------
-Standalone Use
-On the swarm manager node, run the following command:
-
-docker run -v /var/run/docker.sock:/var/run/docker.sock
-    datagridsys/skopos-plugin-swarm-exec \
-    task-exec <taskID> <command> [<arguments>...]
-where:
-
-<taskID> is the task ID of the task in which you want to execute a command (see task IDs with docker service ps <service_name>)
-<command> command to execute (e.g. curl)
-<arguments>... zero or more arguments to pass to the command (e.g., http://example.com/file)
-Note: it is possible to use the swarm-exec script directly, if python3 and the docker Python SDK are installed, and the lib directory is included in the Python module path. The container packaging is easier to use in most cases.
-
---------------------------------------------------------------------------------
-Your identification has been saved in /home/rodney/.ssh/id_rsa
-Your public key has been saved in /home/rodney/.ssh/id_rsa.pub
-The key fingerprint is:
-SHA256:13iMuk12Ook7lNd0RVvHiKPs1cKEDrokPXEHbw3Qh8E rodney@RodneyLaptop
-The key's randomart image is:
-+--[ED25519 256]--+
-|        o=o+ . ++|
-|      . o.Eo= . *|
-|     . + =o=.o o |
-|    . =  .+== o  |
-|     o oSo+++o   |
-|      . ooo..    |
-|       ..oo..    |
-|        o=oo     |
-|        ooo.     |
-+----[SHA256]-----+
-
-SHA256:Xhac7sjJ0xsfixkLjpMxd+8RSxjCVFlTQpqOyGjnRXk rodney@RodneyLaptop
-The key's randomart image is:
-+--[ED25519 256]--+
-|        ...+=..  |
-|       o o.+ o   |
-|        = E      |
-|     o o * +     |
-|    o + S * o    |
-|   . oo=.B.. o   |
-|      .=O.=.+    |
-|      oo o O.+   |
-|      ... =.+    |
-+----[SHA256]-----+
+docker run -v /var/run/docker.sock:/var/run/docker.sock datagridsys/skopos-plugin-swarm-exec task-exec <taskID> <command> [<arguments>...]
+docker run -v /var/run/docker.sock:/var/run/docker.sock datagridsys/skopos-plugin-swarm-exec task-exec

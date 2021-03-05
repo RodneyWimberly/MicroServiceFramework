@@ -1,7 +1,7 @@
 FROM consul
 
 # Label the image
-LABEL Author rodneywimberly
+LABEL Author microserviceframework
 LABEL Name consul
 
 RUN set -eux && \
@@ -20,7 +20,7 @@ RUN mkdir /usr/local/scripts && \
     chown -R consul:consul /usr/local/scripts && \
     chown -R consul:consul /consul
 
-COPY ./core.env /usr/local/scripts/core.env
+COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./*.pem /consul/certs/
 COPY ./*.json /consul/templates/
@@ -28,4 +28,4 @@ COPY ./consul-agent-ca.pem usr/local/share/ca-certificates/consul-agent-ca.pem
 RUN chmod 755 /usr/local/scripts/*.sh
 
 ENTRYPOINT ["/usr/local/scripts/consul-entrypoint.sh"]
-CMD [ "agent", "-join", "consul.service.consul" ]
+CMD agent -retry-join consul.service.consul

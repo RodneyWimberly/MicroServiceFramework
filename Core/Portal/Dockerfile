@@ -1,7 +1,7 @@
 FROM alpine
 
 # Label the image
-LABEL Author rodneywimberly
+LABEL Author microserviceframework
 LABEL Name portal
 
 # Install updates, nginx, and common tools
@@ -21,7 +21,7 @@ RUN set -x && \
         mkdir /run/nginx
 
 # Set Environment Vars
-ENV CONSUL_VERSION 1.9.1
+ENV CONSUL_VERSION 1.9.2
 ENV CONSUL_TEMPLATE_VERSION=0.25.1
 ENV CONSUL_URL https://releases.hashicorp.com
 
@@ -44,13 +44,19 @@ RUN curl -Lo /tmp/consul_template_0.15.0_linux_amd64.zip ${CONSUL_URL}/consul-te
     rm /tmp/consul_template_0.15.0_linux_amd64.zip
 
 RUN mkdir /usr/local/scripts && \
-    mkdir /etc/templates
+    mkdir /etc/templates && \
+    chown -R nginx:nginx /etc/nginx && \
+    chown -R nginx:nginx /usr/local/scripts && \
+    chown -R nginx:nginx /etc/templates && \
+    chown -R nginx:nginx /var/log/nginx && \
+    chown -R nginx:nginx /run/nginx
 
 RUN test -e /etc/nsswitch.conf || echo 'hosts: dns files' > /etc/nsswitch.conf
 
-COPY ./core.env /usr/local/scripts/core.env
+COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./*.conf /etc/templates/
+COPY ./consul-service.json /etc/templates/consul-service.json
 COPY ./index.html /etc/templates/index.html
 COPY ./.vimrc /.vimrc
 COPY ./stylesheet.css /usr/share/nginx/html/stylesheet.css
