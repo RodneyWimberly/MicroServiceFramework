@@ -106,3 +106,5 @@ link_file $CORE_DIR/shared/scripts/colors.env $CORE_DIR/vault/colors.env
 link_file $CORE_DIR/shared/scripts/colors.sh $CORE_DIR/vault/colors.sh
 link_file $CORE_DIR/shared/config/consul-service.json $CORE_DIR/vault/consul-service.json
 link_file $CORE_DIR/shared/scripts/health-entrypoint.sh $CORE_DIR/vault/health-entrypoint.sh
+link_file $CORE_DIR/shared/scripts/vault-functions.sh $CORE_DIR/vault/vault-functions.sh
+link_file $CORE_DIR/shared/scripts/vault-exec.sh $CORE_DIR/vault/vault-exec.sh

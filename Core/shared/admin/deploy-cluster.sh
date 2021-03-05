@@ -51,8 +51,17 @@ deploy_stack "${LOG_STACK_NAME}"
 log_detail "Waiting 15 seconds for stack to come up"
 sleep 15
 
-cd ~/msf/vault || exit 1
-./initialize-vault.sh
+log_detail "Checking for Vault service registration"
+until docker-service-exec core_consul consul catalog services | grep -- '^vault' > /dev/null; do
+  log_warning "Vault is not registered, waiting 5 seconds before retrying"
+  sleep 5
+done
+
+log "Waiting 30 seconds for Vault to come up"
+sleep 30
+
+set +e
+docker-service-exec core_vault /usr/local/scripts/initialize-vault.sh
 
 log "Deployment completed successfully!"
 exit

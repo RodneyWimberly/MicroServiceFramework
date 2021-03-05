@@ -12,7 +12,8 @@ RUN apk add --no-cache \
     iproute2 \
     bind-tools \
     gettext \
-    gawk
+    gawk \
+    bash
 
 RUN mkdir /usr/local/scripts && \
     mkdir /vault/templates && \

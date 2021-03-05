@@ -15,20 +15,23 @@ set -o pipefail
 
 # shellcheck source=./admin-functions.sh
 . ./admin-functions.sh
-# ../vault/stop-vault.sh
 
 if [ -z "$(docker ps -q -f status=running --filter name=core_consul)" ]; then
   exit 0
 fi
 
-log_header "Shutting down consul cluster"
+log_header "Shutting down vault cluster"
+docker-service-exec core_vault /usr/local/scripts/seal-vault.sh
+log_detail "Stopping all instances of vault"
+docker service scale core_vault=0
 
+log_header "Shutting down consul cluster"
 log_detail "Taking a cluster snapshot"
 SNAPSHOT_FILE=$(take_consul_snapshot "$@")
 export SNAPSHOT_FILE
 
-log_detail "Removing all service registrations"
-docker exec "$(docker ps -q -f status=running --filter name=core_consul)" rm -fr /consul/data/services/*
+# log_detail "Removing all service registrations"
+# docker exec "$(docker ps -q -f status=running --filter name=core_consul)" rm -fr /consul/data/services/*
 
 for SERVICE in $(docker-node-ps -a core_consul); do
   log_detail "$SERVICE leaving the cluster"

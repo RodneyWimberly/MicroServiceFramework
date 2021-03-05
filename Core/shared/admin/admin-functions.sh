@@ -21,6 +21,7 @@ fi
 # shellcheck source=../scripts/consul-functions.sh
 . "${SCRIPT_DIR}"/consul-functions.sh
 
+
 deploy_stack() {
   COMPOSE_FILE=~/msf/"$1"-stack.yml
   if [ -f "${COMPOSE_FILE}" ]; then

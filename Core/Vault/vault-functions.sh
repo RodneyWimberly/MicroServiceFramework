@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 if [ -d ~/msf ]; then
   SCRIPT_DIR=~/msf/scripts
 elif [ -d /mnt/d/em ]; then
@@ -22,7 +21,7 @@ fi
 # shellcheck source=../scripts/consul-functions.sh
 . "${SCRIPT_DIR}"/consul-functions.sh
 
-VAULT_SCRIPT_DIR="$HOME/msf/vault"
+VAULT_SCRIPT_DIR="$HOME/msf/scripts"
 export VAULT_SCRIPT_DIR
 
 # --------------------------------------------------------------------------------------
@@ -33,17 +32,24 @@ apply_admin_policy() {
   set -e
   VAULT_TOKEN="$(gawk '$0 ~ /Initial Root Token/ { print $NF;exit }' secret.txt)"
   export VAULT_TOKEN
-  ./vault-exec policy write admin /usr/local/policies/admin.hcl
+  execute_vault_command policy write admin /usr/local/policies/admin.hcl
 }
 
 apply_all_policies() {
   log "Applying policies to vault"
   set_vault_admin_token
 
-  log_detail "Applying admin policy to vault"
-  ./vault-exec policy write admin /usr/local/policies/admin.hcl
-  log_detail "Applying docker policy to vault"
-  ./vault-exec policy write docker /usr/local/policies/docker.hcl
+  # log_detail "Applying admin policy to vault"
+  # execute_vault_command policy write admin /usr/local/policies/admin.hcl
+  # log_detail "Applying docker policy to vault"
+  # execute_vault_command policy write docker /usr/local/policies/docker.hcl
+
+  for x in /usr/local/policies/*.hcl; do
+    policy="${x##*/}"
+    policy="${policy%.hcl}"
+    log_detail "Applying ${x} policy to vault"
+    execute_vault_command policy write "${policy}" "${x}"
+  done
   revoke_self
 }
 
@@ -70,6 +76,21 @@ enable_docker_approle() {
   revoke_self
 }
 
+enable_docker_secrets_store() {
+  log "Enabling docker secrets store to vault"
+  set_vault_admin_token
+
+  log_detail "Checking if docker secret store is already enabled in vault"
+  if execute_vault_command secrets list | grep '^docker/'; then
+    exit
+  fi
+
+  log_detail 'Enable KV v2 secrets engine for docker infra.'
+  execute_vault_command secrets enable -path=docker/ -version=2 kv
+
+  revoke_self
+}
+
 get_admin_token() {
   set -e
   if [ "$#" -gt 1 ]; then
@@ -79,7 +100,7 @@ get_admin_token() {
 
   VAULT_TOKEN="$(gawk '$0 ~ /Initial Root Token/ { print $NF;exit }' secret.txt)"
   export VAULT_TOKEN
-  ./vault-exec token create -policy=admin -orphan -period="${1:-15m}" | remove_colors > token.txt
+  execute_vault_command token create -policy=admin -orphan -period="${1:-15m}" | remove_colors > token.txt
   dos2unix token.txt
   gawk '$1 == "token" { print $2; exit}' token.txt
 }
@@ -91,6 +112,12 @@ set_auth_methods() {
   execute_vault_command write sys/auth/token/tune listing_visibility=unauth
 
   revoke_self
+}
+
+seal_vault() {
+  log "Sealing vault"
+  set_vault_admin_token 1m
+  curl -H "X-Vault-Token: ${VAULT_TOKEN}" -H 'X-Vault-Request: true' --request PUT http://127.0.0.1:8200/v1/sys/seal
 }
 
 set_vault_addr() {
@@ -112,11 +139,6 @@ set_vault_infra_token() {
   export VAULT_TOKEN
 }
 
-get_admin_token() (
-  cd_vault
-  ./get-admin-token.sh "$@"
-)
-
 get_infra_token() (
   execute_vault_command write auth/approle/login role_id=docker | \
     awk '$1 == "token" { print $2; exit }'
@@ -132,9 +154,21 @@ revoke_self() (
 execute_vault_command() (
   if vault_dir_available; then
     cd_vault
-    ./vault-exec "$@"
+    set -o errexit
+    set -o pipefail
+    if [ $# -gt 0 ]; then
+        if [[ $1 == *":"* ]]; then
+            SERVICE="$1"
+            shift
+        else
+            SERVICE="core_vault"
+        fi
+        docker-service-exec "$SERVICE" "/bin/sh -c 'rm -f entrypoint.sh && echo \"export VAULT_ADDR=$VAULT_ADDR VAULT_TOKEN=$VAULT_TOKEN\" >> entrypoint.sh && echo \"vault $*\" >> entrypoint.sh && /bin/sh entrypoint.sh'"
+    else
+        docker-service-exec core_vault "/bin/sh -c 'rm -f entrypoint.sh && echo \"export VAULT_ADDR=$VAULT_ADDR VAULT_TOKEN=$VAULT_TOKEN\" >> entrypoint.sh && echo \"/bin/sh\" >> entrypoint.sh && /bin/sh entrypoint.sh'"
+    fi
   else
-    "vault" "$@"
+    vault "$@"
   fi
 )
 
@@ -154,16 +188,7 @@ random_password() {
   tr -dc -- "${chars}" < /dev/urandom | head -c64;echo
 }
 
-shopt -s extglob # Enable Bash Extended Globbing expressions
-ansi_filter() {
-  local line
-  local IFS=
-  while read -r line || [[ "$line" ]]; do
-    echo "${line//$'\e'[\[(]*([0-9;])[@-n]/}"
-  done
-}
-
 remove_colors() {
-  sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"
+  # sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"
   sed "s/\x1B\[\([0-9]\{1,2\}\(;[0-9]\{1,2\}\)\?\)\?[mGK]//g"
 }
