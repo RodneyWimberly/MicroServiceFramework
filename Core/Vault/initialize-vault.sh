@@ -18,7 +18,8 @@ set -o pipefail
 # set -oxtrace
 
 log_detail "Initializing the Vault"
-if [ ! -f secret.txt ]; then
+VAULT_INITIALIZED=$([ -f secret.txt ])
+if ! $VAULT_INITIALIZED; then
   log_detail "Creating secret.txt"
   touch secret.txt
   chmod 600 secret.txt
@@ -41,10 +42,12 @@ $0 ~ /Unseal Key/ {
 ' secret.txt | \
   xargs -n1 -- "${CORE_SCRIPT_DIR}"/vault-exec.sh operator unseal
 
-apply_admin_policy
-apply_all_policies
-enable_docker_approle
-enable_docker_secrets_store
-set_auth_methods
+if ! $VAULT_INITIALIZED; then
+  apply_admin_policy
+  apply_all_policies
+  enable_docker_approle
+  enable_docker_secrets_store
+  set_auth_methods
+fi
 
 log_detail "Vault is initialized"

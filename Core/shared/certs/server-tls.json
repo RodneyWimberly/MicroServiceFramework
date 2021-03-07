@@ -1,4 +1,0 @@
-{
-    "key_file": "/consul/data/certs/docker-server-consul-0-key.pem",
-    "cert_file": "/consul/data/certs/docker-server-consul-0.pem"
-}

@@ -1,0 +1,14 @@
+{
+    "buttons": [
+        {
+            "name": "Update Images",
+            "script": "/mnt/d/msf/core/shared/dev/build-and-deploy-images.sh",
+            "description": "Build and publish Docker Images to hub."
+        },
+        {
+            "name": "Deploy Stacks",
+            "script": "/mnt/d/msf/core/shared/dev/copy-and-deploy.sh",
+            "description": "Deploy Docker stacks to Swarm and initialize."
+        }
+    ]
+}

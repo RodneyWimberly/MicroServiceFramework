@@ -1,7 +1,0 @@
-{
-  "ID": "ABC-123",
-  "Name": "ABC",
-  "Tags": [ "FOO" ],
-  "Address": "127.0.0.1",
-  "Port": 8500
-}

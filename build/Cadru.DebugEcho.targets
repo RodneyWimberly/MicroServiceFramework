@@ -21,7 +21,7 @@
   <Target Name="_DebugEcho">
     <Message Importance="$(DebugMessageImportance)" Text="$(NoWarn)"/>
     <Message Importance="$(DebugMessageImportance)" Text="$(ProjectIsDebugEchoTarget)"/>
-    <Message Importance="$(DebugMessageImportance)" Text="Core file path properties"/>
+    <Message Importance="$(DebugMessageImportance)" Text="core file path properties"/>
     <Message Importance="$(DebugMessageImportance)" Text="  RepoRoot = $(RepoRoot)"/>
     <Message Importance="$(DebugMessageImportance)" Text="  BuildDir = $(BuildDir)"/>
     <Message Importance="$(DebugMessageImportance)" Text="  BuildProps = $(BuildProps)"/>

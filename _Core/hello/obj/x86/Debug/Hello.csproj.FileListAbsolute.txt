@@ -1,3 +1,0 @@
-D:\em\Core\hello\obj\x86\Debug\Hello.csprojAssemblyReference.cache
-D:\em\Core\hello\obj\x86\Debug\Hello.csproj.CoreCompileInputs.cache
-D:\em\Core\hello\obj\x86\Debug\Hello.sourcelink.json

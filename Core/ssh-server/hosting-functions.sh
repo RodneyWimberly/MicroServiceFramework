@@ -1,9 +1,9 @@
 #!/bin/sh /bin/bash
 
 if [ -d ~/msf ]; then
-  SCRIPT_DIR=~/msf/scripts
-elif [ -d /mnt/d/em ]; then
-  SCRIPT_DIR=/mnt/d/em/Core/shared/scripts
+  SCRIPT_DIR=~/msf/core
+elif [ -d /mnt/d/msf ]; then
+  SCRIPT_DIR=/mnt/d/msf/shared/scripts
 else
   SCRIPT_DIR=/usr/local/scripts
 fi

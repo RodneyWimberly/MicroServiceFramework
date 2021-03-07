@@ -1,9 +1,0 @@
-{
-  "service": {
-    "id": "${SERVICE_ID}",
-    "name": "${SERVICE_NAME}",
-    "tags": [ ${SERVICE_TAGS} ],
-    "address": "169.254.1.1",
-    "port": ${SERVICE_PORT}
-  }
-}

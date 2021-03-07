@@ -11,7 +11,7 @@ projects from the command-line or the IDE. -->
         $(Copyright)
   -->
   <PropertyGroup>
-    <Product>Event Manager Identity</Product>
+    <Product>MicroServices Framework</Product>
     <Company>WimberlyTech Inc.</Company>
     <Copyright>Copyright (c) 2021</Copyright>
   </PropertyGroup>
