@@ -138,6 +138,9 @@ services:
   portainer-agent:
     image: microserviceframework/portainer-agent:dev
     init: true
+    # environment:
+    #   CAP_HOST_MANAGEMENT: 1
+    #   LOG_LEVEL: DEBUG
     env_file:
       - ./core.env
     volumes:

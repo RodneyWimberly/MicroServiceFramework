@@ -36,7 +36,9 @@ run_consul_template /etc/templates/index-template.html index.html /usr/share/ngi
 
 log_detail "Waiting 30 seconds for other services to come up before loading Nginx"
 sleep 30
-
+export SERVICE_CHECK_URL=http://${ETH0_IP}:${SERVICE_PORT}/stub_status
+export SERVICE_CHECK_METHOD=GET
+export SERVICE_CHECK_BODY={}
 add_consul_service "portal" 80 "\"www\", \"$CONTAINER_NAME\"" SERVICE_ID
 log_detail "Starting nginx."
 nginx -g 'daemon off;'

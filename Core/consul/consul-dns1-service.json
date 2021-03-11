@@ -1,0 +1,30 @@
+{
+  "service": {
+    "id": "dns:192.168.100.2:53",
+    "name": "dns",
+    "tags": [ "primary", "dns" ],
+    "address": "192.168.100.2",
+    "port": 53,
+    "meta": {
+      "title": "dns",
+      "description": "dns:192.168.100.2:53 service"
+    },
+    "checks": [
+      {
+        "args": ["ping", "-q", "-w 1", "192.168.100.2"],
+        "interval": "30s",
+        "timeout": "2s"
+      },
+      {
+        "tcp": "192.168.100.2:53",
+        "interval": "30s",
+        "timeout": "1s"
+      },
+      {
+        "args": ["dig", "@192.168.100.2"],
+        "interval": "30s",
+        "timeout": "2s"
+      }
+    ]
+  }
+}

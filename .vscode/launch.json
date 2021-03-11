@@ -16,7 +16,8 @@
             "name": "Run Microservices Framework",
             "cwd": "${workspaceFolder}",
             "program": "/mnt/d/msf/scripts/development/run-task.sh",
-            "args": []
+            "args": [],
+            "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "node",

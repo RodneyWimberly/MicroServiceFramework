@@ -23,13 +23,17 @@ expand_consul_config_from "common.json"
 if [ "${NODE_IS_MANAGER}" = "true" ]; then
   agent_mode="server"
   expand_consul_config_from "server.json"
+  cp /consul/templates/consul-dns* /consul/config
 else
   agent_mode="client"
   expand_consul_config_from "client.json"
 fi
 
 # /bin/sh -c "sleep 15; remove_unhealthy_services"
-add_consul_service "consul" 8500 "\"api\", \"$NODE_NAME\", \"$CONTAINER_NAME\"" SERVICE_ID1
+export SERVICE_CHECK_URL=http://${ETH0_IP}:8500/v1/status/leader
+export SERVICE_CHECK_METHOD=GET
+export SERVICE_CHECK_BODY={}
+add_consul_service "consul" 8500 "\"api\", \"$NODE_NAME\", \"$CONTAINER_NAME\"" SERVICE_ID1 consul-http-service.json
 add_consul_service "consul" 8600 "\"dns\"" SERVICE_ID2
 log "Starting Consul in ${agent_mode} mode."
 

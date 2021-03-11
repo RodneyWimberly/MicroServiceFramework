@@ -1,4 +1,3 @@
 #!/usr/bin/env sh
 
-exit 0
-#ps -ef | grep -v grep | grep -e vault || exit 1
+curl http://localhost:8200/v1/sys/health || exit 1

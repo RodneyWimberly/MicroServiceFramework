@@ -26,6 +26,7 @@ link_file $MSF_DIR/.dockerignore $CORE_DIR/consul/.dockerignore
 link_file $CORE_DIR/scripts/core.env $CORE_DIR/consul/core.env
 link_file $CORE_DIR/scripts/core-functions.sh $CORE_DIR/consul/core-functions.sh
 link_file $SHARED_CONFIG/consul-service.json $CORE_DIR/consul/consul-service.json
+link_file $SHARED_CONFIG/consul-http-service.json $CORE_DIR/consul/consul-http-service.json
 link_certs $CORE_DIR/consul
 link_common_functions $CORE_DIR/consul
 
@@ -40,7 +41,7 @@ log_detail "Making links for Portainer"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/portainer/.dockerignore
 link_file $CORE_DIR/scripts/core.env $CORE_DIR/portainer/core.env
 link_file $CORE_DIR/scripts/core-functions.sh $CORE_DIR/portainer/core-functions.sh
-link_file $SHARED_CONFIG/consul-service.json $CORE_DIR/portainer/consul-service.json
+link_file $SHARED_CONFIG/consul-http-service.json $CORE_DIR/portainer/consul-service.json
 link_common_functions $CORE_DIR/portainer
 
 log_detail "Making links for Portainer-Agent"
@@ -54,7 +55,7 @@ log_detail "Making links for Portal"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/portal/.dockerignore
 link_file $CORE_DIR/scripts/core.env $CORE_DIR/portal/core.env
 link_file $CORE_DIR/scripts/core-functions.sh $CORE_DIR/portal/core-functions.sh
-link_file $SHARED_CONFIG/consul-service.json $CORE_DIR/portal/consul-service.json
+link_file $SHARED_CONFIG/consul-http-service.json $CORE_DIR/portal/consul-service.json
 link_common_functions $CORE_DIR/portal
 
 log_detail "Making links for SSH Server"
@@ -69,6 +70,6 @@ link_file $MSF_DIR/.dockerignore $CORE_DIR/vault/.dockerignore
 link_file $CORE_DIR/scripts/core.env $CORE_DIR/vault/core.env
 link_file $CORE_DIR/scripts/core-functions.sh $CORE_DIR/vault/core-functions.sh
 link_file $SHARED_SCRIPTS/vault-exec.sh $CORE_DIR/vault/vault-exec.sh
-link_file $SHARED_CONFIG/consul-service.json $CORE_DIR/vault/consul-service.json
+link_file $SHARED_CONFIG/consul-http-service.json $CORE_DIR/vault/consul-service.json
 link_certs $CORE_DIR/vault
 link_common_functions $CORE_DIR/vault

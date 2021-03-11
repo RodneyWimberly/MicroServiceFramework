@@ -1,4 +1,3 @@
 #!/usr/bin/env sh
 
-exit 0
-#ps -ef | grep -v grep | grep -e nginx || exit 1
+curl http://localhost/health || exit 1

@@ -57,7 +57,8 @@ add_consul_service() {
     export SERVICE_TAGS=
   fi
   __resultvar="$4"
-  envsubst </etc/templates/consul-service.json >/etc/templates/"$SERVICE_NAME-$SERVICE_PORT".json
+  SERVICE_TEMPLATE=${5:-consul-service.json}
+  envsubst < /etc/templates/"$SERVICE_TEMPLATE" > /etc/templates/"$SERVICE_NAME-$SERVICE_PORT".json
   log_header "Consul service registration"
   log_detail "SERVICE_ID: $SERVICE_ID"
   log_detail "SERVICE_NAME: $SERVICE_NAME"

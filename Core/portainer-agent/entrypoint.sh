@@ -17,6 +17,9 @@ update_dns_config
 hosting_details
 get_consul_ip
 
+# export SERVICE_CHECK_URL=https://${ETH0_IP}:9001
+# export SERVICE_CHECK_METHOD=GET
+# export SERVICE_CHECK_BODY={}
 add_consul_service portainer-agent 9001 "\"api\", \"$CONTAINER_NAME\"" SERVICE_ID
 log_detail "Starting portainer agent."
 /app/agent

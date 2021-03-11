@@ -10,6 +10,7 @@ update_dns_config
 
 # Get Docker/Node/Hosting information from the Docker API for use in configuration
 hosting_details
+
 export VAULT_ADDR=http://127.0.0.1:8200
 export VAULT_API_ADDR=http://"${ETH0_IP}":8200
 export VAULT_CLUSTER_ADDR=https://"${ETH0_IP}":8201
