@@ -1,3 +1,6 @@
+RSAAuthentication yes
+PubkeyAuthentication yes 
+PasswordAuthentication no
 PermitRootLogin yes
 ChallengeResponseAuthentication no
 UsePAM yes

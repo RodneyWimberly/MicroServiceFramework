@@ -1,9 +1,13 @@
 FROM alpine
 ARG SSH_PASS=P@55w0rd
 
-LABEL Author microserviceframework
-LABEL Name ssh-server
-LABEL Version 1.0
+LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
+  org.label-schema.name="SSH-Server" \
+  org.label-schema.description="MicroServices Framework SSH Server Docker Image" \
+  org.label-schema.vcs-url="https://github.com/RodneyWimberly/MicroServiceFramework" \
+  org.label-schema.vendor="microserviceframework" \
+  org.label-schema.version="1.0" \
+  org.label-schema.schema-version="1.0"
 
 RUN apk add --no-cache \
   curl \
@@ -31,6 +35,13 @@ RUN addgroup  www-data && \
   mkdir -p /run/openrc/ && \
   touch /run/openrc/softlevel
 
+
 EXPOSE 22
-# ENTRYPOINT ["/usr/local/scripts/ssh-server-entrypoint.sh"]
-CMD ["/usr/local/scripts/ssh-server-entrypoint.sh"]
+ENTRYPOINT ["/usr/local/scripts/entrypoint.sh"]
+
+HEALTHCHECK \
+  --interval=30s \
+  --timeout=30s \
+  --retries=10 \
+  --start-period=30s \
+  CMD /usr/local/scripts/health-check.sh

@@ -11,15 +11,21 @@
   "Checks": [
     {
       "Args": ["ping", "-q", "-w 1", "${ETH0_IP}"],
-      "Interval": "10s",
+      "Interval": "30s",
       "Timeout": "2s",
       "Deregister_critical_service_after": "1m"
     },
     {
       "Tcp": "${ETH0_IP}:${SERVICE_PORT}",
-      "Interval": "10s",
+      "Interval": "30s",
       "Timeout": "1s",
       "Deregister_critical_service_after": "1m"
+    },
+    {
+      "Docker_container_id": "${CONTAINER_NAME}",
+      "Shell": "/bin/sh",
+      "Args": [ "/usr/local/scripts/health-check.sh" ],
+      "Interval": "30s"
     }
   ]
 }

@@ -1,15 +1,5 @@
 #!/bin/sh /bin/bash
 
-if [ -d ~/msf ]; then
-  SCRIPT_DIR=~/msf/core
-elif [ -d /mnt/d/msf ]; then
-  SCRIPT_DIR=/mnt/d/msf/shared/scripts
-else
-  SCRIPT_DIR=/usr/local/scripts
-fi
-# shellcheck source=./core.env
-. "${SCRIPT_DIR}"/core.env
-
 set_static_ip() {
   if [ -z "${STATIC_IP}" ]; then
     echo "Using default IP from Docker"
@@ -25,6 +15,10 @@ get_ip_from_adapter() {
 
 hostip() {
   ip -o ro get "$(ip ro | awk '$1 == "default" { print $3 }')" | awk '{print $5}'
+}
+
+hostid() {
+  basename "$(head /proc/1/cgroup)"
 }
 
 update_dns_config() {
@@ -47,6 +41,7 @@ show_hosting_details() {
 
   log_header "Container Environment Variables"
   log_detail "CONTAINER_NAME: ${CONTAINER_NAME}"
+  log_detail "CONTAINER_ID: ${CONTAINER_ID}"
   log_detail "CONTAINER_IP: ${CONTAINER_IP}"
 
   log_header "Network Interface Environment Variables"
@@ -65,6 +60,7 @@ get_hosting_details() {
   NODE_NAME=$(echo "${NODE_INFO}" | jq -r -M '.Name')
   NODE_IS_MANAGER=$(echo "${NODE_INFO}" | jq -r -M '.Swarm.ControlAvailable')
   CONTAINER_IP=$(hostip)
+  CONTAINER_ID=$(hostid)
   CONTAINER_NAME=$(hostname)
   ETH0_IP=$(get_ip_from_adapter eth0)
   ETH1_IP=$(get_ip_from_adapter eth1)
@@ -77,6 +73,7 @@ get_hosting_details() {
   export NODE_NAME
   export NODE_IS_MANAGER
   export CONTAINER_IP
+  export CONTAINER_ID
   export CONTAINER_NAME
   export ETH0_IP
   export ETH1_IP

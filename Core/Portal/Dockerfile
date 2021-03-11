@@ -1,8 +1,12 @@
-FROM alpine
+FROM alpine:3.12
 
-# Label the image
-LABEL Author microserviceframework
-LABEL Name portal
+LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
+    org.label-schema.name="Portal" \
+    org.label-schema.description="MicroServices Framework Portal Docker Image" \
+    org.label-schema.vcs-url="https://github.com/RodneyWimberly/MicroServiceFramework" \
+    org.label-schema.vendor="microserviceframework" \
+    org.label-schema.version="1.0" \
+    org.label-schema.schema-version="1.0"
 
 # Install updates, nginx, and common tools
 RUN set -x && \
@@ -51,8 +55,6 @@ RUN mkdir /usr/local/scripts && \
     chown -R nginx:nginx /var/log/nginx && \
     chown -R nginx:nginx /run/nginx
 
-RUN test -e /etc/nsswitch.conf || echo 'hosts: dns files' > /etc/nsswitch.conf
-
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./*.conf /etc/templates/
@@ -63,4 +65,11 @@ COPY ./stylesheet.css /usr/share/nginx/html/stylesheet.css
 #COPY ./.crt usr/local/share/ca-certificates/.crt
 RUN chmod 755 /usr/local/scripts/*.sh
 
-ENTRYPOINT ["/usr/local/scripts/portal-entrypoint.sh"]
+ENTRYPOINT ["/usr/local/scripts/entrypoint.sh"]
+
+HEALTHCHECK \
+    --interval=30s \
+    --timeout=30s \
+    --retries=10 \
+    --start-period=30s \
+    CMD /usr/local/scripts/health-check.sh

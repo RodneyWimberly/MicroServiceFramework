@@ -48,6 +48,7 @@
     "instance_type": "Docker Swarm",
     "node_id": "${NODE_ID}",
     "container_name": "${CONTAINER_NAME}",
+    "container_id": "${CONTAINER_ID}",
     "container_ip": "${CONTAINER_IP}",
     "manager_nodes_count": "${NUM_OF_MGR_NODES}",
     "manager_node": "${NODE_IS_MANAGER}",

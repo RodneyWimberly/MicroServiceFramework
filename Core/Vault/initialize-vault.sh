@@ -1,24 +1,29 @@
 #!/bin/bash
 
-# shellcheck source=./vault-functions.sh
-. "${CORE_SCRIPT_DIR}"/vault-functions.sh
+# shellcheck source=./common-functions.sh
+. "${CORE_SCRIPT_DIR}"/common-functions.sh
 add_path "${CORE_SCRIPT_DIR}"
 
 # Setup environment
 # Ignore non existent vars
 # set -u
-set -o nounset
+# set -o nounset
 # Terminate on command error
 # set -e
-set -o errexit
+# set -o errexit
 # Apply -e to pipe commands
-set -o pipefail
+# set -o pipefail
 # Output commands
 # set -x
 # set -oxtrace
 
 log_detail "Initializing the Vault"
-VAULT_INITIALIZED=$([ -f secret.txt ])
+if [ -f secret.txt ]; then
+  VAULT_INITIALIZED=true
+else
+  VAULT_INITIALIZED=false
+fi
+log_detail "VAULT_INITIALIZED: $VAULT_INITIALIZED"
 if ! $VAULT_INITIALIZED; then
   log_detail "Creating secret.txt"
   touch secret.txt

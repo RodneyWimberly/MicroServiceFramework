@@ -5,6 +5,18 @@
 		}
 	],
 	"settings": {
-		"terminal.integrated.cwd": "/mnt/d/msf/"
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"*.code-workspace": true,
+			"**/*.code-workspace": true,
+			"*.sln": true,
+			"**/*.sln": true,
+			"desktop.ini": true
+		},
+		"explorerExclude.backup": null
 	}
 }

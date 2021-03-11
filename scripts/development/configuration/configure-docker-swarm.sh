@@ -3,10 +3,8 @@ set -ue
 set +x
 
 
-# shellcheck source=../development.env
-. /mnt/d/msf/scripts/development/development.env
-# shellcheck source=../development-functions.sh
-. /mnt/d/msf/scripts/development/development-functions.sh
+# shellcheck source=../../../shared/scripts/development-functions.sh
+. /mnt/d/msf/shared/scripts/development-functions.sh
 
 eval "$(keychain --eval id_rsa)"
 

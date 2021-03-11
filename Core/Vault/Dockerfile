@@ -1,9 +1,12 @@
 FROM vault
 
-# Label the image
-LABEL Author microserviceframework
-LABEL Name vault
-LABEL Version 1.0
+LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
+    org.label-schema.name="Vault" \
+    org.label-schema.description="MicroServices Framework Vault Docker Image" \
+    org.label-schema.vcs-url="https://github.com/RodneyWimberly/MicroServiceFramework" \
+    org.label-schema.vendor="microserviceframework" \
+    org.label-schema.version="1.0" \
+    org.label-schema.schema-version="1.0"
 
 RUN apk add --no-cache \
     curl \
@@ -28,9 +31,16 @@ COPY ./*.pem /vault/certs/
 COPY ./vault.json /vault/templates/vault.json
 COPY ./consul-agent-ca.pem usr/local/share/ca-certificates/consul-agent-ca.pem
 RUN chmod 755 /usr/local/scripts/*.sh
-RUN test -e /etc/nsswitch.conf || echo 'hosts: dns files' > /etc/nsswitch.conf
+
 
 EXPOSE 8200
 
-ENTRYPOINT ["/usr/local/scripts/vault-entrypoint.sh"]
+ENTRYPOINT ["/usr/local/scripts/entrypoint.sh"]
 CMD [ "server", "-config=/vault/config" ]
+
+HEALTHCHECK \
+    --interval=30s \
+    --timeout=30s \
+    --retries=10 \
+    --start-period=30s \
+    CMD /usr/local/scripts/health-check.sh

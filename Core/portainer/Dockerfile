@@ -1,8 +1,12 @@
 FROM portainer/portainer-ce:alpine
 
-# Label the image
-LABEL Author microserviceframework
-LABEL Name portainer
+LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
+    org.label-schema.name="Portainer" \
+    org.label-schema.description="MicroServices Framework Portainer Docker Image" \
+    org.label-schema.vcs-url="https://github.com/RodneyWimberly/MicroServiceFramework" \
+    org.label-schema.vendor="microserviceframework" \
+    org.label-schema.version="1.0" \
+    org.label-schema.schema-version="1.0"
 
 ENV AGENT_CLUSTER_ADDR=tasks.core_portainer-agent:9001
 
@@ -21,4 +25,11 @@ COPY ./*.sh /usr/local/scripts/
 COPY ./consul-service.json /etc/templates/consul-service.json
 RUN chmod 755 /usr/local/scripts/*.sh
 
-ENTRYPOINT ["/usr/local/scripts/portainer-entrypoint.sh"]
+ENTRYPOINT ["/usr/local/scripts/entrypoint.sh"]
+
+HEALTHCHECK \
+    --interval=30s \
+    --timeout=30s \
+    --retries=10 \
+    --start-period=30s \
+    CMD /usr/local/scripts/health-check.sh

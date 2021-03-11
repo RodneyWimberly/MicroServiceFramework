@@ -1,29 +1,5 @@
 #!/bin/bash
 
-if [ -d ~/msf ]; then
-  SCRIPT_DIR=~/msf/scripts
-elif [ -d /mnt/d/em ]; then
-  SCRIPT_DIR=/mnt/d/em/core/shared/scripts
-else
-  SCRIPT_DIR=/usr/local/scripts
-fi
-
-# shellcheck source=../scripts/core.env
-. "${SCRIPT_DIR}"/core.env
-# shellcheck source=../scripts/colors.env
-. "${SCRIPT_DIR}"/colors.env
-# shellcheck source=../scripts/colors.sh
-. "${SCRIPT_DIR}"/colors.sh
-# shellcheck source=../scripts/logging-functions.sh
-. "${SCRIPT_DIR}"/logging-functions.sh
-# shellcheck source=../scripts/hosting-functions.sh
-. "${SCRIPT_DIR}"/hosting-functions.sh
-# shellcheck source=../scripts/consul-functions.sh
-. "${SCRIPT_DIR}"/consul-functions.sh
-
-VAULT_SCRIPT_DIR="$HOME/msf/scripts"
-export VAULT_SCRIPT_DIR
-
 # --------------------------------------------------------------------------------------
 # AUTH FUNCTIONS
 
@@ -38,11 +14,6 @@ apply_admin_policy() {
 apply_all_policies() {
   log "Applying policies to vault"
   set_vault_admin_token
-
-  # log_detail "Applying admin policy to vault"
-  # execute_vault_command policy write admin /usr/local/policies/admin.hcl
-  # log_detail "Applying docker policy to vault"
-  # execute_vault_command policy write docker /usr/local/policies/docker.hcl
 
   for x in /usr/local/policies/*.hcl; do
     policy="${x##*/}"
@@ -139,23 +110,19 @@ set_vault_infra_token() {
   export VAULT_TOKEN
 }
 
-get_infra_token() (
+get_infra_token() {
   execute_vault_command write auth/approle/login role_id=docker | \
     awk '$1 == "token" { print $2; exit }'
-)
-
-revoke_self() (
+}
+revoke_self() {
   execute_vault_command token revoke -self >&2
-)
+}
 
 # --------------------------------------------------------------------------------------
 # UTILITY FUNCTIONS
 
-execute_vault_command() (
-  if vault_dir_available; then
-    cd_vault
-    set -o errexit
-    set -o pipefail
+execute_vault_command() {
+  if is_docker_swarm_manager; then
     if [ $# -gt 0 ]; then
         if [[ $1 == *":"* ]]; then
             SERVICE="$1"
@@ -170,14 +137,10 @@ execute_vault_command() (
   else
     vault "$@"
   fi
-)
-
-vault_dir_available() {
-  [ -d "${VAULT_SCRIPT_DIR}" ]
 }
 
-cd_vault() {
-  cd "${VAULT_SCRIPT_DIR}"
+is_docker_swarm_manager() {
+  [ -d "${DEPLOYMENT_DIR}" ]
 }
 
 random_password() {
@@ -186,9 +149,4 @@ random_password() {
     chars="${1}"
   fi
   tr -dc -- "${chars}" < /dev/urandom | head -c64;echo
-}
-
-remove_colors() {
-  # sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"
-  sed "s/\x1B\[\([0-9]\{1,2\}\(;[0-9]\{1,2\}\)\?\)\?[mGK]//g"
 }
