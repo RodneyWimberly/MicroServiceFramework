@@ -1,12 +1,12 @@
 FROM consul
 
-# LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
-#     org.label-schema.name="Consul" \
-#     org.label-schema.description="MicroServices Framework Consul Docker Image" \
-#     org.label-schema.vcs-url="https://github.com/RodneyWimberly/MicroServiceFramework" \
-#     org.label-schema.vendor="microserviceframework" \
-#     org.label-schema.version="1.0" \
-#     org.label-schema.schema-version="1.0"
+LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
+    org.label-schema.name="Consul" \
+    org.label-schema.description="MicroServices Framework Consul Docker Image" \
+    org.label-schema.vcs-url="https://github.com/RodneyWimberly/MicroServiceFramework" \
+    org.label-schema.vendor="microserviceframework" \
+    org.label-schema.version="1.0" \
+    org.label-schema.schema-version="1.0"
 
 RUN set -eux && \
     apk update && \
@@ -22,9 +22,7 @@ RUN mkdir /usr/local/scripts && \
     mkdir /consul/templates && \
     mkdir /consul/certs && \
     chown -R consul:consul /consul
-
-# chown -R consul:consul /usr/local/scripts && \
-
++
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./*.pem /consul/certs/

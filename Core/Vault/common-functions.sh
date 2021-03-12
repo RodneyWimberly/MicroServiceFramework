@@ -2,7 +2,7 @@
 
 if [ -d ~/msf ]; then
   # Deployment Environment
-  SCRIPT_DIR=.
+  SCRIPT_DIR=~/msf
 elif [ -d /mnt/d/msf ]; then
   # Development Environment
   SCRIPT_DIR=/mnt/d/msf/shared/scripts

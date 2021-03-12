@@ -9,7 +9,7 @@
 ###########################################################################################################
 # External Ports
 # 22        = ssh - SSH Server
-# 80        = portal - HTML UI
+# 8080        = portal - HTML UI
 # 8200      = vault - HTML UI
 
 version: "3.8"
@@ -92,6 +92,8 @@ services:
     depends_on:
       - consul
       - dns
+    deploy:
+      replicas: 2
 
   portal:
     image: microserviceframework/portal:dev
@@ -99,7 +101,7 @@ services:
     env_file:
       - ./core.env
     ports:
-      - 7000:80
+      - 8080:80
     networks:
       - admin_network
     dns:
@@ -138,9 +140,9 @@ services:
   portainer-agent:
     image: microserviceframework/portainer-agent:dev
     init: true
-    # environment:
-    #   CAP_HOST_MANAGEMENT: 1
-    #   LOG_LEVEL: DEBUG
+    environment:
+      CAP_HOST_MANAGEMENT: 1
+      LOG_LEVEL: DEBUG
     env_file:
       - ./core.env
     volumes:
@@ -159,20 +161,20 @@ services:
       placement:
         constraints: [node.platform.os == linux]
 
-  ssh-server:
-    image: microserviceframework/ssh-server:dev
-    init: true
-    env_file:
-      - ./core.env
-    ports:
-      - 8080:22
-    networks:
-      - admin_network
-    dns:
-      - 192.168.100.2
-      - 192.168.100.3
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    depends_on:
-      - dns
-      - consul
+  # ssh-server:
+  #   image: microserviceframework/ssh-server:dev
+  #   init: true
+  #   env_file:
+  #     - ./core.env
+  #   ports:
+  #     - 8080:22
+  #   networks:
+  #     - admin_network
+  #   dns:
+  #     - 192.168.100.2
+  #     - 192.168.100.3
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   depends_on:
+  #     - dns
+  #     - consul

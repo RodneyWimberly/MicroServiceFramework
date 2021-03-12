@@ -3,7 +3,7 @@ set -ueo pipefail
 set +x
 
 # shellcheck source=./common-functions.sh
-. common-functions.sh
+. ~/msf/common-functions.sh
 
 deploy_stack() {
   COMPOSE_FILE=~/msf/"$1"/docker-compose.yml

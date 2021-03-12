@@ -9,7 +9,7 @@ set +x
 add_path "${LOGS_SCRIPT_DIR}"
 
 # Update container to use our DNS (DNS settings in stack definition don't work 100%)
-# update_dns_config
+update_dns_config
 
 # Get Docker/Node/Hosting information from the Docker API for use in configuration
 hosting_details

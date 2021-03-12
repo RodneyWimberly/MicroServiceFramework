@@ -35,4 +35,4 @@ HEALTHCHECK \
     CMD /usr/local/scripts/health-check.sh
 
 ENTRYPOINT ["/usr/local/scripts/logagent-entrypoint.sh"]
-# CMD [ "server", "-config=/vault/config" ]
+EXPOSE 27017

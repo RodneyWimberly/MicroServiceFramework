@@ -12,9 +12,9 @@ link_file $MSF_DIR/.dockerignore $LOGS_DIR/.dockerignore
 
 log_detail "Making links for Deployment"
 link_file $LOGS_DIR/scripts/logs.env $LOGS_DIR/scripts/deployment/package/logs.env
+link_file $LOGS_DIR/scripts/deployment/deploy-logs-stack.sh $LOGS_DIR/scripts/deployment/package/deploy-logs-stack.sh
 link_file $LOGS_DIR/docker-compose.yml $LOGS_DIR/scripts/deployment/package/docker-compose.yml
-link_file $MSF_DIR/shared/scripts/deployment-functions.sh $LOGS_DIR/scripts/deployment/package/deployment-functions.sh
-link_common_functions $LOGS_DIR/scripts/deployment/package
+link_file $LOGS_DIR/scripts/logs-functions.sh $LOGS_DIR/scripts/deployment/package/logs-functions.sh
 
 log_detail "Making links for LogAgent"
 link_file $MSF_DIR/.dockerignore $LOGS_DIR/logagent/.dockerignore

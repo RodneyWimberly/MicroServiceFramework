@@ -12,8 +12,8 @@ apk add \
     gawk
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
-echo "192.168.0.8 worker1" >> /etc/hosts
-echo "192.168.0.7 manager1" >> /etc/hosts
+echo "192.168.0.18 worker1" >> /etc/hosts
+echo "192.168.0.17 manager1" >> /etc/hosts
 ssh -t worker1 'echo "Connected!"'
 ssh -t manager1 'echo "Connected!"'
 echo "caption always \"%{= kc}Screen session %S on %H %-20=%{= .m}%D %d.%m.%Y %0c\"" > ~/.screenrc

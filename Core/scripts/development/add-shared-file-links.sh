@@ -14,12 +14,10 @@ log_detail "Making links for Deployment"
 link_file $CORE_DIR/docker-compose.yml $CORE_DIR/scripts/deployment/package/docker-compose.yml
 link_file $CORE_DIR/scripts/core.env $CORE_DIR/scripts/deployment/package/core.env
 link_file $CORE_DIR/scripts/core-functions.sh $CORE_DIR/scripts/deployment/package/core-functions.sh
-link_file $MSF_DIR/shared/scripts/deployment-functions.sh $CORE_DIR/scripts/deployment/package/deployment-functions.sh
 link_file $CORE_DIR/scripts/deployment/deploy-cluster.sh $CORE_DIR/scripts/deployment/package/deploy-cluster.sh
 link_file $CORE_DIR/scripts/deployment/shutdown-cluster.sh $CORE_DIR/scripts/deployment/package/shutdown-cluster.sh
 link_file $CORE_DIR/scripts/deployment/portainer/add-portainer.sh $CORE_DIR/scripts/deployment/package/add-portainer.sh
 link_file $CORE_DIR/scripts/deployment/portainer/kill-portainer.sh $CORE_DIR/scripts/deployment/package/kill-portainer.sh
-link_common_functions $CORE_DIR/scripts/deployment/package
 
 log_detail "Making links for Consul"
 link_file $MSF_DIR/.dockerignore $CORE_DIR/consul/.dockerignore

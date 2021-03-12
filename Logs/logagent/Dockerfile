@@ -24,7 +24,6 @@ RUN mkdir /usr/local/scripts && \
 
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
-COPY ./consul-service.json /etc/templates/consul-service.json
 RUN chmod 755 /usr/local/scripts/*.sh
 
 HEALTHCHECK \

@@ -18,8 +18,11 @@ ssh -tt "$MANAGER_SSH" ~/remove-deployment.sh
 
 log "Deploying common scripts"
 rsync -e "ssh" -avz /mnt/d/msf/shared/scripts/docker-* "$MANAGER_SSH":/bin
+rsync -e "ssh" -avz /mnt/d/msf/scripts/deployment/package/* "$MANAGER_SSH":~/msf
 
 /mnt/d/msf/core/scripts/development/run-task.sh
 if $START_LOG_STACK; then
   /mnt/d/msf/logs/scripts/development/run-task.sh
 fi
+
+log "MicroServices Framework deployment completed successfully"

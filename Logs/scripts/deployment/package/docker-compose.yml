@@ -1,12 +1,25 @@
 #####################################################
-# Logging Stack
+# Logs Stack
+# Mongo DB, Elasticsearch, LogAgent, & Graylog
 #####################################################
+# Ports
+# 1514/tcp:udp = graylog:Syslog
+# 5555/tcp:udp = graylog:RawPlainText
+# 9000/tcp     = graylog:HTTP Web UI and REST API
+# 9200/        = elasticsearch:HTTPS
+# 9300/tcp     = elasticsearch:HTTP
+# 12201/tcp    = graylog:GELF
+# 12201/udp    = graylog:GELF
+# 12301/tpc:udp= graylog:Nginx Syslog activity
+# 12302/tpc:udp= graylog:Nginx Syslog error
+# 27017/tcp    = mongo:MongoDB
+
 version: '3.8'
 
 volumes:
-  log_db_data:
-  log_api_data:
-  log_web_data:
+  mongo_data:
+  elasticsearch_data:
+  graylog_data:
 
 networks:
   stack_network:
@@ -14,64 +27,55 @@ networks:
     external: true
 
 services:
-
-  #####################################################
-  agent:
-  # LogAgent
-    image: 'sematext/logagent:latest'
+  logagent:
+    image: microserviceframework/logagent:dev
+    env_file: 
+      - ./logs.env
     depends_on:
-      - api
-    environment:
-        # The index where the agent should log to (for Sematext Cloud users the logs token)
-        - LOGS_TOKEN=177434fe-0862-43e4-a162-de767c346723
-        # Sematext Cloud region US or EU (default: US). The receiver URL will be set to EU/US default values. When using REGION, you don't need to set LOGS_RECEIVER_URL
-        #- REGION=US
-        # The URL of your Elasticsearch Endpoint (defaults to Sematext Cloud US https://logsene-receiver.sematext.com).
-        - LOGS_RECEIVER_URL=http://tasks.log_api:9200
-        # Semicolon-separated list of file globs
-        - LOG_GLOB=/mylogs//*.log;/var/log//*.log;/var/log/**/*.log
-        # Additional command line arguments for Logagent
-        #- LOGAGENT_ARGS="-n httpd"
+      - elasticsearch
+    # environment:
+    #     LOGS_TOKEN: 177434fe-0862-43e4-a162-de767c346723
+    #     LOGS_RECEIVER_URL: http://elasticsearch.service.consul:9200
+    #     LOG_GLOB: /mylogs//*.log;/var/log//*.log;/var/log/**/*.log
+    #     #LOGAGENT_ARGS: "-n httpd"
     cap_add:
         - SYS_ADMIN
     volumes:
         - '/var/run/docker.sock:/var/run/docker.sock'
         - '/var/log:/mylogs'
     networks:
-        stack_network:
-          aliases:
-            - logagent
+        stack_network: {}
         admin_network: {}
     dns:
       - 192.168.100.2
       - 192.168.100.3
 
-  #####################################################
-  db:
-    image: mongo:4.2
+  mongo:
+    image: microserviceframework/mongo:dev
+    env_file: 
+      - ./logs.env
     volumes:
-      - log_db_data:/data/db
+      - mongo_data:/data/db
     networks:
       admin_network: {}
-      stack_network:
-        aliases:
-            - mongo
+      stack_network: {}
     dns:
       - 192.168.100.2
       - 192.168.100.3
 
-  #####################################################
-  api:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.0
+  elasticsearch:
+    image: microserviceframework/elasticsearch:dev
+    env_file: 
+      - ./logs.env
     depends_on:
-       - db
+       - mongo
     environment:
       - http.host=0.0.0.0
       - network.bind_host=0.0.0.0
       - transport.host=0.0.0.0
       - network.host=0.0.0.0
       - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    #   - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
@@ -81,34 +85,30 @@ services:
         limits:
           memory: 1g
     volumes:
-      - log_api_data:/usr/share/elasticsearch/data
+      - elasticsearch_data:/usr/share/elasticsearch/data
     networks:
       admin_network: {}
-      stack_network:
-        aliases:
-          - elasticsearch
+      stack_network: {}
     dns:
       - 192.168.100.2
       - 192.168.100.3
 
-  #####################################################
-  web:
-    image: graylog/graylog:4.0
-    environment:
-      # CHANGE ME (must be at least 16 characters)!
-      - GRAYLOG_PASSWORD_SECRET=eventmanagersecret
-      # Password: admin
-      - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
-      - GRAYLOG_HTTP_EXTERNAL_URI=http://www.em.host/logs/
+  graylog:
+    image: microserviceframework/graylog:dev
+    env_file: 
+      - ./logs.env
+    # environment:
+    #   - GRAYLOG_PASSWORD_SECRET=microserviceframeworksecret
+    #   # Password: admin
+    #   - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+    #   - GRAYLOG_HTTP_EXTERNAL_URI=http://graylog.service.consul:9000
     depends_on:
-      - api
+      - elasticsearch
     volumes:
-      - log_web_data:/usr/share/graylog/data
+      - graylog_data:/usr/share/graylog/data
     networks:
      admin_network: {}
-     stack_network:
-        aliases:
-          - graylog
+     stack_network: {}
     dns:
       - 192.168.100.2
       - 192.168.100.3

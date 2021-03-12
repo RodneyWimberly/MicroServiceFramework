@@ -7,30 +7,15 @@ set +x
 
 pushd ~/msf/core || exit 1
 
-# shellcheck source=package/deployment-functions.sh
-. ~/msf/core/deployment-functions.sh
+# shellcheck source=../../../shared/scripts/deployment-functions.sh
+. ~/msf/deployment-functions.sh
 # shellcheck source=package/core.env
 . ~/msf/core/core.env
 
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
 log_header "Core: Stack Deployment"
-export NUM_OF_MGR_NODES=$(docker info --format "{{.Swarm.Managers}}")
-export NODE_IP=$(docker info --format "{{.Swarm.NodeAddr}}")
-export NODE_ID=$(docker info --format "{{.Swarm.NodeID}}")
-export NODE_NAME=$(docker info --format "{{.Name}}")
-export NODE_IS_MANAGER=$(docker info --format "{{.Swarm.ControlAvailable}}")
-export CONTAINER_IP=$(hostip)
-export CONTAINER_ID=$(hostid)
-export CONTAINER_NAME=$(hostname)
-export ETH0_IP=$(get_ip_from_adapter eth0)
-export ETH1_IP=$(get_ip_from_adapter eth1)
-export ETH2_IP=$(get_ip_from_adapter eth2)
-export ETH3_IP=$(get_ip_from_adapter eth3)
-export ETH4_IP=$(get_ip_from_adapter eth4)
-show_hosting_details
 
-log_detail "Parameter: ${1:-true}"
 if ${1:-true}; then
   ~/msf/core/shutdown-cluster.sh
 fi

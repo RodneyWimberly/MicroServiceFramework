@@ -4,8 +4,8 @@ set +x
 
 pushd ~/msf/core || exit 1
 
-# shellcheck source=package/deployment-functions.sh
-. ~/msf/core/deployment-functions.sh
+# shellcheck source=../../../shared/scripts/deployment-functions.sh
+. ~/msf/deployment-functions.sh
 # shellcheck source=package/core.env
 . ~/msf/core/core.env
 
@@ -13,10 +13,8 @@ if [ -z "$(docker ps -q -f status=running --filter name=core_consul)" ]; then
   exit 0
 fi
 
-log_header "Shutting down vault cluster"
+log_header "Sealing the vault cluster"
 docker-service-exec core_vault /usr/local/scripts/seal-vault.sh
-log_detail "Stopping all instances of vault"
-docker service scale core_vault=0
 
 log_header "Shutting down consul cluster"
 log_detail "Taking a cluster snapshot"

@@ -11,7 +11,7 @@ else
   SCRIPT_DIR=/usr/local/scripts
 fi
 
-# shellcheck source=../../../shared/scripts/common-functions.sh
+# shellcheck source=../../shared/scripts/common-functions.sh
 . $SCRIPT_DIR/common-functions.sh
-# shellcheck source=../core.env
+# shellcheck source=./core.env
 . $SCRIPT_DIR/core.env

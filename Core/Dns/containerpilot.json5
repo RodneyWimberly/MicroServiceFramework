@@ -1,0 +1,43 @@
+{
+  consul: "${CONSUL_AGENT}",
+  logging: {
+    level: "DEBUG",
+    format: "text"
+  },
+  jobs: [
+    {
+      // without a "when" field this will start first
+      name: "preStart",
+      exec: "/bin/reload-nginx.sh preStart"
+    },
+    {
+      name: "dns",
+      port: 53,
+      interfaces: ["eth0"],
+      exec: "dnsmasq",
+      when: {
+        source: "preStart",
+        once: "exitSuccess"
+      },
+      health: {
+        exec: "/usr/bin/curl -o /dev/null --fail -s http://localhost/health",
+        interval: 10,
+        ttl: 25
+      }
+    },
+    {
+      name: "onchange-consul",
+      exec: "/bin/reload-nginx.sh onChange",
+      when: {
+        source: "watch.consul",
+        each: "changed"
+      }
+    }
+  ],
+  watches: [
+    {
+      name: "consul",
+      interval: 3
+    }
+  ]
+}

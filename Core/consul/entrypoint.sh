@@ -10,9 +10,6 @@ add_path "${CORE_SCRIPT_DIR}"
 # Get Docker/Node/Hosting information from the Docker API for use in configuration
 hosting_details
 export DOCKER_HOST=tcp://$NODE_IP:2375
-#/var/run/docker.sock
-# tcp://$NODE_IP:
-# unix:///var/run/docker.sock
 log_detail "DOCKER_HOST: $DOCKER_HOST"
 
 # Merge expanded variables with configuration templates and place in the config folder
