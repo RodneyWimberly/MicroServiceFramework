@@ -1,0 +1,41 @@
+#!/bin/bash
+set -ueo pipefail
+set +x
+
+run() {
+    apk add \
+        screen \
+        git \
+        gettext \
+        curl \
+        jq \
+        rsync \
+        gawk \
+        nano \
+        keychain \
+        wget \
+        iputils \
+        iproute2 \
+        bind-tools \
+        bash \
+        unzip \
+        ca-certificates \
+        procps \
+        vim \
+        tini
+    if [ ! -f ~/.runonce ]; then
+        eval "$(ssh-agent -s)"
+        ssh-add ~/.ssh/id_rsa
+        echo "$WORKER_IP worker1" >> /etc/hosts
+        echo "$MANAGER_IP manager1" >> /etc/hosts
+        ssh -tt worker1 'echo "Connected!"'
+        ssh -tt manager1 'echo "Connected!"'
+        echo "caption always \"%{= kc}Screen session %S on %H CTRL + A=hotkey/D=detach/ESC=scroll/:=cmd %-20=%{= .m}%D %d.%m.%Y %0c\"" > ~/.screenrc
+        echo "defscrollback 200000" >> ~/.screenrc
+        touch ~/.runonce
+    fi
+    # export PATH=~/msf:~/msf/core:"$$PATH"
+    screen -q -t node-manager -S node-manager
+}
+
+run

@@ -10,19 +10,35 @@ set +x
 # shellcheck source=../../shared/scripts/development-functions.sh
 . /mnt/d/msf/shared/scripts/development-functions.sh
 
-log_header "Running MicroServices Framework"
-eval "$(keychain --eval id_rsa id_dsa)"
+run() {
+  local start_ts=$(get_seconds)
+  log_header "Running MicroServices Framework"
+  eval "$(keychain --eval id_rsa id_dsa)" >/dev/null 2>&1
 
-log "Removing any current deployments"
-ssh -tt "$MANAGER_SSH" ~/remove-deployment.sh
+  log "Removing any current deployments"
+  while ! ssh -tt "$MANAGER_SSH" ~/remove-deployment.sh  >/dev/null 2>&1;
+  do
+    log_warning "Removing current deployments failed, retrying in 1 second"
+    sleep 1
+  done
 
-log "Deploying common scripts"
-rsync -e "ssh" -avz /mnt/d/msf/shared/scripts/docker-* "$MANAGER_SSH":/bin
-rsync -e "ssh" -avz /mnt/d/msf/scripts/deployment/package/* "$MANAGER_SSH":~/msf
+  log "Deploying common scripts"
+  while ! rsync -e "ssh" -avz /mnt/d/msf/shared/scripts/docker-* "$MANAGER_SSH":/bin >/dev/null 2>&1; 
+  do
+    log_warning "Deploying common scripts failed, retrying, retrying in 1 second"
+    sleep 1
+  done
+  while ! rsync -e "ssh" -avz /mnt/d/msf/scripts/deployment/package/* "$MANAGER_SSH":~/msf  >/dev/null 2>&1; 
+   do
+    log_warning "Deploying common scripts failed, retrying, retrying in 1 second"
+    sleep 1
+  done
 
-/mnt/d/msf/core/scripts/development/run-task.sh
-if $START_LOG_STACK; then
-  /mnt/d/msf/logs/scripts/development/run-task.sh
-fi
+  /mnt/d/msf/core/scripts/development/run-task.sh
+  if $START_LOG_STACK; then
+    /mnt/d/msf/logs/scripts/development/run-task.sh
+  fi
+  log_success "MicroServices Framework deployment completed." "$start_ts"
+}
 
-log "MicroServices Framework deployment completed successfully"
+run

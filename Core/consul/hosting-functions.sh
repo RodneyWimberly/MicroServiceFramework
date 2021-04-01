@@ -1,16 +1,30 @@
 #!/bin/sh /bin/bash
 
+restart_if_reserved_ip() {
+  INTERFACE=${1:-eth0}
+  log "Checking IP address on interface ${INTERFACE} to ensure it is not reserved"
+  IP=$(get_ip_from_adapter "${INTERFACE}")
+  if [ "${IP}" = "192.168.100.2" ] | [ "${IP}" = "192.168.100.3" ] ; then
+    log_error "This container is using a reserved IP address on interface ${INTERFACE}. Killing container so it can be restarted"
+    exit 1
+  fi
+  exit 0;
+}
+
 set_static_ip() {
+  INTERFACE=${1:-eth0}
   if [ -z "${STATIC_IP}" ]; then
-    echo "Using default IP from Docker"
+    restart_if_reserved_ip "${INTERFACE}"
+    echo "Using default IP on interface ${INTERFACE} from Docker"
   else
-    echo "Found static IP: ${STATIC_IP} using it"
-    ifconfig eth0 "${STATIC_IP}" netmask 255.255.0.0 up
+    echo "Found static IP: ${STATIC_IP} using it for interface ${INTERFACE}"
+    ifconfig "${INTERFACE}" "${STATIC_IP}" netmask 255.255.0.0 up
   fi
 }
 
 get_ip_from_adapter() {
-  ip -o -4 addr list "$1" | head -n1 | awk '{print $4}' | cut -d/ -f1
+  INTERFACE=${1:-eth0}
+  ip -o -4 addr list "$INTERFACE" | head -n1 | awk '{print $4}' | cut -d/ -f1
 }
 
 hostip() {
@@ -23,8 +37,7 @@ hostid() {
 
 update_dns_config() {
   log "Updating resolv.conf with DNS server addresses"
-  echo "nameserver 192.168.100.2" >>/etc/resolv.conf
-  echo "nameserver 192.168.100.3" >>/etc/resolv.conf
+  cat /etc/templates/resolv.conf > /etc/resolv.conf
 }
 
 get_ip_from_name() {
@@ -53,12 +66,12 @@ show_hosting_details() {
 }
 
 get_hosting_details() {
-  NODE_INFO=$(docker_api "info")
-  NUM_OF_MGR_NODES=$(echo "${NODE_INFO}" | jq -r -M '.Swarm.Managers')
-  NODE_IP=$(echo "${NODE_INFO}" | jq -r -M '.Swarm.NodeAddr')
-  NODE_ID=$(echo "${NODE_INFO}" | jq -r -M '.Swarm.NodeID')
-  NODE_NAME=$(echo "${NODE_INFO}" | jq -r -M '.Name')
-  NODE_IS_MANAGER=$(echo "${NODE_INFO}" | jq -r -M '.Swarm.ControlAvailable')
+  docker_api "info"
+  NUM_OF_MGR_NODES=$(jq -r -M '.Swarm.Managers' < /usr/local/scripts/docker-api.json)
+  NODE_IP=$(jq -r -M '.Swarm.NodeAddr' < /usr/local/scripts/docker-api.json)
+  NODE_ID=$(jq -r -M '.Swarm.NodeID' < /usr/local/scripts/docker-api.json)
+  NODE_NAME=$(jq -r -M '.Name' < /usr/local/scripts/docker-api.json)
+  NODE_IS_MANAGER=$(jq -r -M '.Swarm.ControlAvailable' < /usr/local/scripts/docker-api.json)
   CONTAINER_IP=$(hostip)
   CONTAINER_ID=$(hostid)
   CONTAINER_NAME=$(hostname)
@@ -89,12 +102,9 @@ hosting_details() {
 
 docker_api() {
   docker_api_url="http://localhost/${1}"
-  docker_api_method="${2}"
-  if [ -z "${docker_api_method}" ]; then
-    docker_api_method="GET"
-  fi
-
-  curl -sS --connect-timeout 180 --unix-socket /var/run/docker.sock -X "${docker_api_method}" "${docker_api_url}"
+  docker_api_method="${2:-GET}"
+  rm -f /usr/local/scripts/docker-api.json
+  curl -o /usr/local/scripts/docker-api.json -sS --connect-timeout 180 --unix-socket /var/run/docker.sock -X "${docker_api_method}" "${docker_api_url}"
 }
 
 add_path() {
@@ -103,11 +113,9 @@ add_path() {
 }
 
 keep_container_alive() {
-  log_detail "Doing a wait loop to keep the container alive."
+  log_detail "Starting a process to keep the container alive."
   while true ; do
     trap 'break' QUIT TERM EXIT
     wait
   done
-  # while true ;do wait ;done
-  # trap "exec sh -c 'while true ;do wait ;done'" QUIT TERM
 }

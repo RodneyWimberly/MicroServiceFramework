@@ -18,6 +18,12 @@ volumes:
   consul_data:
   portainer_data:
 
+configs:
+  resolv_conf:
+    file: ./resolv.conf
+  dhclient_conf:
+    file: ./dhclient.conf
+
 networks:
   admin_network:
     external: true
@@ -27,6 +33,8 @@ services:
     image: microserviceframework/consul:dev
     command: agent -retry-join consul.service.consul
     init: true
+    cap_add:
+      - NET_ADMIN
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - consul_data:/consul/data
@@ -76,6 +84,11 @@ services:
   vault:
     image: microserviceframework/vault:dev
     init: true
+    configs:
+      - source: resolv_conf
+        target: /etc/templates/resolv.conf
+      - source: dhclient_conf
+        target: /etc/dhcp/dhclient.conf
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     env_file:
@@ -98,6 +111,11 @@ services:
   portal:
     image: microserviceframework/portal:dev
     init: true
+    configs:
+      - source: resolv_conf
+        target: /etc/templates/resolv.conf
+      - source: dhclient_conf
+        target: /etc/dhcp/dhclient.conf
     env_file:
       - ./core.env
     ports:
@@ -119,6 +137,12 @@ services:
   portainer:
     image: microserviceframework/portainer:dev
     init: true
+    command: -H tcp://portainer-agent.service.consul:9001 --tlsskipverify
+    configs:
+      - source: resolv_conf
+        target: /etc/templates/resolv.conf
+      - source: dhclient_conf
+        target: /etc/dhcp/dhclient.conf
     env_file:
       - ./core.env
     volumes:
@@ -140,9 +164,16 @@ services:
   portainer-agent:
     image: microserviceframework/portainer-agent:dev
     init: true
+    configs:
+      - source: resolv_conf
+        target: /etc/templates/resolv.conf
+      - source: dhclient_conf
+        target: /etc/dhcp/dhclient.conf
     environment:
       CAP_HOST_MANAGEMENT: 1
-      LOG_LEVEL: DEBUG
+      LOG_LEVEL: debug
+      AGENT_CLUSTER_ADDR: portainer-agent.service.consul
+      # AGENT_PORT: 9001
     env_file:
       - ./core.env
     volumes:
@@ -164,7 +195,12 @@ services:
   # ssh-server:
   #   image: microserviceframework/ssh-server:dev
   #   init: true
-  #   env_file:
+    # configs:
+    #   - source: resolv_conf
+    #     target: /etc/templates/resolv.conf
+  # - source: dhclient_conf
+  # target: /etc/dhcp/dhclient.conf
+#   env_file:
   #     - ./core.env
   #   ports:
   #     - 8080:22

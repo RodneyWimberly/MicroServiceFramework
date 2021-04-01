@@ -9,7 +9,10 @@ LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
   org.label-schema.version="1.0" \
   org.label-schema.schema-version="1.0"
 
-RUN apk add --no-cache \
+RUN set -x && \
+  apk update && \
+  apk upgrade && \
+  apk add --no-cache \
   curl \
   jq \
   iputils \
@@ -20,7 +23,9 @@ RUN apk add --no-cache \
   openssl \
   bash \
   shadow \
-  openrc
+  openrc \
+  dhclient
+
 
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/

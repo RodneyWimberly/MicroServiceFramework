@@ -8,17 +8,19 @@ LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
     org.label-schema.version="1.0" \
     org.label-schema.schema-version="1.0"
 
-ENV AGENT_CLUSTER_ADDR=tasks.core_portainer-agent:9001
-
 # Install updates and common tools
 RUN set -x && \
     apk update && \
+    apk upgrade && \
     apk add --no-cache \
         curl \
         bind-tools \
         unzip \
         jq \
-        gettext
+        gettext \
+        dhclient \
+        openrc
+
 
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/

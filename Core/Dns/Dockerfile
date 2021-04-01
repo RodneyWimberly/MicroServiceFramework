@@ -11,6 +11,7 @@ LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
 # Add required pacakges
 RUN set -eux && \
     apk update && \
+    apk upgrade && \
     apk add --no-cache \
         curl \
         unzip \
@@ -54,19 +55,15 @@ RUN export CONTAINERPILOT_CHECKSUM=6da4a4ab3dd92d8fd009cdb81a4d4002a90c8b7c \
     && tar zxf /tmp/containerpilot.tar.gz -C /bin \
     && rm /tmp/containerpilot.tar.gz
 
-# COPY ContainerPilot configuration
-COPY containerpilot.json5 /etc/containerpilot.json5
-ENV CONTAINERPILOT=/etc/containerpilot.json5
-
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./0.base.conf /etc/dnsmasq/0.base.conf
 COPY ./1.consul.conf /etc/templates/1.consul.conf
 COPY ./consul-service.json /etc/templates/consul-service.json
+COPY ./containerpilot.json5 /etc/templates/containerpilot.json5
 RUN chmod 755 /usr/local/scripts/*.sh
 
 ENTRYPOINT ["/usr/local/scripts/entrypoint.sh"]
-CMD [ "--no-daemon", "--log-queries" ]
 
 HEALTHCHECK \
     --interval=30s \

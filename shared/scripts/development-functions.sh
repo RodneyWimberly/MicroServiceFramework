@@ -63,6 +63,9 @@ link_common_functions() {
   link_file $SHARED_SCRIPTS/json-functions.sh $LINK_DIR/json-functions.sh
   link_file $SHARED_SCRIPTS/logging-functions.sh $LINK_DIR/logging-functions.sh
   link_file $SHARED_SCRIPTS/vault-functions.sh $LINK_DIR/vault-functions.sh
+  link_file $SHARED_SCRIPTS/wait-for-it.sh $LINK_DIR/wait-for-it.sh
+  link_file $SHARED_CONFIG/resolv.conf $LINK_DIR/resolv.conf
+  link_file $SHARED_CONFIG/consul-service.json $LINK_DIR/consul-service.json
 }
 
 link_certs() {

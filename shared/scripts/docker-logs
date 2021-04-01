@@ -1,0 +1,32 @@
+#!/bin/bash
+# --------------------------------------------------------------------------------------
+# Returns the docker log for the specified service
+# --------------------------------------------------------------------------------------
+# Setup environment
+# Ignore non existent vars
+set -u
+# Terminate on command error
+set -e
+# Apply -e to pipe commands
+set -o pipefail
+# Output commands
+# set -x
+
+# --------------------------------------------------------------------------------------
+# Parse parameters
+if [ $# = 0 ] ; then
+  echo ""
+  echo "Usage:"
+  echo "$0 <SERVICE_NAME>"
+  echo ""
+  echo "Example:"
+  echo "$0 stack1_influxdb"
+  echo ""
+  echo "Returns the docker log for the specified service"
+  echo "If the option '-m' is not used, all logs are supplied without the more pipe"
+  exit 1
+fi
+
+# --------------------------------------------------------------------------------------
+# Get logs
+docker service logs "$1"

@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-dig @"$STATIC_IP" || exit 1
+dig +short @"$STATIC_IP" > /dev/null || exit 1

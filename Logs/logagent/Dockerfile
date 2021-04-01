@@ -22,6 +22,7 @@ RUN apk add --no-cache \
 RUN mkdir /usr/local/scripts && \
     chown -R node:node /usr/local/scripts
 
+
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 RUN chmod 755 /usr/local/scripts/*.sh
@@ -33,4 +34,4 @@ HEALTHCHECK \
     --start-period=30s \
     CMD /usr/local/scripts/health-check.sh
 
-ENTRYPOINT ["/usr/local/scripts/entrypoint.sh"]
+ENTRYPOINT ["/sbin/tini", "--", "/usr/local/scripts/entrypoint.sh"]

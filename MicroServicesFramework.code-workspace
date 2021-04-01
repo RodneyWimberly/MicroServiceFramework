@@ -17,6 +17,8 @@
 			"**/*.sln": true,
 			"desktop.ini": true
 		},
-		"explorerExclude.backup": null
+		"explorerExclude.backup": null,
+		"files.eol": "\n",
+		"powershell.codeFormatting.addWhitespaceAroundPipe": true
 	}
 }

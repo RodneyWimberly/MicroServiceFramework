@@ -39,6 +39,23 @@
             "group": "build"
         },
         {
+            "label": "Get Service Logs",
+            "type": "shell",
+            "command": "/mnt/d/msf/scripts/development/get-docker-logs.sh",
+            "args": [ "${input:serviceList}" ],
+            "problemMatcher": [],
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new",
+                "showReuseMessage": false,
+                "clear": true,
+                "group": "logs"
+            },
+            "group": "build"
+        },
+        {
             "label": "Configure Docker Swarm",
             "type": "shell",
             "command": "/mnt/d/msf/scripts/development/configuration/configure-docker-swarm.sh",
@@ -69,6 +86,33 @@
                 "group": "run"
             },
             "group": "build"
+        }
+    ],
+    "inputs": [
+        {
+            "type": "pickString",
+            "id": "serviceList",
+            "description": "Select Service:",
+            "options": [
+                "core_consul",
+                "core_dns1",
+                "core_portal",
+                "core_portainer",
+                "core_portainer-agent",
+                "core_ssh-server",
+                "core_vault",
+                "logs_graylog",
+                "logs_mongo",
+                "logs_elasticsearch",
+                "logs_logagent"
+            ],
+            "default": "core_consul"
+        },
+        {
+            "type": "promptString",
+            "id": "serviceName",
+            "description": "Service Name:",
+            "default": ""
         }
     ]
 }

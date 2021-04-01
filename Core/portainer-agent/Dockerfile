@@ -11,11 +11,14 @@ LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
 # Install updates and common tools
 RUN set -x && \
     apk update && \
+    apk upgrade && \
     apk add --no-cache \
         curl \
         bind-tools \
         jq \
-        gettext
+        gettext \
+        dhclient \
+        openrc
 
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/

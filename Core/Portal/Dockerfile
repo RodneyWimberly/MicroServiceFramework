@@ -11,6 +11,7 @@ LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
 # Install updates, nginx, and common tools
 RUN set -x && \
     apk update && \
+    apk upgrade && \
     apk add --no-cache \
         curl \
         bind-tools \
@@ -21,7 +22,9 @@ RUN set -x && \
         less \
         vim \
         nginx \
-        gettext && \
+        gettext \
+        dhclient \
+        openrc && \
         mkdir /run/nginx
 
 # Set Environment Vars
@@ -47,6 +50,18 @@ RUN curl -Lo /tmp/consul_template_0.15.0_linux_amd64.zip ${CONSUL_URL}/consul-te
     mv consul-template /bin && \
     rm /tmp/consul_template_0.15.0_linux_amd64.zip
 
+# Install ContainerPilot
+ENV CONTAINERPILOT_VER 3.0.0
+ENV CONTAINERPILOT /etc/containerpilot.json5
+
+RUN export CONTAINERPILOT_CHECKSUM=6da4a4ab3dd92d8fd009cdb81a4d4002a90c8b7c \
+    && curl -Lso /tmp/containerpilot.tar.gz \
+    "https://github.com/joyent/containerpilot/releases/download/${CONTAINERPILOT_VER}/containerpilot-${CONTAINERPILOT_VER}.tar.gz" \
+    && echo "${CONTAINERPILOT_CHECKSUM}  /tmp/containerpilot.tar.gz" | sha1sum -c \
+    && tar zxf /tmp/containerpilot.tar.gz -C /bin \
+    && rm /tmp/containerpilot.tar.gz
+
+
 RUN mkdir /usr/local/scripts && \
     mkdir /etc/templates && \
     chown -R nginx:nginx /etc/nginx && \
@@ -55,10 +70,12 @@ RUN mkdir /usr/local/scripts && \
     chown -R nginx:nginx /var/log/nginx && \
     chown -R nginx:nginx /run/nginx
 
+
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./*.conf /etc/templates/
 COPY ./consul-service.json /etc/templates/consul-service.json
+COPY ./containerpilot.json5 /etc/templates/containerpilot.json5
 COPY ./index.html /etc/templates/index.html
 COPY ./.vimrc /.vimrc
 COPY ./stylesheet.css /usr/share/nginx/html/stylesheet.css

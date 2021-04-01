@@ -29,7 +29,7 @@
     <h1>Hashi Services</h1>
     <div class="contentContainer">
       <p>
-        The following services are available from the <tt>HA Consul + Vault + Vault UI</tt> project.
+        The following services are available from the <tt>MicroServices Framework</tt> project.
       </p>
       <table class="example">
         <tbody>
@@ -37,6 +37,7 @@
           <tr><td><a href="/services">Consul UI</a></td><td>Consul UI frontend for browsing services discovered and other data.</td></tr>
           <tr><td><a href="/secrets">Vault UI</a></td><td>The Vault UI which is built into Vault.</td></tr>
           <tr><td><a href="/manager">Portainer UI</a></td><td>The Portainer UI is used to manage the Docker Swarm. Use choose "Agent" as the connection type and use 'portainer-agent.service.consul:9001' for the address.</td></tr>
+          <tr><td><a href="/logs">Graylog UI</a></td><td>The Graylog UI is used to manage service logs.</td></tr>
         </tbody>
       </table>
     </div>
@@ -60,7 +61,7 @@
       <p>The following table is dynamically generated based on discovered services.</p>
       <table class="example">
         <tbody>
-          <tr><th>Link to service</th><th>Description</th></tr>{{ range (index (services | byTag) "portal") }}{{ **name := .Name }}{{**service := service .Name}}{{if **service}}{{scratch.Set "active" "true"}}
+          <tr><th>Link to service</th><th>Description</th></tr>{{ range (index (services | byTag) "www") }}{{ **name := .Name }}{{**service := service .Name}}{{if **service}}{{scratch.Set "active" "true"}}
           {{range **service}}{{with (index .ServiceMeta)}}<tr><td><a href="{{**name}}/">{{.title}}</a></td><td>{{.description}}</td>{{end}}{{end}}{{end}}{{end}}{{if eq ( scratch.Get "active" ) "false"}}
           <tr><td>N/A</td><td>No portal services registered.</td></tr>{{end}}
         </tbody>

@@ -1,4 +1,3 @@
 #!/usr/bin/env sh
-exit 0
 
-#ps -ef | grep -v grep | grep -e $1 || exit 1
+curl -o /dev/null --fail -s http://127.0.0.1:8500/v1/catalog/services || exit 0

@@ -7,15 +7,9 @@ set +x
 
 # Put our script folder in the path
 add_path "${LOGS_SCRIPT_DIR}"
-
-# Update container to use our DNS (DNS settings in stack definition don't work 100%)
+hosting_details
+get_consul_ip
 update_dns_config
 
-# Get Docker/Node/Hosting information from the Docker API for use in configuration
-hosting_details
-
-# Get Consul address so we can register our service and resolve other services
-get_consul_ip
-
 log_detail "Starting Log Agent"
-/sbin/tini -- /run.sh
+/run.sh

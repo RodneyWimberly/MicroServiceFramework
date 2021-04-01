@@ -1,4 +1,4 @@
-FROM sematext/logagent
+FROM mongo
 
 # Label the image
 LABEL maintainer="microserviceframework <hello@microserviceframework.com>" \
@@ -9,18 +9,21 @@ LABEL maintainer="microserviceframework <hello@microserviceframework.com>" \
     org.label-schema.version="1.0" \
     org.label-schema.schema-version="1.0"
 
-RUN apk add --no-cache \
+RUN apt-get update && \
+    apt-get install -y \
     curl \
     jq \
-    iputils \
+    iputils-ping \
     iproute2 \
-    bind-tools \
+    dnsutils \
     gettext \
     gawk \
-    bash
+    wget \
+    bash && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /usr/local/scripts && \
-    chown -R node:node /usr/local/scripts
+RUN mkdir /usr/local/scripts
+
 
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
@@ -34,5 +37,5 @@ HEALTHCHECK \
     --start-period=30s \
     CMD /usr/local/scripts/health-check.sh
 
-ENTRYPOINT ["/usr/local/scripts/logagent-entrypoint.sh"]
+ENTRYPOINT ["/usr/local/scripts/entrypoint.sh"]
 EXPOSE 27017

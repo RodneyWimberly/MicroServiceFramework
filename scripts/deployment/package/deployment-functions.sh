@@ -5,6 +5,35 @@ set +x
 # shellcheck source=./common-functions.sh
 . ~/msf/common-functions.sh
 
+push_dir() {
+  log_detail "Pushing $1 to the directory stack"
+  pushd "$1" >/dev/null 2>&1
+}
+
+pop_dir() {
+  log_detail "Popping directory off of the directory stack"
+  popd >/dev/null 2>&1
+}
+
+remove_volume() {
+  log "Removing volume $1"
+  until docker volume rm -f "$1"; do 
+    log_warning "Removal of $1 failed. Retrying in 1 second"
+    sleep 1
+  done
+  log_success "Volume $1 removed"
+}
+
+remove_network() {
+  log_detail "Removing network $1"
+  while ! docker network rm "$1" >/dev/null 2>&1;
+  do
+    log_warning "Removal of $1 failed. Retrying in 5 second"
+    sleep 5
+  done
+  log_success "Network $1 was removed"
+}
+
 deploy_stack() {
   COMPOSE_FILE=~/msf/"$1"/docker-compose.yml
   if [ -f "${COMPOSE_FILE}" ]; then

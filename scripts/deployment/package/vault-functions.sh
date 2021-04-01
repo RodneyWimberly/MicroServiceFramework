@@ -87,8 +87,11 @@ set_auth_methods() {
 
 seal_vault() {
   log "Sealing vault"
+  if [ ! -f secret.txt ]; then
+    exit 0
+  fi
   set_vault_admin_token 1m
-  curl -H "X-Vault-Token: ${VAULT_TOKEN}" -H 'X-Vault-Request: true' --request PUT http://127.0.0.1:8200/v1/sys/seal
+  curl -H "X-Vault-Token: ${VAULT_TOKEN}" -H 'X-Vault-Request: true' --request PUT http://active.vault.service.consul:8200/v1/sys/seal
 }
 
 set_vault_addr() {
@@ -97,6 +100,7 @@ set_vault_addr() {
 }
 
 set_vault_admin_token() {
+  set_vault_addr
   if [ "$#" -gt 0 ]; then
     VAULT_TOKEN="$(get_admin_token "$@")"
   else
@@ -140,6 +144,7 @@ execute_vault_command() {
 }
 
 is_docker_swarm_manager() {
+  set +u
   [ -d "${DEPLOYMENT_DIR}" ]
 }
 

@@ -129,15 +129,19 @@ RUN install -d -o "${GRAYLOG_USER}" -g "${GRAYLOG_GROUP}" -m 0755 ${GRAYLOG_HOME
 RUN install -d -o "${GRAYLOG_USER}" -g "${GRAYLOG_GROUP}" -m 0755 ${GRAYLOG_HOME}/plugin
 
 RUN mkdir /usr/local/scripts && \
-    chown -R graylog:graylog /usr/local/scripts
+    chown -R "${GRAYLOG_USER}":"${GRAYLOG_GROUP}" /usr/local/scripts 
 
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./consul-service.json /etc/templates/consul-service.json
+
 RUN chmod 755 /usr/local/scripts/*.sh
+RUN install -d -o "${GRAYLOG_USER}" -g "${GRAYLOG_GROUP}" -m 0755 /usr/local/scripts
+RUN install -d -o "${GRAYLOG_USER}" -g "${GRAYLOG_GROUP}" -m 0755 /etc
+
 
 EXPOSE 9000
-USER ${GRAYLOG_USER}
+# USER ${GRAYLOG_USER}
 VOLUME ${GRAYLOG_HOME}/data
 HEALTHCHECK \
     --interval=30s \
@@ -147,7 +151,8 @@ HEALTHCHECK \
     CMD /usr/local/scripts/health-check.sh
 
 WORKDIR /
-ENTRYPOINT ["/usr/local/scripts/entrypoint.sh"]
+ENTRYPOINT ["tini", "--"]
+CMD ["/usr/local/scripts/entrypoint.sh"]
 
 
 # -------------------------------------------------------------------------------------------------

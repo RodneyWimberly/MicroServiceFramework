@@ -10,6 +10,7 @@ LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
 
 RUN set -eux && \
     apk update && \
+    apk upgrade && \
     apk add --no-cache \
         curl \
         bind-tools \
@@ -22,7 +23,7 @@ RUN mkdir /usr/local/scripts && \
     mkdir /consul/templates && \
     mkdir /consul/certs && \
     chown -R consul:consul /consul
-+
+
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./*.pem /consul/certs/
@@ -32,7 +33,7 @@ RUN chmod 755 /usr/local/scripts/*.sh
 
 
 ENTRYPOINT ["/usr/local/scripts/entrypoint.sh"]
-CMD agent -retry-join consul.service.consul
+CMD agent -retry-join consul.service.consul -dns-port 53
 
 # HEALTHCHECK \
 #     --interval=30s \

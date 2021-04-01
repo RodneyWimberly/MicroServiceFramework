@@ -1,17 +1,37 @@
 #!/bin/sh /bin/bash
 
 get_consul_ip() {
+  # Setup vars
+  start_ts=$(date +%s)
+  NODE_NAME=${NODE_NAME:-api}
   CONSUL_LOCAL_SERVER="${NODE_NAME}.${CONSUL_SERVER}"
-  log "Looking up IP address for ${CONSUL_LOCAL_SERVER}"
-  CONSUL_IP=
-  while [ -z "${CONSUL_IP}" ] || [ "${CONSUL_IP}" = ";; connection timed out; no servers could be reached" ]; do
-    # Using Consul as DNS catalog not Dnsmasq because it could be Dnsmasq calling this function in which case Consul is the only available catalog
-    CONSUL_IP=$(dig @consul.service.consul -p 8600 +short "${CONSUL_LOCAL_SERVER}" | tail -n1)
-    if [ -z "${CONSUL_IP}" ] || [ "${CONSUL_IP}" = ";; connection timed out; no servers could be reached" ]; then
-      log_warning "Unable to locate ${CONSUL_LOCAL_SERVER}, retrying in 1 second."
-      sleep 1
+  log "Waiting for for ${CONSUL_LOCAL_SERVER} to respond"
+  end1_ts=$(date +%s)
+  # use dig response to query IP, we are querying consul not dns as this will be called by the dns server
+  log_detail "Waiting on dig to respond to ${CONSUL_LOCAL_SERVER}"
+  until dig @"${CONSUL_SERVER}" +short "${CONSUL_LOCAL_SERVER}" >/dev/null 2>&1;
+  do
+    sleep 1
+    end2_ts=$(date +%s)
+    new_seconds2=$((end2_ts - end1_ts))
+    if [ $new_seconds2 -gt 120 ]; then
+      log_error "${CONSUL_LOCAL_SERVER} hasn't responded to dig requests in over 60 $new_seconds2. Killing container"
+      exit 1
+    elif [ $new_seconds2 -gt 60 ]; then
+      log_warning "${CONSUL_LOCAL_SERVER} hasn't responded to dig requests in over $new_seconds2 seconds."
     fi
   done
+  CONSUL_IP=$(dig @"${CONSUL_SERVER}" +short "${CONSUL_LOCAL_SERVER}" | tail -n1)
+  if [ -z "${CONSUL_IP}" ] || [ "${CONSUL_IP}" = ";; connection timed out; no servers could be reached" ]; then
+   log_error "No IP address could be obtained for ${CONSUL_LOCAL_SERVER}. Killing container"
+   exit 1
+  fi
+  end2_ts=$(date +%s)
+  new_seconds2=$((end2_ts - end1_ts))
+  new_seconds1=$((end2_ts - start_ts))
+  log_success "$CONSUL_LOCAL_SERVER responded to dig requests with IP $CONSUL_IP in $new_seconds2 seconds."
+
+  # export data
   export CONSUL_IP
   export CONSUL_AGENT="${CONSUL_IP}:8500"
   export CONSUL_HTTP_ADDR="http://${CONSUL_IP}:8500"
@@ -20,6 +40,8 @@ get_consul_ip() {
   export CONSUL_API="${CONSUL_HTTP_ADDR}/v1"
   export CONSUL_AGENT_API="${CONSUL_API}/agent"
   export CONSUL_KV_API="${CONSUL_API}/kv"
+
+  # display data for debugging
   log_header "Consul Environment Variables"
   log_detail "CONSUL_IP: ${CONSUL_IP}"
   log_detail "CONSUL_AGENT: ${CONSUL_AGENT}"
@@ -29,6 +51,14 @@ get_consul_ip() {
   log_detail "CONSUL_API: ${CONSUL_API}"
   log_detail "CONSUL_AGENT_API: ${CONSUL_AGENT_API}"
   log_detail "CONSUL_KV_API: ${CONSUL_KV_API}"
+
+  # update hosts so the local.consul.service.consul is always your local agent
+  log "Adding 'local.consul.service.consul ${CONSUL_IP}' to /etc/hosts"
+  echo "${CONSUL_IP} local.consul.service.consul" >> /etc/hosts
+
+  end2_ts=$(date +%s)
+  new_seconds1=$((end2_ts - start_ts))
+  log_success "Consul IP ${CONSUL_IP} was found in $new_seconds1 seconds"
 }
 
 get_consul_service_health() {
@@ -158,12 +188,13 @@ run_consul_template() {
     mkdir $template_dir
   fi
   cp "$1" "$template_dir/$2"
-  if [ -z "$4" ]; then
+  command=${4:-NONE}
+  if [ "$command" = "NONE" ]; then
     log "Processing Consul template $1"
     /bin/sh -c "sleep 5;nohup consul-template -consul-addr=${CONSUL_AGENT} --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3 -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
   else
-    log "Processing Consul template $1 and running $4"
-    /bin/sh -c "nohup consul-template -consul-addr=${CONSUL_AGENT} --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3:'$4' -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
+    log "Processing Consul template $1 and running $command"
+    /bin/sh -c "nohup consul-template -consul-addr=${CONSUL_AGENT} --vault-addr=http://active.vault.service.consul:8200 -template=$template_dir/$2:$3:'$command' -retry 30s -consul-retry -wait 30s -consul-retry-max-backoff=15s &"
   fi
 }
 

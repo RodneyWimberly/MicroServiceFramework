@@ -18,14 +18,14 @@
   "disable_remote_exec": false,
   "disable_update_check": true,
   "dns_config": {
-    "allow_stale": false,
+    "allow_stale": true,
     "node_ttl": "0s",
     "service_ttl": {
       "*": "0s"
     },
-    "enable_truncate": false,
+    "enable_truncate": true,
     "enable_additional_node_meta_txt": true,
-    "only_passing": true
+    "only_passing": false
   },
   "encrypt": "jgtdlbpgSBj8YoJGkuf4jw+Aa7it9dQeWm4yyBqHIVU=",
   "encrypt_verify_incoming" : true,
@@ -37,9 +37,9 @@
     }
   },
   "ports": {
+    "dns": 53,
     "http": 8500,
     "https": 8501,
-    "dns": 8600,
     "serf_lan": 8301,
     "serf_wan": 8302,
     "server": 8300
@@ -58,6 +58,7 @@
   "node_name": "${NODE_NAME}",
   "leave_on_terminate" : true,
   "log_level": "debug",
+  "recursors": [ "127.0.0.11", "8.8.8.8", "8.8.4.4" ],
   "server": ${NODE_IS_MANAGER},
   "skip_leave_on_interrupt" : false,
   "telemetry": {

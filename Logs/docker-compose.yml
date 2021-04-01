@@ -21,50 +21,73 @@ volumes:
   elasticsearch_data:
   graylog_data:
 
+configs:
+  resolv_conf:
+    file: ./resolv.conf
+  dhclient_conf:
+    file: ./dhclient.conf
+  graylog_conf:
+    file: ./graylog.conf
+
 networks:
-  stack_network:
+  # stack_network:
   admin_network:
     external: true
 
 services:
   logagent:
     image: microserviceframework/logagent:dev
+    configs:
+      - source: resolv_conf
+        target: /etc/templates/resolv.conf
+      - source: dhclient_conf
+        target: /etc/dhcp/dhclient.conf
     env_file: 
       - ./logs.env
     depends_on:
       - elasticsearch
-    # environment:
-    #     LOGS_TOKEN: 177434fe-0862-43e4-a162-de767c346723
-    #     LOGS_RECEIVER_URL: http://elasticsearch.service.consul:9200
-    #     LOG_GLOB: /mylogs//*.log;/var/log//*.log;/var/log/**/*.log
-    #     #LOGAGENT_ARGS: "-n httpd"
     cap_add:
         - SYS_ADMIN
     volumes:
         - '/var/run/docker.sock:/var/run/docker.sock'
         - '/var/log:/mylogs'
     networks:
-        stack_network: {}
-        admin_network: {}
+      #  stack_network:
+      #   aliases:
+      #     - logs-logagent
+       admin_network: {}
     dns:
       - 192.168.100.2
       - 192.168.100.3
 
   mongo:
     image: microserviceframework/mongo:dev
+    configs:
+      - source: resolv_conf
+        target: /etc/templates/resolv.conf
+      - source: dhclient_conf
+        target: /etc/dhcp/dhclient.conf
     env_file: 
       - ./logs.env
     volumes:
       - mongo_data:/data/db
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       admin_network: {}
-      stack_network: {}
+      # stack_network:
+      #   aliases:
+      #     - logs-mongo
     dns:
       - 192.168.100.2
       - 192.168.100.3
 
   elasticsearch:
     image: microserviceframework/elasticsearch:dev
+    configs:
+      - source: resolv_conf
+        target: /etc/templates/resolv.conf
+      - source: dhclient_conf
+        target: /etc/dhcp/dhclient.conf
     env_file: 
       - ./logs.env
     depends_on:
@@ -75,7 +98,7 @@ services:
       - transport.host=0.0.0.0
       - network.host=0.0.0.0
       - discovery.type=single-node
-    #   - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
@@ -86,29 +109,37 @@ services:
           memory: 1g
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       admin_network: {}
-      stack_network: {}
+      # stack_network:
+      #   aliases:
+      #     - logs-elasticsearch
     dns:
       - 192.168.100.2
       - 192.168.100.3
 
   graylog:
     image: microserviceframework/graylog:dev
+    configs:
+      - source: resolv_conf
+        target: /etc/templates/resolv.conf
+      - source: dhclient_conf
+        target: /etc/dhcp/dhclient.conf
+      # - source: graylog_conf
+      #   target: /usr/share/graylog/data/config/graylog.conf
     env_file: 
       - ./logs.env
-    # environment:
-    #   - GRAYLOG_PASSWORD_SECRET=microserviceframeworksecret
-    #   # Password: admin
-    #   - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
-    #   - GRAYLOG_HTTP_EXTERNAL_URI=http://graylog.service.consul:9000
     depends_on:
       - elasticsearch
     volumes:
       - graylog_data:/usr/share/graylog/data
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
      admin_network: {}
-     stack_network: {}
+    #  stack_network:
+    #     aliases:
+    #       - logs-graylog
     dns:
       - 192.168.100.2
       - 192.168.100.3

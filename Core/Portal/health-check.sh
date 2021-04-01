@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-curl http://localhost/health || exit 1
+curl -o /dev/null --fail -s http://localhost/health || exit 1

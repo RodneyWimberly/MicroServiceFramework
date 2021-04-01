@@ -29,8 +29,9 @@
   },
   "service_registration": {
     "consul" : {
-      "service_tags": "portal",
-      "address": "${CONSUL_AGENT}"
+      "service_tags": "www",
+      "address": "${CONSUL_AGENT}",
+      "Deregister_critical_service_after": "1m"
     }
   }
 }

@@ -8,7 +8,10 @@ LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
     org.label-schema.version="1.0" \
     org.label-schema.schema-version="1.0"
 
-RUN apk add --no-cache \
+RUN set -x && \
+    apk update && \
+    apk upgrade && \
+    apk add --no-cache \
     curl \
     jq \
     iputils \
@@ -16,13 +19,16 @@ RUN apk add --no-cache \
     bind-tools \
     gettext \
     gawk \
-    bash
+    bash \
+    openrc \
+    dhclient
 
 RUN mkdir /usr/local/scripts && \
     mkdir /vault/templates && \
     mkdir /vault/certs && \
     chown -R vault:vault /usr/local/scripts && \
     chown -R vault:vault /vault
+
 
 COPY ./*.hcl /usr/local/policies/
 COPY ./*.env /usr/local/scripts/

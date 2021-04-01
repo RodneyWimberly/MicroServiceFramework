@@ -1,4 +1,15 @@
 {
-    "files.eol": "\n",
-    "powershell.codeFormatting.addWhitespaceAroundPipe": true
+  "files.eol": "\n",
+  "powershell.codeFormatting.addWhitespaceAroundPipe": true,
+  "files.exclude": {
+    "node_modules": true,
+    ".gitignore": true,
+    ".stylelintrc": true,
+    ".editorconfig": true,
+    ".vscode": true,
+    "package.json": true,
+    "package-lock.json": true,
+    "LICENSE": true,
+    "README.md": true
+  }
 }

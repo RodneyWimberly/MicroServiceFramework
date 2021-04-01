@@ -1,0 +1,84 @@
+{
+  consul: "${CONSUL_AGENT}",
+  logging: {
+    level: "INFO",
+    format: "text"
+  },
+  jobs: [
+    {
+      name: "preStart",
+      exec: "/usr/local/scripts/containerpilot-events.sh preStart"
+    },
+    {
+      name: "portal",
+      port: 8080,
+      interfaces: ["eth0"],
+      tags: [ "www", "proxy" ],
+      consul: {
+        enableTagOverride: true,
+        deregisterCriticalServiceAfter: "3m"
+      },
+      exec: "/usr/local/scripts/containerpilot-events.sh onStart",
+      restarts: "unlimited",
+      when: {
+        source: "preStart",
+        once: "exitSuccess"
+      },
+      health: {
+        exec: "/usr/local/scripts/containerpilot-events.sh onHealth",
+        interval: 30,
+        ttl: 60
+      }
+    },
+    {
+      name: "onchange-consul",
+      exec: "/usr/local/scripts/containerpilot-events.sh onChange",
+      when: {
+        source: "watch.consul",
+        each: "changed"
+      }
+    },
+    {
+      name: "onchange-vault",
+      exec: "/usr/local/scripts/containerpilot-events.sh onChange",
+      when: {
+        source: "watch.vault",
+        each: "changed"
+      }
+    },
+    {
+      name: "onchange-portainer",
+      exec: "/usr/local/scripts/containerpilot-events.sh onChange",
+      when: {
+        source: "watch.portainer",
+        each: "changed"
+      }
+    },
+    {
+      name: "onchange-graylog",
+      exec: "/usr/local/scripts/containerpilot-events.sh onChange",
+      when: {
+        source: "watch.graylog",
+        each: "changed"
+      }
+    }
+  ],
+  watches: [
+    {
+      name: "consul",
+      interval: 10
+    },
+    {
+      name: "vault",
+      interval: 10
+    },
+    {
+      name: "portainer",
+      interval: 10
+    },
+    {
+      name: "graylog",
+      interval: 10
+    }
+  ]
+}

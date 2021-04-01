@@ -2,23 +2,22 @@
 # Deploys the logs stack to a Docker Swarm
 
 set -ueo pipefail
-set +x
 
-pushd ~/msf/logs || exit 1
+pushd ~/msf/logs || exit 1  >/dev/null 2>&1
 
 # shellcheck source=../../../shared/scripts/deployment-functions.sh
 . ~/msf/deployment-functions.sh
 # shellcheck source=../logs.env
 . ~/msf/logs/logs.env
 
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa
 log_header "Logs: Stack Deployment"
 
-deploy_stack "${LOGS_STACK_NAME}"
+log "Setting up SSH Keys"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa >/dev/null 2>&1
 
-log_detail "Waiting 15 seconds for stack to come up"
-sleep 15
+log "Deploying to Swarm"
+deploy_stack "${LOGS_STACK_NAME}" >/dev/null 2>&1
 
-log "Log Deployment completed successfully!"
-popd
+log_success "Log Deployment completed successfully!"
+popd  >/dev/null 2>&1

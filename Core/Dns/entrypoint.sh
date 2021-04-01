@@ -2,7 +2,6 @@
 set +e
 set +x
 
-# Make our stuff available
 # shellcheck source=./core-functions.sh
 . "${CORE_SCRIPT_DIR}"/core-functions.sh
 
@@ -19,9 +18,9 @@ hosting_details
 get_consul_ip
 
 log_detail "Merging expanded variables and updating configuration based on Consul cluster deployment"
-# get_consul_kv config/dns | envsubst > /etc/templates/1.consul-template.conf
 envsubst < /etc/templates/1.consul.conf > /etc/templates/1.consul-template.conf
-run_consul_template /etc/templates/1.consul-template.conf 1.consul.conf /etc/dnsmasq/1.consul.conf "consul lock -http-addr=${CONSUL_HTTP_ADDR} -name=service/dns -shell=false restart killall dnsmasq"
+envsubst < /etc/templates/containerpilot.json5 > /etc/containerpilot.json5
+export CONTAINERPILOT=/etc/containerpilot.json5
 
-log_detail "Starting DNS Server"
-dnsmasq --no-daemon --log-queries --server=/consul/"${CONSUL_IP}#8600"
+log_detail "Starting ContainerPilot"
+/bin/containerpilot

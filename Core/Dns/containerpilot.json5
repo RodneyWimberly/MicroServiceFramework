@@ -1,33 +1,37 @@
 {
   consul: "${CONSUL_AGENT}",
   logging: {
-    level: "DEBUG",
+    level: "INFO",
     format: "text"
   },
   jobs: [
     {
-      // without a "when" field this will start first
       name: "preStart",
-      exec: "/bin/reload-nginx.sh preStart"
+      exec: "/usr/local/scripts/containerpilot-events.sh preStart"
     },
     {
       name: "dns",
       port: 53,
-      interfaces: ["eth0"],
-      exec: "dnsmasq",
+      interfaces: ["static:${STATIC_IP}"],
+      consul: {
+        enableTagOverride: true,
+        deregisterCriticalServiceAfter: "3m"
+      },
+      exec: "/usr/local/scripts/containerpilot-events.sh onStart ${CONSUL_IP}",
+      restarts: "unlimited",
       when: {
         source: "preStart",
         once: "exitSuccess"
       },
       health: {
-        exec: "/usr/bin/curl -o /dev/null --fail -s http://localhost/health",
-        interval: 10,
-        ttl: 25
+        exec: "/usr/local/scripts/containerpilot-events.sh onHealth",
+        interval: 30,
+        ttl: 60
       }
     },
     {
       name: "onchange-consul",
-      exec: "/bin/reload-nginx.sh onChange",
+      exec: "/usr/local/scripts/containerpilot-events.sh onChange",
       when: {
         source: "watch.consul",
         each: "changed"
@@ -37,7 +41,7 @@
   watches: [
     {
       name: "consul",
-      interval: 3
+      interval: 10
     }
   ]
 }

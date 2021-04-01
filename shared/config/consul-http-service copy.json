@@ -1,0 +1,40 @@
+{
+  "ID": "${SERVICE_ID}",
+  "Name": "${SERVICE_NAME}",
+  "Tags": [ $SERVICE_TAGS ],
+  "Address": "${ETH0_IP}",
+  "Port": ${SERVICE_PORT},
+  "Meta": {
+    "title": "${SERVICE_NAME}",
+    "description": "${SERVICE_ID} service"
+  },
+  "Checks": [
+    {
+      "Args": ["ping", "-q", "-w 1", "${ETH0_IP}"],
+      "Interval": "30s",
+      "Timeout": "2s",
+      "Deregister_critical_service_after": "1m"
+    },
+    {
+      "Tcp": "${ETH0_IP}:${SERVICE_PORT}",
+      "Interval": "30s",
+      "Timeout": "1s",
+      "Deregister_critical_service_after": "1m"
+    },
+    {
+      "Docker_container_id": "${CONTAINER_NAME}",
+      "Shell": "/bin/sh",
+      "Args": [ "/usr/local/scripts/health-check.sh" ],
+      "Interval": "30s"
+    },
+    {
+      "Http": "${SERVICE_CHECK_URL}",
+      "Tls_skip_verify": true,
+      "Method": "${SERVICE_CHECK_METHOD}",
+      "Header": { "Content-Type": [ "application/json" ] },
+      "Body": "${SERVICE_CHECK_BODY}",
+      "Interval": "30s",
+      "Timeout": "1s"
+    }
+  ]
+}
