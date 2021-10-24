@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin\publish\debug\linux-musl-x64</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="AdminAuditLogDbConnection">
+      <Value>Data Source=mssql%3bInitial Catalog=em-identity%3bPersist Security Info=False%3bUser ID=sa%3bPassword=Password_123</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="AdminLogDbConnection">
+      <Value>Data Source=mssql%3bInitial Catalog=em-identity%3bPersist Security Info=False%3bUser ID=sa%3bPassword=Password_123</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="ConfigurationDbConnection">
+      <Value>Data Source=mssql%3bInitial Catalog=em-identity%3bPersist Security Info=False%3bUser ID=sa%3bPassword=Password_123</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="DataProtectionDbConnection">
+      <Value>Data Source=mssql%3bInitial Catalog=em-identity%3bPersist Security Info=False%3bUser ID=sa%3bPassword=Password_123</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="IdentityDbConnection">
+      <Value>Data Source=mssql%3bInitial Catalog=em-identity%3bPersist Security Info=False%3bUser ID=sa%3bPassword=Password_123</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="PersistedGrantDbConnection">
+      <Value>Data Source=mssql%3bInitial Catalog=em-identity%3bPersist Security Info=False%3bUser ID=sa%3bPassword=Password_123</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,12 @@
+D:\msf\auth\Data\SqlServer\bin\Debug\net5.0\MicroServicesFramework.Auth.Data.SqlServer.deps.json
+D:\msf\auth\Data\SqlServer\bin\Debug\net5.0\MicroServicesFramework.Auth.Data.SqlServer.dll
+D:\msf\auth\Data\SqlServer\bin\Debug\net5.0\ref\MicroServicesFramework.Auth.Data.SqlServer.dll
+D:\msf\auth\Data\SqlServer\bin\Debug\net5.0\MicroServicesFramework.Auth.Data.Shared.dll
+D:\msf\auth\Data\SqlServer\obj\Debug\net5.0\SqlServer.csprojAssemblyReference.cache
+D:\msf\auth\Data\SqlServer\obj\Debug\net5.0\SqlServer.GeneratedMSBuildEditorConfig.editorconfig
+D:\msf\auth\Data\SqlServer\obj\Debug\net5.0\SqlServer.AssemblyInfoInputs.cache
+D:\msf\auth\Data\SqlServer\obj\Debug\net5.0\SqlServer.AssemblyInfo.cs
+D:\msf\auth\Data\SqlServer\obj\Debug\net5.0\SqlServer.csproj.CoreCompileInputs.cache
+D:\msf\auth\Data\SqlServer\obj\Debug\net5.0\SqlServer.csproj.CopyComplete
+D:\msf\auth\Data\SqlServer\obj\Debug\net5.0\MicroServicesFramework.Auth.Data.SqlServer.dll
+D:\msf\auth\Data\SqlServer\obj\Debug\net5.0\ref\MicroServicesFramework.Auth.Data.SqlServer.dll

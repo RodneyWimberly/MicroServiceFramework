@@ -3,27 +3,37 @@ set -ueo pipefail
 set +x
 
 run() {
-    apk add \
-        screen \
-        git \
-        gettext \
-        curl \
-        jq \
-        rsync \
-        gawk \
-        nano \
-        keychain \
-        wget \
-        iputils \
-        iproute2 \
-        bind-tools \
-        bash \
-        unzip \
-        ca-certificates \
-        procps \
-        vim \
-        tini
+    
+        
     if [ ! -f ~/.runonce ]; then
+        apk add \
+            screen \
+            git \
+            gettext \
+            curl \
+            jq \
+            rsync \
+            gawk \
+            nano \
+            keychain \
+            wget \
+            iputils \
+            iproute2 \
+            bind-tools \
+            bash \
+            unzip \
+            ca-certificates \
+            procps \
+            vim \
+            rsyslog \
+            su-exec \
+            openrc
+        mkdir -p /run/openrc
+        touch /run/openrc/softlevel
+        rc-update add rsyslog default
+        export TINI_VERSION=v0.19.0
+        curl -o /usr/local/bin/tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini
+        chmod +x /usr/local/bin/tini
         eval "$(ssh-agent -s)"
         ssh-add ~/.ssh/id_rsa
         echo "$WORKER_IP worker1" >> /etc/hosts

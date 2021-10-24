@@ -1,0 +1,12 @@
+D:\msf\auth\Data\PostgreSQL\bin\Debug\net5.0\MicroServicesFramework.Auth.Data.PostgreSQL.deps.json
+D:\msf\auth\Data\PostgreSQL\bin\Debug\net5.0\MicroServicesFramework.Auth.Data.PostgreSQL.dll
+D:\msf\auth\Data\PostgreSQL\bin\Debug\net5.0\ref\MicroServicesFramework.Auth.Data.PostgreSQL.dll
+D:\msf\auth\Data\PostgreSQL\bin\Debug\net5.0\MicroServicesFramework.Auth.Data.Shared.dll
+D:\msf\auth\Data\PostgreSQL\obj\Debug\net5.0\PostgreSQL.csprojAssemblyReference.cache
+D:\msf\auth\Data\PostgreSQL\obj\Debug\net5.0\PostgreSQL.GeneratedMSBuildEditorConfig.editorconfig
+D:\msf\auth\Data\PostgreSQL\obj\Debug\net5.0\PostgreSQL.AssemblyInfoInputs.cache
+D:\msf\auth\Data\PostgreSQL\obj\Debug\net5.0\PostgreSQL.AssemblyInfo.cs
+D:\msf\auth\Data\PostgreSQL\obj\Debug\net5.0\PostgreSQL.csproj.CoreCompileInputs.cache
+D:\msf\auth\Data\PostgreSQL\obj\Debug\net5.0\PostgreSQL.csproj.CopyComplete
+D:\msf\auth\Data\PostgreSQL\obj\Debug\net5.0\MicroServicesFramework.Auth.Data.PostgreSQL.dll
+D:\msf\auth\Data\PostgreSQL\obj\Debug\net5.0\ref\MicroServicesFramework.Auth.Data.PostgreSQL.dll

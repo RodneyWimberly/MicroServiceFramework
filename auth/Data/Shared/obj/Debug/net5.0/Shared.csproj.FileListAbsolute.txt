@@ -1,0 +1,10 @@
+D:\msf\auth\Data\Shared\bin\Debug\net5.0\MicroServicesFramework.Auth.Data.Shared.deps.json
+D:\msf\auth\Data\Shared\bin\Debug\net5.0\MicroServicesFramework.Auth.Data.Shared.dll
+D:\msf\auth\Data\Shared\bin\Debug\net5.0\ref\MicroServicesFramework.Auth.Data.Shared.dll
+D:\msf\auth\Data\Shared\obj\Debug\net5.0\Shared.csprojAssemblyReference.cache
+D:\msf\auth\Data\Shared\obj\Debug\net5.0\Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\msf\auth\Data\Shared\obj\Debug\net5.0\Shared.AssemblyInfoInputs.cache
+D:\msf\auth\Data\Shared\obj\Debug\net5.0\Shared.AssemblyInfo.cs
+D:\msf\auth\Data\Shared\obj\Debug\net5.0\Shared.csproj.CoreCompileInputs.cache
+D:\msf\auth\Data\Shared\obj\Debug\net5.0\MicroServicesFramework.Auth.Data.Shared.dll
+D:\msf\auth\Data\Shared\obj\Debug\net5.0\ref\MicroServicesFramework.Auth.Data.Shared.dll

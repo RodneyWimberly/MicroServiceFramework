@@ -13,7 +13,7 @@ pushd ~/msf/logs || exit 1  >/dev/null 2>&1
 log_header "Logs: Stack Deployment"
 
 log "Setting up SSH Keys"
-eval "$(ssh-agent -s)"
+eval "$(ssh-agent -s)" >/dev/null 2>&1
 ssh-add ~/.ssh/id_rsa >/dev/null 2>&1
 
 log "Deploying to Swarm"

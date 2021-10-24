@@ -4,7 +4,8 @@ get_consul_ip() {
   # Setup vars
   start_ts=$(date +%s)
   NODE_NAME=${NODE_NAME:-api}
-  CONSUL_LOCAL_SERVER="${NODE_NAME}.${CONSUL_SERVER}"
+  # CONSUL_LOCAL_SERVER="${NODE_NAME}.${CONSUL_SERVER}"
+  CONSUL_LOCAL_SERVER="${NODE_NAME}.node.${CONSUL_DOMAIN}"
   log "Waiting for for ${CONSUL_LOCAL_SERVER} to respond"
   end1_ts=$(date +%s)
   # use dig response to query IP, we are querying consul not dns as this will be called by the dns server

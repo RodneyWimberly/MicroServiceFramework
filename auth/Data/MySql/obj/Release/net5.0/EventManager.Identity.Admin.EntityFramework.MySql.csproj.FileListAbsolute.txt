@@ -1,0 +1,15 @@
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\bin\Release\net5.0\EventManager.Identity.Admin.EntityFramework.MySql.deps.json
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\bin\Release\net5.0\EventManager.Identity.Admin.EntityFramework.MySql.dll
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\bin\Release\net5.0\ref\EventManager.Identity.Admin.EntityFramework.MySql.dll
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\bin\Release\net5.0\EventManager.Identity.Admin.EntityFramework.MySql.pdb
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\bin\Release\net5.0\EventManager.Identity.Admin.EntityFramework.Shared.dll
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\bin\Release\net5.0\EventManager.Identity.Admin.EntityFramework.Shared.pdb
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\obj\Release\net5.0\EventManager.Identity.Admin.EntityFramework.MySql.csprojAssemblyReference.cache
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\obj\Release\net5.0\EventManager.Identity.Admin.EntityFramework.MySql.GeneratedMSBuildEditorConfig.editorconfig
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\obj\Release\net5.0\EventManager.Identity.Admin.EntityFramework.MySql.AssemblyInfoInputs.cache
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\obj\Release\net5.0\EventManager.Identity.Admin.EntityFramework.MySql.AssemblyInfo.cs
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\obj\Release\net5.0\EventManager.Identity.Admin.EntityFramework.MySql.csproj.CoreCompileInputs.cache
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\obj\Release\net5.0\EventManager.Identity.Admin.EntityFramework.MySql.csproj.CopyComplete
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\obj\Release\net5.0\EventManager.Identity.Admin.EntityFramework.MySql.dll
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\obj\Release\net5.0\ref\EventManager.Identity.Admin.EntityFramework.MySql.dll
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.MySql\obj\Release\net5.0\EventManager.Identity.Admin.EntityFramework.MySql.pdb

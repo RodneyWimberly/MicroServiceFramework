@@ -15,4 +15,4 @@ link_file $MSF_DIR/shared/scripts/consul-shell  $MSF_DIR/scripts/deployment/pack
 link_file $MSF_DIR/shared/scripts/service-shell  $MSF_DIR/scripts/deployment/package/service-shell
 /mnt/d/msf/core/scripts/development/add-shared-file-links.sh
 /mnt/d/msf/logs/scripts/development/add-shared-file-links.sh
-log "Completed create file links"
+log_success "Completed create file links"

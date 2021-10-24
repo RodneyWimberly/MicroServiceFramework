@@ -1,0 +1,577 @@
+services:
+  em_core_registry_service:
+    command:
+    - consul
+    - agent
+    - -config-dir=/consul/config
+    - -dns-port=53
+    - -recursor=8.8.8.8
+    dns:
+    - registry.service.em.docker
+    - 8.8.8.8
+    - 8.8.4.4
+    domainname: service.em.docker
+    environment:
+      CONSUL_CACERT: /consul/config/consul-agent-ca.pem
+      CONSUL_CLIENT_CERT: /consul/config/dc-server-consul-0.pem
+      CONSUL_CLIENT_KEY: /consul/config/dc-server-consul-0-key.pem
+    expose:
+    - "8301"
+    - "8501"
+    - "8502"
+    hostname: registry
+    image: consul
+    networks:
+      admin_network: null
+    ports:
+    - mode: ingress
+      target: 53
+      published: 53
+      protocol: tcp
+    - mode: ingress
+      target: 53
+      published: 53
+      protocol: udp
+    - mode: ingress
+      target: 8300
+      published: 8300
+      protocol: tcp
+    - mode: ingress
+      target: 8302
+      published: 8302
+      protocol: tcp
+    - mode: ingress
+      target: 8302
+      published: 8302
+      protocol: udp
+    - mode: ingress
+      target: 8500
+      published: 8500
+      protocol: tcp
+    - mode: ingress
+      target: 38880
+      published: 38880
+      protocol: tcp
+    - mode: ingress
+      target: 38964
+      published: 38964
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: /root/vault/consul
+      target: /consul
+      bind:
+        create_host_path: true
+    - type: bind
+      source: ./shared/consul/leader/certs
+      target: /consul/certs
+      bind:
+        create_host_path: true
+    - type: bind
+      source: ./shared/consul/leader/config
+      target: /consul/config
+      bind:
+        create_host_path: true
+    - type: volume
+      source: core_registry_service_volume
+      target: /consul/data
+      volume: {}
+  em_core_reverse_proxy:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    depends_on:
+      em_core_registry_service:
+        condition: service_started
+      em_service_graylog:
+        condition: service_started
+      em_service_idapi:
+        condition: service_started
+      em_service_idweb:
+        condition: service_started
+      em_service_sts:
+        condition: service_started
+    dns:
+    - registry.service.em.docker
+    - 8.8.8.8
+    - 8.8.4.4
+    domainname: service.em.docker
+    expose:
+    - "12301"
+    - "12302"
+    hostname: www
+    image: nginx
+    links:
+    - em_core_registry_service:registry.service.em.docker
+    - em_service_graylog:graylog.service.em.docker
+    - em_service_idweb:idweb.service.em.docker
+    - em_service_idapi:idapi.service.em.docker
+    - em_service_sts:sts.service.em.docker
+    networks:
+      admin_network: {}
+      api_network:
+        aliases:
+        - em.host
+        - api.em.host
+        - www.em.host
+        - auth.em.host
+      internet:
+        aliases:
+        - em.host
+        - api.em.host
+        - www.em.host
+        - auth.em.host
+    ports:
+    - mode: ingress
+      target: 80
+      published: 80
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: 443
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: ./nginx
+      target: /etc/nginx
+      bind:
+        create_host_path: true
+    - type: volume
+      source: service_www_logs_volume
+      target: /etc/nginx/logs
+      volume: {}
+    - type: bind
+      source: /var/run/docker.sock
+      target: /tmp/docker.sock
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: ./nginx/certs/cacerts.crt
+      target: /usr/local/share/ca-certificates/cacerts.crt
+      bind:
+        create_host_path: true
+  em_service_elasticsearch:
+    depends_on:
+      em_core_registry_service:
+        condition: service_started
+      em_service_mongodb:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          memory: "1073741824"
+    dns:
+    - registry.service.em.docker
+    - 8.8.8.8
+    - 8.8.4.4
+    domainname: service.em.docker
+    environment:
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      discovery.type: single-node
+      http.host: 0.0.0.0
+      network.bind_host: 0.0.0.0
+      network.host: 0.0.0.0
+      transport.host: 0.0.0.0
+    expose:
+    - "9200"
+    - "9300"
+    hostname: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.0
+    links:
+    - em_service_mongodb:mongo
+    - em_core_registry_service:registry.service.em.docker
+    networks:
+      admin_network: {}
+      log_network:
+        aliases:
+        - elasticsearch
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+    - type: volume
+      source: logs_api_volume
+      target: /usr/share/elasticsearch/data
+      volume: {}
+  em_service_graylog:
+    depends_on:
+      em_core_registry_service:
+        condition: service_started
+      em_service_elasticsearch:
+        condition: service_started
+    dns:
+    - registry.service.em.docker
+    - 8.8.8.8
+    - 8.8.4.4
+    domainname: service.em.docker
+    environment:
+      GRAYLOG_HTTP_EXTERNAL_URI: https://www.em.host/admin/logs/
+      GRAYLOG_PASSWORD_SECRET: eventmanagersecret
+      GRAYLOG_ROOT_PASSWORD_SHA2: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+    expose:
+    - "1514"
+    - 1514/udp
+    - "5555"
+    - 5555/udp
+    - "9000"
+    - "12201"
+    - 12201/udp
+    - "12301"
+    - 12301/udp
+    - "12302"
+    - 12302/udp
+    hostname: graylog
+    image: graylog/graylog:4.0
+    links:
+    - em_service_elasticsearch:elasticsearch
+    - em_core_registry_service:registry.service.em.docker
+    networks:
+      admin_network: {}
+      api_network: {}
+      log_network:
+        aliases:
+        - graylog
+    ports:
+    - mode: ingress
+      target: 12201
+      published: 12201
+      protocol: udp
+    restart: always
+    volumes:
+    - type: volume
+      source: logs_web_volume
+      target: /usr/share/graylog/data
+      volume: {}
+  em_service_idapi:
+    build:
+      context: src/EventManager.Identity.Admin.Api/
+      dockerfile: Dockerfile
+      args:
+        TAG: latest
+    depends_on:
+      em_core_registry_service:
+        condition: service_started
+      em_service_graylog:
+        condition: service_started
+      em_service_mssql:
+        condition: service_started
+      em_service_sts:
+        condition: service_started
+    dns:
+    - registry.service.em.docker
+    - 8.8.8.8
+    - 8.8.4.4
+    domainname: service.em.docker
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: "true"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: changeit
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /root/.dotnet/https/em.host.pfx
+      ASPNETCORE_URLS: https://+:50002
+      DockerConfiguration__UpdateCaCertificate: "true"
+      VIRTUAL_HOST: idapi.service.em.docker
+    expose:
+    - "12201"
+    hostname: idapi
+    image: em-service-idapi
+    links:
+    - em_service_mssql:mssql.service.em.docker
+    - em_service_sts:sts.service.em.docker
+    - em_service_graylog:graylog.service.em.docker
+    - em_core_registry_service:registry.service.em.docker
+    networks:
+      admin_network: null
+      identity_network: null
+    ports:
+    - mode: ingress
+      target: 50002
+      published: 50002
+      protocol: tcp
+    restart: always
+    volumes:
+    - type: bind
+      source: C:\Users\Rodney\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: ./src/EventManager.Identity.Admin.Api/certs
+      target: /root/.dotnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: ./src/EventManager.Identity.Admin.Api/certs/cacerts.crt
+      target: /usr/local/share/ca-certificates/cacerts.crt
+      read_only: true
+      bind:
+        create_host_path: true
+  em_service_idweb:
+    build:
+      context: src/EventManager.Identity.Admin/
+      dockerfile: Dockerfile
+      args:
+        TAG: latest
+    command:
+    - dotnet
+    - EventManager.Identity.Admin.dll
+    - /seed
+    depends_on:
+      em_core_registry_service:
+        condition: service_started
+      em_service_graylog:
+        condition: service_started
+      em_service_idapi:
+        condition: service_started
+      em_service_mssql:
+        condition: service_started
+      em_service_sts:
+        condition: service_started
+    dns:
+    - registry.service.em.docker
+    - 8.8.8.8
+    - 8.8.4.4
+    domainname: service.em.docker
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: "true"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: changeit
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /root/.dotnet/https/em.host.pfx
+      ASPNETCORE_URLS: https://+:50001
+      DockerConfiguration__UpdateCaCertificate: "true"
+      VIRTUAL_HOST: idweb.service.em.docker
+    expose:
+    - "12201"
+    hostname: idweb
+    image: em-service-idweb
+    links:
+    - em_service_mssql:mssql.service.em.docker
+    - em_service_idapi:idapi.service.em.docker
+    - em_service_sts:sts.service.em.docker
+    - em_service_graylog:graylog.service.em.docker
+    - em_core_registry_service:registry.service.em.docker
+    networks:
+      admin_network: null
+      api_network: null
+      identity_network: null
+    ports:
+    - mode: ingress
+      target: 50001
+      published: 50001
+      protocol: tcp
+    restart: always
+    volumes:
+    - type: bind
+      source: C:\Users\Rodney\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: ./src/EventManager.Identity.Admin/certs
+      target: /root/.dotnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: ./src/EventManager.Identity.Admin/certs/cacerts.crt
+      target: /usr/local/share/ca-certificates/cacerts.crt
+      read_only: true
+      bind:
+        create_host_path: true
+  em_service_logagent:
+    cap_add:
+    - SYS_ADMIN
+    depends_on:
+      em_core_registry_service:
+        condition: service_started
+      em_core_reverse_proxy:
+        condition: service_started
+      em_service_elasticsearch:
+        condition: service_started
+    dns:
+    - registry.service.em.docker
+    - 8.8.8.8
+    - 8.8.4.4
+    domainname: service.em.docker
+    environment:
+      LOG_GLOB: /mylogs//*.log;/var/log//*.log;/var/log/**/*.log
+      LOGS_RECEIVER_URL: http://elasticsearch.service.em.docker:9200
+      LOGS_TOKEN: 177434fe-0862-43e4-a162-de767c346723
+    hostname: logagent
+    image: sematext/logagent:latest
+    links:
+    - em_service_elasticsearch:elasticsearch.service.em.docker
+    - em_core_registry_service:registry.service.em.docker
+    networks:
+      admin_network: {}
+      log_network:
+        aliases:
+        - logagent
+    restart: always
+    volumes:
+    - type: bind
+      source: /var/run/docker.sock
+      target: /var/run/docker.sock
+      bind:
+        create_host_path: true
+    - type: bind
+      source: /var/log
+      target: /mylogs
+      bind:
+        create_host_path: true
+  em_service_mongodb:
+    depends_on:
+      em_core_registry_service:
+        condition: service_started
+    dns:
+    - registry.service.em.docker
+    - 8.8.8.8
+    - 8.8.4.4
+    domainname: service.em.docker
+    hostname: mongodb
+    image: mongo:4.2
+    links:
+    - em_core_registry_service:registry.service.em.docker
+    networks:
+      admin_network: {}
+      log_network:
+        aliases:
+        - mongo
+    ports:
+    - mode: ingress
+      target: 27017
+      protocol: tcp
+    volumes:
+    - type: volume
+      source: logs_db_volume
+      target: /data/db
+      volume: {}
+  em_service_mssql:
+    depends_on:
+      em_core_registry_service:
+        condition: service_started
+    dns:
+    - registry.service.em.docker
+    - 8.8.8.8
+    - 8.8.4.4
+    domainname: service.em.docker
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Password_123
+    hostname: mssql
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    links:
+    - em_core_registry_service:registry.service.em.docker
+    networks:
+      admin_network: null
+      identity_network: null
+    ports:
+    - mode: ingress
+      target: 1433
+      published: 1433
+      protocol: tcp
+    volumes:
+    - type: volume
+      source: identity_db_volume
+      target: /var/opt/mssql
+      volume: {}
+  em_service_sts:
+    build:
+      context: src/EventManager.Identity.STS.Identity/
+      dockerfile: Dockerfile
+      args:
+        TAG: latest
+    depends_on:
+      em_core_registry_service:
+        condition: service_started
+      em_service_graylog:
+        condition: service_started
+      em_service_mssql:
+        condition: service_started
+    dns:
+    - registry.service.em.docker
+    - 8.8.8.8
+    - 8.8.4.4
+    domainname: service.em.docker
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: "true"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: changeit
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /root/.dotnet/https/em.host.pfx
+      ASPNETCORE_URLS: https://+:50003
+      DockerConfiguration__UpdateCaCertificate: "true"
+      VIRTUAL_HOST: sts.service.em.docker
+    expose:
+    - "12201"
+    hostname: sts
+    image: em-service-sts
+    links:
+    - em_service_mssql:mssql.service.em.docker
+    - em_service_graylog:graylog.service.em.docker
+    - em_core_registry_service:registry.service.em.docker
+    networks:
+      admin_network: null
+      api_network: null
+      identity_network: null
+    ports:
+    - mode: ingress
+      target: 50003
+      published: 50003
+      protocol: tcp
+    restart: always
+    volumes:
+    - type: bind
+      source: C:\Users\Rodney\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: ./src/EventManager.Identity.STS.Identity/certs
+      target: /root/.dotnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: ./src/EventManager.Identity.STS.Identity/certs/cacerts.crt
+      target: /usr/local/share/ca-certificates/cacerts.crt
+      read_only: true
+      bind:
+        create_host_path: true
+networks:
+  admin_network:
+    name: eventmanagerauth18149198808952257755_admin_network
+    driver: bridge
+  api_network:
+    name: eventmanagerauth18149198808952257755_api_network
+    driver: bridge
+  identity_network:
+    name: eventmanagerauth18149198808952257755_identity_network
+  internet:
+    name: eventmanagerauth18149198808952257755_internet
+    driver: bridge
+  log_network:
+    name: eventmanagerauth18149198808952257755_log_network
+volumes:
+  core_registry_service_volume:
+    name: eventmanagerauth18149198808952257755_core_registry_service_volume
+    driver: local
+  identity_db_volume:
+    name: eventmanagerauth18149198808952257755_identity_db_volume
+    driver: local
+  logs_api_volume:
+    name: eventmanagerauth18149198808952257755_logs_api_volume
+    driver: local
+  logs_db_volume:
+    name: eventmanagerauth18149198808952257755_logs_db_volume
+    driver: local
+  logs_web_volume:
+    name: eventmanagerauth18149198808952257755_logs_web_volume
+    driver: local
+  service_www_logs_volume:
+    name: eventmanagerauth18149198808952257755_service_www_logs_volume
+    driver: local

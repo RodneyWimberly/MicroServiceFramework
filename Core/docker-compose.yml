@@ -9,7 +9,7 @@
 ###########################################################################################################
 # External Ports
 # 22        = ssh - SSH Server
-# 8080        = portal - HTML UI
+# 8080      = portal - HTML UI
 # 8200      = vault - HTML UI
 
 version: "3.8"
@@ -23,7 +23,9 @@ configs:
     file: ./resolv.conf
   dhclient_conf:
     file: ./dhclient.conf
-
+  rsyslog_conf:
+    file: ./rsyslog.conf
+  
 networks:
   admin_network:
     external: true
@@ -33,6 +35,13 @@ services:
     image: microserviceframework/consul:dev
     command: agent -retry-join consul.service.consul
     init: true
+    configs:
+      # - source: resolv_conf
+      #   target: /consul/templates/resolv.conf
+      # - source: dhclient_conf
+      #   target: /etc/dhcp/dhclient.conf
+      - source: rsyslog_conf
+        target: /consul/templates/rsyslog.conf
     cap_add:
       - NET_ADMIN
     volumes:
@@ -44,6 +53,13 @@ services:
       admin_network:
         aliases:
           - consul.service.consul
+    # logging:
+    #   driver: syslog
+    #   options:
+    #     syslog-address: "tcp://graylog.service.consul:1514"
+    #   driver: gelf
+    #   options:
+    #     gelf-address: "tcp://graylog.service.consul:12201"    
     deploy:
       endpoint_mode: dnsrr
       mode: global
@@ -53,6 +69,13 @@ services:
   dns1: &dns_template
     image: microserviceframework/dns:dev
     init: true
+    configs:
+      - source: resolv_conf
+        target: /etc/templates/resolv.conf
+      # - source: dhclient_conf
+      #   target: /etc/dhcp/dhclient.conf
+      - source: rsyslog_conf
+        target: /etc/rsyslog.conf
     depends_on:
       - consul
     environment:
@@ -106,7 +129,7 @@ services:
       - consul
       - dns
     deploy:
-      replicas: 2
+      replicas: 1
 
   portal:
     image: microserviceframework/portal:dev

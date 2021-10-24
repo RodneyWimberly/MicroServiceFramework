@@ -55,7 +55,7 @@ link_common_functions() {
     log_error "Link folder $LINK_DIR does not exist"
     exit 1
   fi
-  log "Linking shared scripts to folder $LINK_DIR"
+  log_info "Linking shared scripts to folder $LINK_DIR"
   link_file $SHARED_SCRIPTS/color-functions.sh $LINK_DIR/color-functions.sh
   link_file $SHARED_SCRIPTS/common-functions.sh $LINK_DIR/common-functions.sh
   link_file $SHARED_SCRIPTS/consul-functions.sh $LINK_DIR/consul-functions.sh
@@ -65,6 +65,7 @@ link_common_functions() {
   link_file $SHARED_SCRIPTS/vault-functions.sh $LINK_DIR/vault-functions.sh
   link_file $SHARED_SCRIPTS/wait-for-it.sh $LINK_DIR/wait-for-it.sh
   link_file $SHARED_CONFIG/resolv.conf $LINK_DIR/resolv.conf
+  link_file $SHARED_CONFIG/rsyslog.conf $LINK_DIR/rsyslog.conf
   link_file $SHARED_CONFIG/consul-service.json $LINK_DIR/consul-service.json
 }
 
@@ -78,7 +79,7 @@ link_certs() {
     log_error "Link folder $LINK_DIR does not exist"
     exit 1
   fi
-  log "Linking shared certs to folder $LINK_DIR"
+  log_info "Linking shared certs to folder $LINK_DIR"
   link_file $SHARED_CERTS/consul-agent-ca.pem $LINK_DIR/consul-agent-ca.pem
   link_file $SHARED_CERTS/docker-client-consul-0.pem $LINK_DIR/docker-client-consul-0.pem
   link_file $SHARED_CERTS/docker-client-consul-0-key.pem $LINK_DIR/docker-client-consul-0-key.pem

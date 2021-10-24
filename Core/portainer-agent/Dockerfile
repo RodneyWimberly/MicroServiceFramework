@@ -1,4 +1,4 @@
-FROM portainer/agent:linux-amd64-2.1.0-alpine
+FROM portainer/agent:linux-amd64-2.9.1-alpine
 
 LABEL maintainer="MicroServices Framework <hello@microserviceframework.com>" \
     org.label-schema.name="Portainer-Agent" \

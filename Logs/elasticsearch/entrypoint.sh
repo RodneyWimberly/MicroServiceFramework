@@ -16,8 +16,11 @@ add_consul_service "elasticsearch" 9200 "\"api\", \"$CONTAINER_NAME\"" SERVICE_I
 add_consul_service "elasticsearch" 9300 "\"transport\", \"$CONTAINER_NAME\"" SERVICE_ID2
 
 log_detail "Starting Elasticsearch"
-/usr/local/bin/docker-entrypoint.sh "$@"
-
+set +e
+cd /usr/local/bin
+if [ "$(./docker-entrypoint.sh "$@")" -ne 0 ]; then
+    log_failure "Elasticsearch failed to start."
+fi
 # Un-register Elasticsearch with Consul
 remove_consul_service "${SERVICE_ID2:?Unable to un-register transport service}"
 remove_consul_service "${SERVICE_ID1:?Unable to un-register api service}"

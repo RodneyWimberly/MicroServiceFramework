@@ -19,6 +19,7 @@
 		},
 		"explorerExclude.backup": null,
 		"files.eol": "\n",
-		"powershell.codeFormatting.addWhitespaceAroundPipe": true
+		"powershell.codeFormatting.addWhitespaceAroundPipe": true,
+		"DockerRun.DisableAutoGenerateConfig": true
 	}
 }

@@ -19,7 +19,13 @@ RUN set -eux && \
         iputils \
         iproute2 \
         gettext \
-        jq
+        jq \
+        su-exec \
+        rsyslog \
+        openrc && \
+    mkdir -p /run/openrc && \
+    touch /run/openrc/softlevel && \
+    rc-update add rsyslog default
 
 # Set Environment Vars
 ENV CONSUL_VERSION 1.9.2
@@ -57,6 +63,7 @@ RUN export CONTAINERPILOT_CHECKSUM=6da4a4ab3dd92d8fd009cdb81a4d4002a90c8b7c \
 
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
+COPY ./rsyslog.conf /etc/rsyslog.conf
 COPY ./0.base.conf /etc/dnsmasq/0.base.conf
 COPY ./1.consul.conf /etc/templates/1.consul.conf
 COPY ./consul-service.json /etc/templates/consul-service.json

@@ -9,7 +9,7 @@ LABEL maintainer="microserviceframework <hello@microserviceframework.com>" \
     org.label-schema.version="1.0" \
     org.label-schema.schema-version="1.0"
 
-RUN apk add --no-cache \
+RUN yes | apk add --no-cache \
     curl \
     jq \
     iputils \
@@ -17,12 +17,18 @@ RUN apk add --no-cache \
     bind-tools \
     gettext \
     gawk \
-    bash
+    bash \
+    npm && \
+  yes | npm update && \
+  yes | npm upgrade && \
+  yes | npm i -g --unsafe-perm graygelf && \
+  yes | npm i --unsafe-perm graygelf && \
+  mkdir /usr/local/scripts && \
+  chown -R node:node /usr/local/scripts
 
-RUN mkdir /usr/local/scripts && \
-    chown -R node:node /usr/local/scripts
-
-
+COPY ./logagent.conf /etc/sematext/logagent.conf
+ENV LA_CONFIG /etc/sematext/logagent.conf   
+ 
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 RUN chmod 755 /usr/local/scripts/*.sh

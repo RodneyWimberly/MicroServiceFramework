@@ -7,9 +7,10 @@ set +x
 # shellcheck source=package/core.env
 . ~/msf/core/core.env
 
-push_dir ~/msf/core || exit 1
+push_dir ~/msf/core || exit 1  >/dev/null 2>&1
 
 if ! docker ps -f status=running --filter name=core_consul | grep -- '^consul' > /dev/null; then
+  log_detail "Consul not running, continueing deployment"
   exit 0
 fi
 # if [ -z "$(docker ps -q -f status=running --filter name=core_consul)" ]; then

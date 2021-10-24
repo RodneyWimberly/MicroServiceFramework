@@ -27,7 +27,7 @@ sed -i 's/\*\*/$/g' /etc/templates/nginx-template.conf
 log_detail "Processing index.html"
 envsubst < /etc/templates/index.html  > /etc/templates/index-template.html
 sed -i 's/\*\*/$/g' /etc/templates/index-template.html
-run_consul_template /etc/templates/index-template.html index.html /usr/share/nginx/html/index.html
+run_consul_template /etc/templates/index-template.html index.html /usr/share/nginx/html/index.html 
 
 log_detail "Processing containerpilot.json5"
 envsubst < /etc/templates/containerpilot.json5 > /etc/containerpilot.json5

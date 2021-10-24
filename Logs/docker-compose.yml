@@ -35,30 +35,30 @@ networks:
     external: true
 
 services:
-  logagent:
-    image: microserviceframework/logagent:dev
-    configs:
-      - source: resolv_conf
-        target: /etc/templates/resolv.conf
-      - source: dhclient_conf
-        target: /etc/dhcp/dhclient.conf
-    env_file: 
-      - ./logs.env
-    depends_on:
-      - elasticsearch
-    cap_add:
-        - SYS_ADMIN
-    volumes:
-        - '/var/run/docker.sock:/var/run/docker.sock'
-        - '/var/log:/mylogs'
-    networks:
-      #  stack_network:
-      #   aliases:
-      #     - logs-logagent
-       admin_network: {}
-    dns:
-      - 192.168.100.2
-      - 192.168.100.3
+  # logagent:
+  #   image: microserviceframework/logagent:dev
+  #   configs:
+  #     - source: resolv_conf
+  #       target: /etc/templates/resolv.conf
+  #     - source: dhclient_conf
+  #       target: /etc/dhcp/dhclient.conf
+  #   env_file: 
+  #     - ./logs.env
+  #   depends_on:
+  #     - elasticsearch
+  #   cap_add:
+  #       - SYS_ADMIN
+  #   volumes:
+  #       - '/var/run/docker.sock:/var/run/docker.sock'
+  #       - '/var/log:/mylogs'
+  #   networks:
+  #     #  stack_network:
+  #     #   aliases:
+  #     #     - logs-logagent
+  #      admin_network: {}
+  #   dns:
+  #     - 192.168.100.2
+  #     - 192.168.100.3
 
   mongo:
     image: microserviceframework/mongo:dev

@@ -1,0 +1,12 @@
+C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.PostgreSQL\bin\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.PostgreSQL.deps.json
+C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.PostgreSQL\bin\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.PostgreSQL.dll
+C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.PostgreSQL\bin\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.PostgreSQL.pdb
+C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.PostgreSQL\bin\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.Shared.dll
+C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.PostgreSQL\bin\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.Shared.pdb
+C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.PostgreSQL\obj\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.PostgreSQL.csprojAssemblyReference.cache
+C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.PostgreSQL\obj\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.PostgreSQL.AssemblyInfoInputs.cache
+C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.PostgreSQL\obj\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.PostgreSQL.AssemblyInfo.cs
+C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.PostgreSQL\obj\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.PostgreSQL.csproj.CoreCompileInputs.cache
+C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.PostgreSQL\obj\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.PostgreSQL.csproj.CopyComplete
+C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.PostgreSQL\obj\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.PostgreSQL.dll
+C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.PostgreSQL\obj\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.PostgreSQL.pdb

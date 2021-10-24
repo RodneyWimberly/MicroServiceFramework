@@ -1,0 +1,10 @@
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Shared\bin\Release\net5.0\EventManager.Identity.Shared.deps.json
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Shared\bin\Release\net5.0\EventManager.Identity.Shared.dll
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Shared\bin\Release\net5.0\ref\EventManager.Identity.Shared.dll
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Shared\obj\Release\net5.0\EventManager.Identity.Shared.csprojAssemblyReference.cache
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Shared\obj\Release\net5.0\EventManager.Identity.Shared.GeneratedMSBuildEditorConfig.editorconfig
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Shared\obj\Release\net5.0\EventManager.Identity.Shared.AssemblyInfoInputs.cache
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Shared\obj\Release\net5.0\EventManager.Identity.Shared.AssemblyInfo.cs
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Shared\obj\Release\net5.0\EventManager.Identity.Shared.csproj.CoreCompileInputs.cache
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Shared\obj\Release\net5.0\EventManager.Identity.Shared.dll
+c:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Shared\obj\Release\net5.0\ref\EventManager.Identity.Shared.dll

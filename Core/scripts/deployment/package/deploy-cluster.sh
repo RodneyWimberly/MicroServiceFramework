@@ -15,11 +15,12 @@ set +x
 start_ts=$(get_seconds)
 push_dir ~/msf/core || exit 1  >/dev/null 2>&1
 
-eval "$(ssh-agent -s)"
+eval "$(ssh-agent -s)" >/dev/null 2>&1
 ssh-add ~/.ssh/id_rsa  >/dev/null 2>&1
 log_header "Core: Stack Deployment"
 
-if ${1:-true}; then
+shutdown_cluster=${1:-true}
+if $shutdown_cluster; then
   ~/msf/core/shutdown-cluster.sh
 fi
 

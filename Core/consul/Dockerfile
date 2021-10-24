@@ -17,13 +17,29 @@ RUN set -eux && \
         iputils \
         iproute2 \
         gettext \
-        jq
-
-RUN mkdir /usr/local/scripts && \
+        jq \
+        su-exec \
+        rsyslog \
+        openrc && \
+    mkdir -p /run/openrc && \
+    touch /run/openrc/softlevel && \
+    rc-update add rsyslog default && \
+    mkdir /usr/local/scripts && \
     mkdir /consul/templates && \
     mkdir /consul/certs && \
     chown -R consul:consul /consul
 
+# Set Environment Vars
+ENV CONSUL_TEMPLATE_VERSION=0.25.1
+ENV CONSUL_URL https://releases.hashicorp.com
+
+# Use consul-template to re-write our Nginx virtualhost config
+RUN curl -Lo /tmp/consul_template_0.15.0_linux_amd64.zip ${CONSUL_URL}/consul-template/${CONSUL_TEMPLATE_VERSION}/consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.zip && \
+    unzip /tmp/consul_template_0.15.0_linux_amd64.zip && \
+    mv consul-template /bin && \
+    rm /tmp/consul_template_0.15.0_linux_amd64.zip
+
+# COPY ./rsyslog.conf /etc/rsyslog.conf
 COPY ./*.env /usr/local/scripts/
 COPY ./*.sh /usr/local/scripts/
 COPY ./*.pem /consul/certs/
@@ -31,9 +47,9 @@ COPY ./*.json /consul/templates/
 COPY ./consul-agent-ca.pem usr/local/share/ca-certificates/consul-agent-ca.pem
 RUN chmod 755 /usr/local/scripts/*.sh
 
-
 ENTRYPOINT ["/usr/local/scripts/entrypoint.sh"]
-CMD agent -retry-join consul.service.consul -dns-port 53
+CMD agent -retry-join consul.service.consul 
+# -dns-port 53
 
 # HEALTHCHECK \
 #     --interval=30s \

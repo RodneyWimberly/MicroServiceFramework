@@ -1,0 +1,16 @@
+﻿@using System.Reflection
+@using MicroServicesFramework.Auth.Admin.Web
+
+@{
+    var runtimeVersion = typeof(Startup)
+        .GetTypeInfo()
+        .Assembly
+        .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+}
+
+@runtimeVersion
+
+
+
+
+

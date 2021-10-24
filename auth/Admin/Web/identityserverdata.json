@@ -1,0 +1,138 @@
+﻿{
+    "IdentityServerData": {
+        "IdentityResources": [
+            {
+                "Name": "roles",
+                "Enabled": true,
+                "DisplayName": "Roles",
+                "UserClaims": [
+                    "role"
+                ]
+            },
+            {
+                "Name": "openid",
+                "Enabled": true,
+                "Required": true,
+                "DisplayName": "Your user identifier",
+                "UserClaims": [
+                    "sub"
+                ]
+            },
+            {
+                "Name": "profile",
+                "Enabled": true,
+                "DisplayName": "User profile",
+                "Description": "Your user profile information (first name, last name, etc.)",
+                "Emphasize": true,
+                "UserClaims": [
+                    "name",
+                    "family_name",
+                    "given_name",
+                    "middle_name",
+                    "nickname",
+                    "preferred_username",
+                    "profile",
+                    "picture",
+                    "website",
+                    "gender",
+                    "birthdate",
+                    "zoneinfo",
+                    "locale",
+                    "updated_at"
+                ]
+            },
+            {
+                "Name": "email",
+                "Enabled": true,
+                "DisplayName": "Your email address",
+                "Emphasize": true,
+                "UserClaims": [
+                    "email",
+                    "email_verified"
+                ]
+            },
+            {
+                "Name": "address",
+                "Enabled": true,
+                "DisplayName": "Your address",
+                "Emphasize": true,
+                "UserClaims": [
+                    "address"
+                ]
+            }
+        ],
+        "ApiScopes": [
+          {
+            "Name": "urn:em:api:scope",
+            "DisplayName": "MicroServices Framework API Scope",
+            "Required": true,
+            "UserClaims": [
+              "role",
+              "name"
+            ]
+          }
+        ],
+        "ApiResources": [
+            {
+                "Name": "urn:em:api",
+              "Scopes": [
+                "urn:em:api:scope"
+              ]
+            }
+        ],
+        "Clients": [
+          {
+            "ClientId": "urn:em:client:mvc",
+            "ClientName": "MicroServices Framework Identity Admin UI",
+            "ClientClaimsPrefix": "urn:em:claim:",
+            "ClientUri": "https://auth.msf.host/admin",
+            "AllowedGrantTypes": [
+              "authorization_code"
+            ],
+            "RequirePkce": true,
+            "ClientSecrets": [
+              {
+                "Value": "microservicesframeworksecret"
+              }
+            ],
+            "RedirectUris": [
+              "https://auth.msf.host/admin/signin-oidc"
+            ],
+            "FrontChannelLogoutUri": "https://auth.msf.host/admin/signin-oidc",
+            "PostLogoutRedirectUris": [
+              "https://auth.msf.host/admin/signout-callback-oidc"
+            ],
+            "AllowedCorsOrigins": [
+              "https://www.msf.host",
+              "https://auth.msf.host"
+            ],
+            "AllowedScopes": [
+              "openid",
+              "email",
+              "profile",
+              "roles",
+              "urn:em:api:scope"
+            ]
+          },
+          {
+            "ClientId": "urn:em:client:swagger",
+            "ClientName": "MicroServices Framework Identity Admin API Documentation",
+            "AllowedGrantTypes": [
+              "authorization_code"
+            ],
+            "RequireClientSecret": false,
+            "RequirePkce": true,
+            "RedirectUris": [
+              "https://api.msf.host/docs/auth/oauth2-redirect.html"
+            ],
+            "AllowedScopes": [
+              "urn:em:api:scope"
+            ],
+            "AllowedCorsOrigins": [
+              "https://api.msf.host",
+              "https://auth.msf.host"
+            ]
+          }
+        ]
+    }
+}

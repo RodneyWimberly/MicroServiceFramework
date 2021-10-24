@@ -31,6 +31,7 @@
   "encrypt_verify_incoming" : true,
   "encrypt_verify_outgoing" : true,
   "enable_script_checks": true,
+  "enable_syslog": true,
   "http_config": {
     "response_headers": {
       "Access-Control-Allow-Origin": "*"

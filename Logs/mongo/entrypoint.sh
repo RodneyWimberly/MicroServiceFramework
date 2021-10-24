@@ -15,7 +15,10 @@ update_dns_config
 add_consul_service "mongo" 27017 "\"db\", \"$CONTAINER_NAME\"" SERVICE_ID1
 
 log_detail "Starting Mongo"
-/usr/local/bin/docker-entrypoint.sh mongod
-
+set +e
+cd /usr/local/bin
+if [ "$(./docker-entrypoint.sh mongod)" -ne 0 ]; then
+    log_failure "Mongo failed to start."
+fi
 # Un-register Mongo with Consul
 remove_consul_service "${SERVICE_ID1:?Unable to un-register db service}"

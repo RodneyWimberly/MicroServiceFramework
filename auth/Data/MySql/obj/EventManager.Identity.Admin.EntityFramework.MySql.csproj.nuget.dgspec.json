@@ -1,0 +1,188 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Projects\\EventManager\\Api\\Identity\\src\\EventManager.Identity.Admin.EntityFramework.MySql\\EventManager.Identity.Admin.EntityFramework.MySql.csproj": {}
+  },
+  "projects": {
+    "D:\\Projects\\EventManager\\Api\\Identity\\src\\EventManager.Identity.Admin.EntityFramework.MySql\\EventManager.Identity.Admin.EntityFramework.MySql.csproj": {
+      "version": "1.0.20630",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\EventManager\\Api\\Identity\\src\\EventManager.Identity.Admin.EntityFramework.MySql\\EventManager.Identity.Admin.EntityFramework.MySql.csproj",
+        "projectName": "EventManager.Identity.Admin.EntityFramework.MySql",
+        "projectPath": "D:\\Projects\\EventManager\\Api\\Identity\\src\\EventManager.Identity.Admin.EntityFramework.MySql\\EventManager.Identity.Admin.EntityFramework.MySql.csproj",
+        "packagesPath": "C:\\Users\\Rodney\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\EventManager\\Api\\Identity\\src\\EventManager.Identity.Admin.EntityFramework.MySql\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Rodney\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\2.1.503\\DotnetTools\\dotnet-ef": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\Projects\\EventManager\\Api\\Identity\\src\\EventManager.Identity.Admin.EntityFramework.Shared\\EventManager.Identity.Admin.EntityFramework.Shared.csproj": {
+                "projectPath": "D:\\Projects\\EventManager\\Api\\Identity\\src\\EventManager.Identity.Admin.EntityFramework.Shared\\EventManager.Identity.Admin.EntityFramework.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "noWarn": [
+            "NU5105"
+          ],
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "IdentityServer4.EntityFramework.Storage": {
+              "target": "Package",
+              "version": "[4.1.1, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[5.0.0-alpha.2, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql.Design": {
+              "target": "Package",
+              "version": "[1.1.2, )"
+            },
+            "Skoruba.IdentityServer4.Admin.EntityFramework": {
+              "target": "Package",
+              "version": "[2.0.0-beta1, )"
+            },
+            "Skoruba.IdentityServer4.Admin.EntityFramework.Identity": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Projects\\EventManager\\Api\\Identity\\src\\EventManager.Identity.Admin.EntityFramework.Shared\\EventManager.Identity.Admin.EntityFramework.Shared.csproj": {
+      "version": "1.0.20630",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\EventManager\\Api\\Identity\\src\\EventManager.Identity.Admin.EntityFramework.Shared\\EventManager.Identity.Admin.EntityFramework.Shared.csproj",
+        "projectName": "EventManager.Identity.Admin.EntityFramework.Shared",
+        "projectPath": "D:\\Projects\\EventManager\\Api\\Identity\\src\\EventManager.Identity.Admin.EntityFramework.Shared\\EventManager.Identity.Admin.EntityFramework.Shared.csproj",
+        "packagesPath": "C:\\Users\\Rodney\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\EventManager\\Api\\Identity\\src\\EventManager.Identity.Admin.EntityFramework.Shared\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Rodney\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\2.1.503\\DotnetTools\\dotnet-ef": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "noWarn": [
+            "NU5105"
+          ],
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "IdentityServer4.EntityFramework.Storage": {
+              "target": "Package",
+              "version": "[4.1.1, )"
+            },
+            "Microsoft.AspNetCore.DataProtection.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "Skoruba.AuditLogging.EntityFramework": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "Skoruba.IdentityServer4.Admin.EntityFramework": {
+              "target": "Package",
+              "version": "[2.0.0-beta1, )"
+            },
+            "Skoruba.IdentityServer4.Admin.EntityFramework.Identity": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

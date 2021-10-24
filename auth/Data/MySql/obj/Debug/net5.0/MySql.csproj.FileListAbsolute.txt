@@ -1,0 +1,12 @@
+D:\msf\auth\Data\MySql\bin\Debug\net5.0\MicroServicesFramework.Auth.Data.MySql.deps.json
+D:\msf\auth\Data\MySql\bin\Debug\net5.0\MicroServicesFramework.Auth.Data.MySql.dll
+D:\msf\auth\Data\MySql\bin\Debug\net5.0\ref\MicroServicesFramework.Auth.Data.MySql.dll
+D:\msf\auth\Data\MySql\bin\Debug\net5.0\MicroServicesFramework.Auth.Data.Shared.dll
+D:\msf\auth\Data\MySql\obj\Debug\net5.0\MySql.csprojAssemblyReference.cache
+D:\msf\auth\Data\MySql\obj\Debug\net5.0\MySql.GeneratedMSBuildEditorConfig.editorconfig
+D:\msf\auth\Data\MySql\obj\Debug\net5.0\MySql.AssemblyInfoInputs.cache
+D:\msf\auth\Data\MySql\obj\Debug\net5.0\MySql.AssemblyInfo.cs
+D:\msf\auth\Data\MySql\obj\Debug\net5.0\MySql.csproj.CoreCompileInputs.cache
+D:\msf\auth\Data\MySql\obj\Debug\net5.0\MySql.csproj.CopyComplete
+D:\msf\auth\Data\MySql\obj\Debug\net5.0\MicroServicesFramework.Auth.Data.MySql.dll
+D:\msf\auth\Data\MySql\obj\Debug\net5.0\ref\MicroServicesFramework.Auth.Data.MySql.dll

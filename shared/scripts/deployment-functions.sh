@@ -6,12 +6,12 @@ set +x
 . ~/msf/common-functions.sh
 
 push_dir() {
-  log_detail "Pushing $1 to the directory stack"
+  # log_detail "Pushing $1 to the directory stack"
   pushd "$1" >/dev/null 2>&1
 }
 
 pop_dir() {
-  log_detail "Popping directory off of the directory stack"
+  # log_detail "Popping directory off of the directory stack"
   popd >/dev/null 2>&1
 }
 
