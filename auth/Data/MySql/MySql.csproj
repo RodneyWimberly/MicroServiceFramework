@@ -13,11 +13,11 @@
     <RootNamespace>MicroServicesFramework.Auth.Data.MySql</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="IdentityServer4.EntityFramework.Storage" Version="4.1.1" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.0-alpha.2" />
+    <PackageReference Include="IdentityServer4.EntityFramework.Storage" Version="4.1.2" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
-    <PackageReference Include="Skoruba.IdentityServer4.Admin.EntityFramework" Version="2.0.0-beta1" />
-    <PackageReference Include="Skoruba.IdentityServer4.Admin.EntityFramework.Identity" Version="1.0.0" />
+    <PackageReference Include="Skoruba.IdentityServer4.Admin.EntityFramework" Version="2.0.1" />
+    <PackageReference Include="Skoruba.IdentityServer4.Admin.EntityFramework.Identity" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.csproj" />

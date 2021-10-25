@@ -16,11 +16,11 @@
   <Import Project="$(IncrementVersionTarget)" Condition="Exists('$(IncrementVersionTarget)')" />
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.1" />
-    <PackageReference Include="IdentityServer4.EntityFramework.Storage" Version="4.1.1" />
-    <PackageReference Include="Skoruba.IdentityServer4.Admin.EntityFramework" Version="2.0.0-beta1" />
-    <PackageReference Include="Skoruba.IdentityServer4.Admin.EntityFramework.Identity" Version="1.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+    <PackageReference Include="IdentityServer4.EntityFramework.Storage" Version="4.1.2" />
+    <PackageReference Include="Skoruba.IdentityServer4.Admin.EntityFramework" Version="2.0.1" />
+    <PackageReference Include="Skoruba.IdentityServer4.Admin.EntityFramework.Identity" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.csproj" />

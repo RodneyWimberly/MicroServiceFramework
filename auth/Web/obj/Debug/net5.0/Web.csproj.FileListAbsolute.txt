@@ -766,3 +766,7 @@ D:\msf\auth\Web\obj\Debug\net5.0\Web.csproj.CopyComplete
 D:\msf\auth\Web\obj\Debug\net5.0\MicroServicesFramework.Auth.Web.dll
 D:\msf\auth\Web\obj\Debug\net5.0\ref\MicroServicesFramework.Auth.Web.dll
 D:\msf\auth\Web\obj\Debug\net5.0\Web.genruntimeconfig.cache
+D:\msf\auth\Web\bin\Debug\net5.0\Microsoft.Identity.Web.Certificate.dll
+D:\msf\auth\Web\bin\Debug\net5.0\Microsoft.Identity.Web.TokenCache.dll
+D:\msf\auth\Web\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+D:\msf\auth\Web\bin\Debug\net5.0\System.Text.Encodings.Web.dll

@@ -55,23 +55,23 @@
           "dependencies": {
             "IdentityServer4.EntityFramework.Storage": {
               "target": "Package",
-              "version": "[4.1.1, )"
+              "version": "[4.1.2, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[12.0.3, )"
+              "version": "[13.0.1, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.10, )"
             },
             "Skoruba.IdentityServer4.Admin.EntityFramework": {
               "target": "Package",
-              "version": "[2.0.0-beta1, )"
+              "version": "[2.0.1, )"
             },
             "Skoruba.IdentityServer4.Admin.EntityFramework.Identity": {
               "target": "Package",
-              "version": "[1.0.0, )"
+              "version": "[2.0.1, )"
             }
           },
           "imports": [
@@ -143,11 +143,11 @@
           "dependencies": {
             "IdentityServer4.EntityFramework.Storage": {
               "target": "Package",
-              "version": "[4.1.1, )"
+              "version": "[4.1.2, )"
             },
             "Microsoft.AspNetCore.DataProtection.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.11, )"
             },
             "Skoruba.AuditLogging.EntityFramework": {
               "target": "Package",
@@ -155,11 +155,11 @@
             },
             "Skoruba.IdentityServer4.Admin.EntityFramework": {
               "target": "Package",
-              "version": "[2.0.0-beta1, )"
+              "version": "[2.0.1, )"
             },
             "Skoruba.IdentityServer4.Admin.EntityFramework.Identity": {
               "target": "Package",
-              "version": "[1.0.0, )"
+              "version": "[2.0.1, )"
             }
           },
           "imports": [

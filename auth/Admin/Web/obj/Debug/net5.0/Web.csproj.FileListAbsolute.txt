@@ -162,7 +162,6 @@ D:\msf\auth\Admin\Web\bin\Debug\net5.0\refs\System.Data.DataSetExtensions.dll
 D:\msf\auth\Admin\Web\bin\Debug\net5.0\refs\System.Data.dll
 D:\msf\auth\Admin\Web\bin\Debug\net5.0\refs\System.Diagnostics.Contracts.dll
 D:\msf\auth\Admin\Web\bin\Debug\net5.0\refs\System.Diagnostics.Debug.dll
-D:\msf\auth\Admin\Web\bin\Debug\net5.0\refs\System.Diagnostics.DiagnosticSource.dll
 D:\msf\auth\Admin\Web\bin\Debug\net5.0\refs\System.Diagnostics.EventLog.dll
 D:\msf\auth\Admin\Web\bin\Debug\net5.0\refs\System.Diagnostics.FileVersionInfo.dll
 D:\msf\auth\Admin\Web\bin\Debug\net5.0\refs\System.Diagnostics.Process.dll
@@ -1431,3 +1430,5 @@ D:\msf\auth\Admin\Web\obj\Debug\net5.0\Web.csproj.CopyComplete
 D:\msf\auth\Admin\Web\obj\Debug\net5.0\MicroServicesFramework.Auth.Admin.Web.dll
 D:\msf\auth\Admin\Web\obj\Debug\net5.0\ref\MicroServicesFramework.Auth.Admin.Web.dll
 D:\msf\auth\Admin\Web\obj\Debug\net5.0\Web.genruntimeconfig.cache
+D:\msf\auth\Admin\Web\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+D:\msf\auth\Admin\Web\bin\Debug\net5.0\nl\Skoruba.IdentityServer4.Admin.BusinessLogic.resources.dll

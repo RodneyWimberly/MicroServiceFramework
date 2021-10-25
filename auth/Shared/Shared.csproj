@@ -17,13 +17,13 @@
   <Import Project="$(IncrementVersionTarget)" Condition="Exists('$(IncrementVersionTarget)')" />
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.AzureKeyVault" Version="3.1.10" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="5.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.AzureKeyVault" Version="3.1.20" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="5.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.11" />
     <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="3.1.10" />
-    <PackageReference Include="Sendgrid" Version="9.22.0" />
-    <PackageReference Include="Skoruba.IdentityServer4.Admin.BusinessLogic.Identity" Version="2.0.0-beta1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="3.1.20" />
+    <PackageReference Include="Sendgrid" Version="9.24.4" />
+    <PackageReference Include="Skoruba.IdentityServer4.Admin.BusinessLogic.Identity" Version="2.0.1" />
   </ItemGroup>
 </Project>
 

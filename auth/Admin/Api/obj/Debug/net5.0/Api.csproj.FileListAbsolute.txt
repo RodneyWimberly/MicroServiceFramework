@@ -159,3 +159,5 @@ D:\msf\auth\Admin\Api\obj\Debug\net5.0\Api.csproj.CopyComplete
 D:\msf\auth\Admin\Api\obj\Debug\net5.0\MicroServicesFramework.Auth.Admin.Api.dll
 D:\msf\auth\Admin\Api\obj\Debug\net5.0\ref\MicroServicesFramework.Auth.Admin.Api.dll
 D:\msf\auth\Admin\Api\obj\Debug\net5.0\Api.genruntimeconfig.cache
+D:\msf\auth\Admin\Api\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+D:\msf\auth\Admin\Api\bin\Debug\net5.0\nl\Skoruba.IdentityServer4.Admin.BusinessLogic.resources.dll

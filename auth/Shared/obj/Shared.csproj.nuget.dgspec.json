@@ -51,15 +51,15 @@
           "dependencies": {
             "Microsoft.AspNetCore.DataProtection.AzureKeyVault": {
               "target": "Package",
-              "version": "[3.1.10, )"
+              "version": "[3.1.20, )"
             },
             "Microsoft.AspNetCore.DataProtection.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.11, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.11, )"
             },
             "Microsoft.Azure.KeyVault": {
               "target": "Package",
@@ -67,15 +67,15 @@
             },
             "Microsoft.Extensions.Configuration.AzureKeyVault": {
               "target": "Package",
-              "version": "[3.1.10, )"
+              "version": "[3.1.20, )"
             },
             "Sendgrid": {
               "target": "Package",
-              "version": "[9.22.0, )"
+              "version": "[9.24.4, )"
             },
             "Skoruba.IdentityServer4.Admin.BusinessLogic.Identity": {
               "target": "Package",
-              "version": "[2.0.0-beta1, )"
+              "version": "[2.0.1, )"
             }
           },
           "imports": [
