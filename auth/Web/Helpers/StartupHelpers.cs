@@ -416,19 +416,19 @@ namespace MicroServicesFramework.Auth.Web.Helpers
                 });
             }
 
-            if (externalProviderConfiguration.UseAzureAdProvider)
-            {
-                authenticationBuilder.AddAzureAD(AzureADDefaults.AuthenticationScheme, AzureADDefaults.OpenIdScheme, AzureADDefaults.CookieScheme, AzureADDefaults.DisplayName, options =>
-                         {
-                             options.ClientSecret = externalProviderConfiguration.AzureAdSecret;
-                             options.ClientId = externalProviderConfiguration.AzureAdClientId;
-                             options.TenantId = externalProviderConfiguration.AzureAdTenantId;
-                             options.Instance = externalProviderConfiguration.AzureInstance;
-                             options.Domain = externalProviderConfiguration.AzureDomain;
-                             options.CallbackPath = externalProviderConfiguration.AzureAdCallbackPath;
-                             options.CookieSchemeName = IdentityConstants.ExternalScheme;
-                         });
-            }
+            //if (externalProviderConfiguration.UseAzureAdProvider)
+            //{
+            //    authenticationBuilder.AddAzureAD(AzureADDefaults.AuthenticationScheme, AzureADDefaults.OpenIdScheme, AzureADDefaults.CookieScheme, AzureADDefaults.DisplayName, options =>
+            //             {
+            //                 options.ClientSecret = externalProviderConfiguration.AzureAdSecret;
+            //                 options.ClientId = externalProviderConfiguration.AzureAdClientId;
+            //                 options.TenantId = externalProviderConfiguration.AzureAdTenantId;
+            //                 options.Instance = externalProviderConfiguration.AzureInstance;
+            //                 options.Domain = externalProviderConfiguration.AzureDomain;
+            //                 options.CallbackPath = externalProviderConfiguration.AzureAdCallbackPath;
+            //                 options.CookieSchemeName = IdentityConstants.ExternalScheme;
+            //             });
+            //}
         }
 
         /// <summary>
