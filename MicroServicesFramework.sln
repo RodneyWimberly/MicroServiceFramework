@@ -5,25 +5,25 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{4469D420-7EEC-11EB-B802-D356A4085F57}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "auth\Shared\Shared.csproj", "{A7DD21C8-5AFD-477A-B34D-B49EDE49C46C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "auth\src\Shared\Shared.csproj", "{A7DD21C8-5AFD-477A-B34D-B49EDE49C46C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{74A85F56-8902-4795-BA98-1F41A67F9741}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "auth\Data\Shared\Shared.csproj", "{DA9DB4FE-E2C8-40D7-B13A-9F9CA079A257}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "auth\src\Data\Shared\Shared.csproj", "{DA9DB4FE-E2C8-40D7-B13A-9F9CA079A257}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlServer", "auth\Data\SqlServer\SqlServer.csproj", "{FDE39EDC-5BFE-4365-82FA-3A698FCB5922}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlServer", "auth\src\Data\SqlServer\SqlServer.csproj", "{FDE39EDC-5BFE-4365-82FA-3A698FCB5922}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostgreSQL", "auth\Data\PostgreSQL\PostgreSQL.csproj", "{50080B3F-BB94-454C-ABEE-6BF82302960E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostgreSQL", "auth\src\Data\PostgreSQL\PostgreSQL.csproj", "{50080B3F-BB94-454C-ABEE-6BF82302960E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySql", "auth\Data\MySql\MySql.csproj", "{DE7D9B3A-0A10-4F7B-8991-B5E597E5C334}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySql", "auth\src\Data\MySql\MySql.csproj", "{DE7D9B3A-0A10-4F7B-8991-B5E597E5C334}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "auth\Web\Web.csproj", "{97C3C25B-C1F7-4443-94B7-E8136314692C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "auth\src\Web\Web.csproj", "{97C3C25B-C1F7-4443-94B7-E8136314692C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{566B7AC7-A01A-4A90-927E-14C5F0FC3E88}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "auth\Admin\Api\Api.csproj", "{E47C6FDA-769F-45E9-8377-5EEC2CAFD095}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "auth\src\Admin\Api\Api.csproj", "{E47C6FDA-769F-45E9-8377-5EEC2CAFD095}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "auth\Admin\Web\Web.csproj", "{C5FC5855-6226-4027-9482-8DDF081AF405}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "auth\src\Admin\Web\Web.csproj", "{C5FC5855-6226-4027-9482-8DDF081AF405}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{331D9402-09B3-4CFF-AA8F-9445D2AFBD39}"
 	ProjectSection(SolutionItems) = preProject
