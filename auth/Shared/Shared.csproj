@@ -17,6 +17,10 @@
   <Import Project="$(IncrementVersionTarget)" Condition="Exists('$(IncrementVersionTarget)')" />
 
   <ItemGroup>
+    <None Include="..\..\.gitignore" Link=".gitignore" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.AzureKeyVault" Version="3.1.20" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="5.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.11" />

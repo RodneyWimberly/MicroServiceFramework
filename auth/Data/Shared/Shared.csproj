@@ -16,6 +16,10 @@
 
     <Import Project="$(IncrementVersionTarget)" Condition="Exists('$(IncrementVersionTarget)')" />
 
+    <ItemGroup>
+      <None Include="..\..\..\.gitignore" Link=".gitignore" />
+    </ItemGroup>
+
 
     <ItemGroup>
       <PackageReference Include="IdentityServer4.EntityFramework.Storage" Version="4.1.2" />

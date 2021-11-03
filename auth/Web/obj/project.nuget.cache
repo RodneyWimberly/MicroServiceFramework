@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LL7GjzgfLsvZNR7tt+XaNcFTmDi++jJvfOuR8BA99hW/ZOc/HuFvverqebUsJXIvMpFZBk4LHxq/rJUydsMWnw==",
+  "dgSpecHash": "CCEU7qptef7oduNf+EEC3lHkmkQSbxjfJjsGJS/XGruOQL+S6j3jlHX9jDwJL6pYVFtkUz/BSNa5WhC4LT6kjw==",
   "success": true,
   "projectFilePath": "D:\\msf\\auth\\Web\\Web.csproj",
   "expectedPackageFiles": [
@@ -48,7 +48,7 @@
     "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.11\\microsoft.entityframeworkcore.5.0.11.nupkg.sha512",
     "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.11\\microsoft.entityframeworkcore.abstractions.5.0.11.nupkg.sha512",
     "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\5.0.11\\microsoft.entityframeworkcore.analyzers.5.0.11.nupkg.sha512",
-    "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.entityframeworkcore.design\\5.0.1\\microsoft.entityframeworkcore.design.5.0.1.nupkg.sha512",
+    "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.entityframeworkcore.design\\5.0.11\\microsoft.entityframeworkcore.design.5.0.11.nupkg.sha512",
     "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\5.0.11\\microsoft.entityframeworkcore.inmemory.5.0.11.nupkg.sha512",
     "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\5.0.11\\microsoft.entityframeworkcore.relational.5.0.11.nupkg.sha512",
     "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.entityframeworkcore.relational.design\\2.0.0-preview1-final\\microsoft.entityframeworkcore.relational.design.2.0.0-preview1-final.nupkg.sha512",
@@ -56,6 +56,7 @@
     "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\5.0.1\\microsoft.entityframeworkcore.sqlite.core.5.0.1.nupkg.sha512",
     "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.design\\2.0.0-preview1-final\\microsoft.entityframeworkcore.sqlite.design.2.0.0-preview1-final.nupkg.sha512",
     "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\5.0.11\\microsoft.entityframeworkcore.sqlserver.5.0.11.nupkg.sha512",
+    "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\5.0.11\\microsoft.entityframeworkcore.tools.5.0.11.nupkg.sha512",
     "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\5.0.0\\microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.extensions.caching.memory\\5.0.0\\microsoft.extensions.caching.memory.5.0.0.nupkg.sha512",
     "C:\\Users\\Rodney\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.20\\microsoft.extensions.configuration.3.1.20.nupkg.sha512",

@@ -63,7 +63,7 @@
         ],
         "ApiScopes": [
           {
-            "Name": "urn:em:api:scope",
+            "Name": "urn:msf:api:scope",
             "DisplayName": "MicroServices Framework API Scope",
             "Required": true,
             "UserClaims": [
@@ -74,18 +74,18 @@
         ],
         "ApiResources": [
             {
-                "Name": "urn:em:api",
+                "Name": "urn:msf:api",
               "Scopes": [
-                "urn:em:api:scope"
+                "urn:msf:api:scope"
               ]
             }
         ],
         "Clients": [
           {
-            "ClientId": "urn:em:client:mvc",
+            "ClientId": "urn:msf:client:mvc",
             "ClientName": "MicroServices Framework Identity Admin UI",
-            "ClientClaimsPrefix": "urn:em:claim:",
-            "ClientUri": "https://auth.msf.host/admin",
+            "ClientClaimsPrefix": "urn:msf:claim:",
+            "ClientUri": "https://localhost:44303",
             "AllowedGrantTypes": [
               "authorization_code"
             ],
@@ -96,14 +96,14 @@
               }
             ],
             "RedirectUris": [
-              "https://auth.msf.host/admin/signin-oidc"
+              "https://localhost:44303/signin-oidc"
             ],
-            "FrontChannelLogoutUri": "https://auth.msf.host/admin/signin-oidc",
+            "FrontChannelLogoutUri": "https://localhost:44303/signin-oidc",
             "PostLogoutRedirectUris": [
-              "https://auth.msf.host/admin/signout-callback-oidc"
+              "https://localhost:44303/signout-callback-oidc"
             ],
             "AllowedCorsOrigins": [
-              "https://www.msf.host",
+              "https://localhost:44303",
               "https://auth.msf.host"
             ],
             "AllowedScopes": [
@@ -111,11 +111,11 @@
               "email",
               "profile",
               "roles",
-              "urn:em:api:scope"
+              "urn:msf:api:scope"
             ]
           },
           {
-            "ClientId": "urn:em:client:swagger",
+            "ClientId": "urn:msf:client:swagger",
             "ClientName": "MicroServices Framework Identity Admin API Documentation",
             "AllowedGrantTypes": [
               "authorization_code"
@@ -123,13 +123,13 @@
             "RequireClientSecret": false,
             "RequirePkce": true,
             "RedirectUris": [
-              "https://api.msf.host/docs/auth/oauth2-redirect.html"
+              "https://localhost:44302/swagger/oauth2-redirect.html"
             ],
             "AllowedScopes": [
-              "urn:em:api:scope"
+              "urn:msf:api:scope"
             ],
             "AllowedCorsOrigins": [
-              "https://api.msf.host",
+              "https://localhost:44302",
               "https://auth.msf.host"
             ]
           }

@@ -149,6 +149,12 @@
               "target": "Package",
               "version": "[5.0.11, )"
             },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.11, )"
+            },
             "Skoruba.IdentityServer4.Admin.EntityFramework": {
               "target": "Package",
               "version": "[2.0.1, )"

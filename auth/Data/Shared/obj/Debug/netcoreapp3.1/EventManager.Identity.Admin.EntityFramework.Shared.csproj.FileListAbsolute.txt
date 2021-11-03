@@ -1,9 +1,0 @@
-C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.Shared\bin\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.Shared.deps.json
-C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.Shared\bin\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.Shared.dll
-C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.Shared\bin\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.Shared.pdb
-C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.Shared\obj\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.Shared.csprojAssemblyReference.cache
-C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.Shared\obj\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.Shared.AssemblyInfoInputs.cache
-C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.Shared\obj\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.Shared.AssemblyInfo.cs
-C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.Shared\obj\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.Shared.csproj.CoreCompileInputs.cache
-C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.Shared\obj\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.Shared.dll
-C:\Projects\EventManager\Api\Identity\src\EventManager.Identity.Admin.EntityFramework.Shared\obj\Debug\netcoreapp3.1\EventManager.Identity.Admin.EntityFramework.Shared.pdb

@@ -4,4 +4,15 @@
     <ShowAllFiles>false</ShowAllFiles>
     <NameOfLastUsedPublishProfile>LocalDockerDebugProfile</NameOfLastUsedPublishProfile>
   </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Views\Configuration\ApiResource\Section\Label.da.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Configuration\ApiResource\Section\Label.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Configuration\ApiResource\Section\Label.fr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
