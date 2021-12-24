@@ -35,7 +35,7 @@ run() {
         curl -o /usr/local/bin/tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini
         chmod +x /usr/local/bin/tini
         eval "$(ssh-agent -s)"
-        ssh-add ~/.ssh/id_rsa
+        ssh-add ~/.ssh/id_rsacurl -o /usr/local/bin/tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini
         echo "$WORKER_IP worker1" >> /etc/hosts
         echo "$MANAGER_IP manager1" >> /etc/hosts
         ssh -tt worker1 'echo "Connected!"'

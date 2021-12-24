@@ -13,3 +13,4 @@ docker login
 
 /mnt/d/msf/core/scripts/development/build-task.sh "$IMAGE_TAG"
 /mnt/d/msf/logs/scripts/development/build-task.sh "$IMAGE_TAG"
+/mnt/d/msf/auth/scripts/development/build-task.sh "$IMAGE_TAG"

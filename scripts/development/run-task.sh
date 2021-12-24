@@ -37,6 +37,9 @@ run() {
   if $START_LOG_STACK; then
     /mnt/d/msf/logs/scripts/development/run-task.sh
   fi
+  if $START_AUTH_STACK; then
+    /mnt/d/msf/auth/scripts/development/run-task.sh
+  fi
   log_success "MicroServices Framework deployment completed." "$start_ts"
 }
 

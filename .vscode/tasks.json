@@ -17,7 +17,7 @@
                 "clear": true,
                 "group": "build"
             },
-             "group": {
+            "group": {
                 "kind": "build",
                 "isDefault": true
             }
@@ -42,7 +42,9 @@
             "label": "Get Service Logs",
             "type": "shell",
             "command": "/mnt/d/msf/scripts/development/get-docker-logs.sh",
-            "args": [ "${input:serviceList}" ],
+            "args": [
+                "${input:serviceList}"
+            ],
             "problemMatcher": [],
             "presentation": {
                 "echo": false,

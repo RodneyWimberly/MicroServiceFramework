@@ -1,0 +1,109 @@
+version: '3.8'
+
+volumes:
+  db_volume:
+
+configs:
+  resolv_conf:
+    file: ./resolv.conf
+  dhclient_conf:
+    file: ./dhclient.conf
+
+networks:
+  admin_network:
+    external: true
+  #auth_network:
+
+services:
+  db:
+    image: microserviceframework/auth-db:dev
+    configs:
+      - source: resolv_conf
+        target: /etc/templates/resolv.conf
+      - source: dhclient_conf
+        target: /etc/dhcp/dhclient.conf
+    env_file: 
+      - ./auth.env
+    volumes:
+      - db_volume:/var/opt/mssql
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 1433:1433
+    networks:
+      - admin_network
+   #   - auth_network
+    dns:
+      - 192.168.100.2
+      - 192.168.100.3
+
+  sts:
+    image: microserviceframework/auth-sts:dev
+    configs:
+      - source: resolv_conf
+        target: /etc/templates/resolv.conf
+      - source: dhclient_conf
+        target: /etc/dhcp/dhclient.conf    
+    env_file: 
+      - ./auth.env
+    environment:
+      - VIRTUAL_HOST=auth-sts.service.consul
+      - ASPNETCORE_URLS=https://+:50003
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - mssql
+      - api
+    networks:
+      - admin_network
+    #  - auth_network
+    dns:
+      - 192.168.100.2
+      - 192.168.100.3
+
+  api:
+    image: microserviceframework/auth-api:dev
+    configs:
+      - source: resolv_conf
+        target: /etc/templates/resolv.conf
+      - source: dhclient_conf
+        target: /etc/dhcp/dhclient.conf
+    env_file: 
+      - ./auth.env
+    environment:
+      - VIRTUAL_HOST=auth-api.service.consul
+      - ASPNETCORE_URLS=https://+:50002
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - mssql
+    networks:
+      - admin_network
+     # - auth_network
+    dns:
+      - 192.168.100.2
+      - 192.168.100.3
+
+  admin:
+    image: microserviceframework/auth-admin:dev
+    configs:
+      - source: resolv_conf
+        target: /etc/templates/resolv.conf
+      - source: dhclient_conf
+        target: /etc/dhcp/dhclient.conf
+    env_file:
+      - ./auth.env
+    environment:
+      - VIRTUAL_HOST=auth-admin.service.consul
+      - ASPNETCORE_URLS=https://+:50001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - mssql
+      - api
+    networks:
+      - admin_network
+      #- auth_network
+    dns:
+      - 192.168.100.2
+      - 192.168.100.3
+

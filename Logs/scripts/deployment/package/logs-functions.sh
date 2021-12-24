@@ -12,6 +12,6 @@ else
 fi
 
 # shellcheck source=../../shared/scripts/common-functions.sh
-. $SCRIPT_DIR/../common-functions.sh
+. $SCRIPT_DIR/common-functions.sh
 # shellcheck source=./logs.env
 . $SCRIPT_DIR/logs.env

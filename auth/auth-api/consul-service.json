@@ -1,0 +1,20 @@
+{
+  "ID": "${SERVICE_ID}",
+  "Name": "${SERVICE_NAME}",
+  "Tags": [ $SERVICE_TAGS ],
+  "Address": "${ETH0_IP}",
+  "Port": ${SERVICE_PORT},
+  "Meta": {
+    "title": "${SERVICE_NAME}",
+    "description": "${SERVICE_ID} service"
+  },
+  "Checks": [
+    {
+      "Docker_container_id": "${CONTAINER_NAME}",
+      "Shell": "/bin/sh",
+      "Args": [ "/usr/local/scripts/health-check.sh" ],
+      "Interval": "30s",
+      "Deregister_critical_service_after": "3m"
+    }
+  ]
+}
